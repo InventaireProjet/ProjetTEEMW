@@ -1,5 +1,5 @@
 <?php
-$fruits = array("mangue"=>"125", "figue"=>"1540", "cerise"=>"2", "noix"=>"32");
+$fruits = array("mangue"=>"125", "figue"=>"155440", "cerise"=>"2", "noix"=>"32");
 
 asort($fruits);
 echo "Ordre alphabétique : <br>";
