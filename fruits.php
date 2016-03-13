@@ -1,8 +1,8 @@
 <?php
-$fruits = array("mangue"=>"125", "figue"=>"10", "cerise"=>"2", "noix"=>"32");
+$fruits = array("mangue"=>"125", "figue"=>"1540", "cerise"=>"2", "noix"=>"32");
 
 asort($fruits);
-echo "Ordre alphabétique : <br>";
+echo "Ordre alphabÃ©tique : <br>";
 foreach ($fruits as $x => $value) {
 	echo "$value $x";
 	echo "<br>"
@@ -11,7 +11,7 @@ foreach ($fruits as $x => $value) {
 echo "<br>";
 
 ksort($fruits);
-echo "Ordre numérique : <br>";
+echo "Ordre numÃ©rique : <br>";
 foreach ($fruits as $x => $value) {
 	echo "$value $x";
 	echo "<br>"
