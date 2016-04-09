@@ -22,13 +22,5 @@
 				return false;
 			return new User ( $row ['id'], $row ['firstname'], $row ['lastname'], $row ['username'], $row ['password'] );
 		}
-		
-		public function saveAnnonce($nom, $dDepart, $dArrivee, $aDepart, $aArrivee) {
-			
-			$query = "INSERT into Annonce (Nom, DateDepart, DateArrivee,
-			AdresseDepart, AdresseArrivee, EnCours, TransportRealise)VALUES('$fname', '$lname', '$uname', '$pwd');";
-			return $this->_conn->executeQuery ( $query );
-		}
-		
 	}
 	?>
