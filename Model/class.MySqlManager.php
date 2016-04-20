@@ -20,15 +20,17 @@
 			$row = $result->fetch ();
 			if (! $row)
 				return false;
-			return new Annonceur ( $row ['IDAnnonceur'], $row ['Prenom'], $row ['Nom'], $row ['UserName'], $row ['MotDePasse'],
-					$row ['Telephone'],$row ['Email'],$row ['Adresse']);
+			return new Annonceur ( $row ['IDAnnonceur'], $row ['Prenom'], $row ['Nom'], $row ['UserName'], $row ['MotDePasse'], $row ['Telephone'], $row ['Email'], $row ['Adresse'] );
 		}
-		
-		public function saveAnnonce($nom, $dDepart, $dArrivee, $aDepart, $aArrivee) {
-				
+		public function enregistrerAnnonce($nom, $dDepart, $dArrivee, $aDepart, $aArrivee, $desc, $qte, $vol, $pds) {
+			// TODO Transaction pour les 2
 			$query = "INSERT into Annonce (Nom, DateDepart, DateArrivee,
-			AdresseDepart, AdresseArrivee, EnCours, TransportRealise)VALUES('$fname', '$lname', '$uname', '$pwd');";
-			return $this->_conn->executeQuery ( $query );
+			AdresseDepart, AdresseArrivee, EnCours, TransportRealise)VALUES('$nom', '$dDepart', '$dArrivee', '$aDepart', '$aArrivee', true, false);";
+			$this->_conn->executeQuery ( $query );
+			
+			$query = "INSERT into Marchandise (Description, Quantite, Volume,
+			Poids)VALUES('$desc', '$qte', '$vol', '$pds');";
+			$this->_conn->executeQuery ( $query );
 		}
 	}
 	?>
