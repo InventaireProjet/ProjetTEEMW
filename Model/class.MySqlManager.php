@@ -8,19 +8,20 @@
 		}
 		public function saveUser($fname, $lname, $uname, $pwd) {
 			$pwd = sha1 ( $pwd );
-			$query = "INSERT into user(firstname, lastname, username,
-		password)VALUES('$fname', '$lname', '$uname', '$pwd');";
+			$query = "INSERT into Annonceur(Prenom, Nom, UserName,
+		MotDePasse)VALUES('$fname', '$lname', '$uname', '$pwd');";
 			return $this->_conn->executeQuery ( $query );
 		}
 		public function checkLogin($uname, $pwd) {
 			$pwd = sha1 ( $pwd );
-			$query = "SELECT * FROM user WHERE username='$uname' AND
-		password='$pwd'";
+			$query = "SELECT * FROM Annonceur WHERE UserName='$uname' AND
+		MotDePasse='$pwd'";
 			$result = $this->_conn->selectDB ( $query );
 			$row = $result->fetch ();
 			if (! $row)
 				return false;
-			return new User ( $row ['id'], $row ['firstname'], $row ['lastname'], $row ['username'], $row ['password'] );
+			return new Annonceur ( $row ['IDAnnonceur'], $row ['Prenom'], $row ['Nom'], $row ['UserName'], $row ['MotDePasse'],
+					$row ['Telephone'],$row ['Email'],$row ['Adresse']);
 		}
 		
 		public function saveAnnonce($nom, $dDepart, $dArrivee, $aDepart, $aArrivee) {

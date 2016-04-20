@@ -31,7 +31,7 @@ if (isset ( $_SESSION ['user'] )) {
 			$user = $_SESSION ['user'];
 			?> 
 &nbsp;&nbsp;&nbsp;<a href="../Controller/login.php?action=logout">Logout 
-(<?php echo $user->firstname .' '. $user->lastname;?>)</a> 
+(<?php echo $user->Prenom .' '. $user->Nom;?>)</a> 
 <?php }
 
 

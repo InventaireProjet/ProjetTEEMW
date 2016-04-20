@@ -28,17 +28,17 @@ function authenticate($mysql) {
 				$pwd 
 		);
 		$_SESSION ['msg'] = 'Username or password incorrect';
-		header ( "location:index.php" );
+		header ( "location:../Vue/index.php" );
 		exit ();
 	}
-	$_SESSION ['msg'] = 'Welcome ' . $result->firstname . ' ' . $result->lastname;
+	$_SESSION ['msg'] = 'Welcome ' . $result->Prenom . ' ' . $result->Nom;
 	$_SESSION ['user'] = $result;
-	header ( "location:index.php" );
+	header ( "location:../Vue/index.php" );
 	exit ();
 }
 function logout() {
 	session_destroy ();
-	header ( "location:index.php" );
+	header ( "location:../Vue/index.php" );
 	exit ();
 }
 function register($mysql) {
@@ -75,7 +75,7 @@ function register($mysql) {
 				$uname,
 				$pwd 
 		);
-		header ( "location:register.php" );
+		header ( "location:../Vue/register.php" );
 		exit ();
 	}
 	
@@ -94,7 +94,7 @@ function register($mysql) {
 		$_SESSION ['msg'] = 'Registration succeeded';
 	}
 	
-	header ( "location:register.php" );
+	header ( "location:../Vue/register.php" );
 	exit ();
 }
 
