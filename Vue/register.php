@@ -11,7 +11,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 );
 
 ?>
-<form method="post" action="login.php"> 
+<form method="post" action="../Controller/login.php"> 
   <?php if($rank=='top') echo $msg;?>
   <table>
 		<tr>

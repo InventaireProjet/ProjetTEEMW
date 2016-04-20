@@ -1,11 +1,11 @@
 <?php
-require_once 'database/class.User.php';
+require_once '../Model/class.Annonceur.php';
 include_once 'header.inc';
 
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
 
 ?>
-<form method="post" action="login.php"> 
+<form method="post" action="../Controller/login.php"> 
 <?php if($msg) echo $msg;?>
   <table>
 		<tr>
@@ -30,7 +30,7 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 if (isset ( $_SESSION ['user'] )) {
 			$user = $_SESSION ['user'];
 			?> 
-&nbsp;&nbsp;&nbsp;<a href="login.php?action=logout">Logout 
+&nbsp;&nbsp;&nbsp;<a href="../Controller/login.php?action=logout">Logout 
 (<?php echo $user->firstname .' '. $user->lastname;?>)</a> 
 <?php }
 
