@@ -7,6 +7,7 @@ $form_data = isset ( $_SESSION ['formNouvMarchandise_data'] ) ? $_SESSION ['form
 		'',
 		'',
 		'',
+		'' ,
 		'' 
 );
 
@@ -14,34 +15,42 @@ $form_data = isset ( $_SESSION ['formNouvMarchandise_data'] ) ? $_SESSION ['form
 <form method="post" action="../Controller/enregistrerAnnonce.php">
 
 	<table>
-		<tr>
-			<td>Description de la marchandise :</td>
-			<td><input type="text" name="Description" value="<?php
+	
+	<tr>
+			<td>Type de transport :</td>
+			<td><input type="text" name="Type" value="<?php
 			echo $form_data [0];
 			?>"> 
     <?php if($rank==1) echo $msg;?></td>
 		</tr>
 		<tr>
-			<td>Quantité :</td>
-			<td><input type="number" min=0 name="Quantite" value="<?php
+			<td>Description de la marchandise :</td>
+			<td><input type="text" name="Description" value="<?php
 			echo $form_data [1];
 			?>"> 
     <?php if($rank==2) echo $msg;?></td>
 		</tr>
 		<tr>
-			<td>Volume (litres) :</td>
-			<td><input type="number" min=0 name="Volume" value="<?php
+			<td>Quantité :</td>
+			<td><input type="number" min=0 name="Quantite" value="<?php
 			echo $form_data [2];
 			?>"> 
     <?php if($rank==3) echo $msg;?></td>
 		</tr>
 		<tr>
+			<td>Volume (litres) :</td>
+			<td><input type="number" min=0 name="Volume" value="<?php
+			echo $form_data [3];
+			?>"> 
+    <?php if($rank==4) echo $msg;?></td>
+		</tr>
+		<tr>
 			<td>Poids (grammes) :</td>
 			<td><input type="number" min=0 name="Poids"
 				value="<?php
-				echo $form_data [3];
+				echo $form_data [4];
 				?>"> 
-    <?php if($rank==4) echo $msg;?></td>
+    <?php if($rank==5) echo $msg;?></td>
 		</tr>
 
 

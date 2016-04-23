@@ -1,6 +1,6 @@
 <?php
 class Annonceur {
-	public $ID;
+	public $IDAnnonceur;
 	public $Prenom;
 	public $Nom;
 	public $UserName;
@@ -9,7 +9,7 @@ class Annonceur {
 	public $Email;
 	public $Adresse;
 	public function __construct($id, $prenom, $nom, $userName, $motDePasse, $telephone, $email, $adresse) {
-		$this->ID = $id;
+		$this->IDAnnonceur = $id;
 		$this->Prenom = $prenom;
 		$this->Nom = $nom;
 		$this->UserName = $userName;

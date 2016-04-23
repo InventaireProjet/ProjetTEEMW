@@ -18,19 +18,57 @@ function enregistrerTypeTransport($mysql) {
 	$datedep = $_POST ['DateDepart'];
 	$datearr = $_POST ['DateArrivee'];
 	$adressedep = $_POST ['AdresseDepart'];
+	$npadep = $_POST ['NPADepart'];
+	$localdep = $_POST ['LocaliteDepart'];
+	$paysdep = $_POST ['PaysDepart'];
 	$adressearr = $_POST ['AdresseArrivee'];
+	$npaarr = $_POST ['NPAArrivee'];
+	$localarr = $_POST ['LocaliteArrivee'];
+	$paysarr = $_POST ['PaysArrivee'];
+	
+	if (empty ( $paysarr )) {
+		$rank = 11;
+		$msg = "Entrer un pays d'arrivée";
+	}
+	
+	if (empty ( $localarr )) {
+		$rank = 10;
+		$msg = "Entrer une localité d'arrivée";
+	}
+	
+	if (empty ( $npaarr )) {
+		$rank = 9;
+		$msg = "Entrer un NPA d'arrivée";
+	}
 	
 	if (empty ( $adressearr )) {
-		$rank = 5;
+		$rank = 8;
 		$msg = "Entrer une adresse d'arrivée";
 	}
-	if (empty ( $adressedep )) {
-		$rank = 4;
-		$msg = "Entrer une adresse de départ";
-	}
+	
 	if (empty ( $datearr )) {
-		$rank = 3;
+		$rank = 7;
 		$msg = "Entrer une date d'arrivée";
+	}
+	
+	if (empty ( $paysdep )) {
+		$rank = 6;
+		$msg = "Entrer un pays de départ";
+	}
+	
+	if (empty ( $localdep )) {
+		$rank = 5;
+		$msg = "Entrer une localité de départ";
+	}
+	
+	if (empty ( $npadep )) {
+		$rank = 4;
+		$msg = "Entrer un NPA de départ";
+	}
+	
+	if (empty ( $adressedep )) {
+		$rank = 3;
+		$msg = "Entrer une adresse de départ";
 	}
 	
 	if (empty ( $datedep )) {
@@ -49,9 +87,15 @@ function enregistrerTypeTransport($mysql) {
 		$_SESSION ['formNouvTransport_data'] = array (
 				$nom,
 				$datedep,
-				$datearr,
 				$adressedep,
-				$adressearr 
+				$npadep,
+				$localdep,
+				$paysdep,
+				$datearr,
+				$adressearr,
+				$npaarr,
+				$localarr,
+				$paysarr 
 		);
 		header ( "location:../Vue/NouvelleAnnonceTypeTransport.php" );
 		exit ();
@@ -60,40 +104,53 @@ function enregistrerTypeTransport($mysql) {
 	$_SESSION ['formNouvTransport_data'] = array (
 			$nom,
 			$datedep,
-			$datearr,
 			$adressedep,
-			$adressearr 
+			$npadep,
+			$localdep,
+			$paysdep,
+			$datearr,
+			$adressearr,
+			$npaarr,
+			$localarr,
+			$paysarr 
 	);
 	header ( "location:../Vue/NouvelleAnnonceTypeMarchandise.php" );
 	exit ();
 }
 function enregistrerAnnonce($mysql) {
+	$type = $_POST ['Type'];
 	$desc = $_POST ['Description'];
 	$qte = $_POST ['Quantite'];
 	$vol = $_POST ['Volume'];
 	$poids = $_POST ['Poids'];
 	
 	if (empty ( $poids )) {
-		$rank = 4;
+		$rank = 5;
 		$msg = "Entrer un poids";
 	}
 	if (empty ( $vol )) {
-		$rank = 3;
+		$rank = 4;
 		$msg = "Entrer un volume";
 	}
 	if (empty ( $qte )) {
-		$rank = 2;
+		$rank = 3;
 		$msg = "Entrer une quantité";
 	}
 	if (empty ( $desc )) {
-		$rank = 1;
+		$rank = 2;
 		$msg = "Entrer une description ";
+	}
+	
+	if (empty ( $type )) {
+		$rank = 1;
+		$msg = "Entrer un type de marchandise";
 	}
 	
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
 		$_SESSION ['msg'] = $msg;
 		$_SESSION ['formNouvMarchandise_data'] = array (
+				$type,
 				$desc,
 				$qte,
 				$vol,
@@ -104,6 +161,7 @@ function enregistrerAnnonce($mysql) {
 	}
 	
 	$_SESSION ['formNouvMarchandise_data'] = array (
+			$type,
 			$desc,
 			$qte,
 			$vol,
@@ -115,16 +173,31 @@ function enregistrerAnnonce($mysql) {
 			'',
 			'',
 			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
 			'' 
 	);
 	
 	$nom = $form_data [0];
 	$datedep = $form_data [1];
-	$datearr= $form_data [2];
-	$adressedep= $form_data [3];
-	$adressearr= $form_data [4];
+	$adressedep = $form_data [2];
+	$npadep = $form_data [3];
+	$localdep = $form_data [4];
+	$paysdep = $form_data [5];
+	$datearr = $form_data [6];
+	$adressearr = $form_data [7];
+	$npaarr = $form_data [8];
+	$localarr = $form_data [9];
+	$paysarr = $form_data [10];
 	
-	$mysql->enregistrerAnnonce ( $nom, $datedep, $datearr, $adressedep, $adressearr, $desc, $qte, $vol, $poids );
+	$annonceur = $_SESSION ['user'];
+	$idAnnonceur = $annonceur->IDAnnonceur;
+	
+	$mysql->enregistrerAnnonce ( $nom, $datedep, $adressedep, $npadep, $localdep, $paysdep, $datearr, $adressearr, $npaarr, $localarr, $paysarr, $type, $desc, $qte, $vol, $poids, $idAnnonceur );
 	$_SESSION ['msg'] = 'Nouvelle annonce enregistrée';
 	header ( "location:../Vue/AccueilAnnonceur.php" );
 	exit ();

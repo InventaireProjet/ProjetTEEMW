@@ -22,14 +22,24 @@
 				return false;
 			return new Annonceur ( $row ['IDAnnonceur'], $row ['Prenom'], $row ['Nom'], $row ['UserName'], $row ['MotDePasse'], $row ['Telephone'], $row ['Email'], $row ['Adresse'] );
 		}
-		public function enregistrerAnnonce($nom, $dDepart, $dArrivee, $aDepart, $aArrivee, $desc, $qte, $vol, $pds) {
-			// TODO Transaction pour les 2
-			$query = "INSERT into Annonce (Nom, DateDepart, DateArrivee,
-			AdresseDepart, AdresseArrivee, EnCours, TransportRealise)VALUES('$nom', '$dDepart', '$dArrivee', '$aDepart', '$aArrivee', true, false);";
+		public function enregistrerAnnonce($nom, $datedep, $adressedep, $npadep, $localdep, $paysdep, $datearr, $adressearr, $npaarr, $localarr, $paysarr, $type, $desc, $qte, $vol, $pds, $idAnnonceur) {
+			// TODO Transaction pour les 3
+			$query = "INSERT into Lieu (NPA, Localite, Pays)VALUES('$npadep', '$localdep', '$paysdep');";
 			$this->_conn->executeQuery ( $query );
+			$idLieuDepart = $this->_conn->getLastId ();
+			
+			$query = "INSERT into Lieu (NPA, Localite, Pays) VALUES('$npaarr', '$localarr', '$paysarr');";
+			$this->_conn->executeQuery ( $query );
+			$idLieuArrivee = $this->_conn->getLastId ();
 			
 			$query = "INSERT into Marchandise (Description, Quantite, Volume,
-			Poids)VALUES('$desc', '$qte', '$vol', '$pds');";
+			Poids) VALUES('$desc', '$qte', '$vol', '$pds');";
+			$this->_conn->executeQuery ( $query );
+			$idMarchandise = $this->_conn->getLastId ();
+			
+			// TODO Gérer lieu, FK annonceur et marchandise
+			$query = "INSERT into Annonce (Nom, DateDepart, DateArrivee,
+			AdresseDepart, AdresseArrivee, EnCours, TransportRealise, IDMarchandise, IDLieuDepart, IDLieuArrivee, IDAnnonceur )VALUES('$nom', '$datedep', '$datearr', '$adressedep', '$adressearr', true, false, '$idMarchandise', '$idLieuDepart', '$idLieuArrivee','$idAnnonceur');";
 			$this->_conn->executeQuery ( $query );
 		}
 	}

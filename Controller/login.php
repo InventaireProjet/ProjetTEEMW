@@ -33,7 +33,7 @@ function authenticate($mysql) {
 	}
 	$_SESSION ['msg'] = 'Welcome ' . $result->Prenom . ' ' . $result->Nom;
 	$_SESSION ['user'] = $result;
-	header ( "location:../Vue/index.php" );
+	header ( "location:../Vue/NouvelleAnnonceTypeTransport.php" );
 	exit ();
 }
 function logout() {
