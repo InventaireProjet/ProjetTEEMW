@@ -1,4 +1,4 @@
- <?php
+<?php
 	require_once 'class.Annonceur.php';
 	require_once 'class.MySqlConn.php';
 	class MySqlManager {
