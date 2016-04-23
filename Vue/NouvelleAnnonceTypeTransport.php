@@ -29,7 +29,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
     <?php if($rank==1) echo $msg;?></td>
 		</tr>
 		<tr>
-			<td>Date de Départ:</td>
+			<td>Date de Départ (format jj/mm/aaaa) :</td>
 			<td><input type="datetime" name="DateDepart" value="<?php
 			echo $form_data [1];
 			?>"> 
@@ -69,7 +69,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
     <?php if($rank==6) echo $msg;?></td>
 		</tr>
 		<tr>
-			<td>Date d'arrivée :</td>
+			<td>Date d'arrivée (format jj/mm/aaaa) :</td>
 			<td><input type="datetime" name="DateArrivee"
 				value="<?php
 				echo $form_data [6];

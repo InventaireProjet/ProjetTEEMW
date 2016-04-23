@@ -1,5 +1,6 @@
 <?php
 require_once '../Model/class.MySqlManager.php';
+require_once 'fonctionsGenerales.php';
 include_once '../Vue/header.inc';
 
 $mysql = new MySqlManager ();
@@ -46,6 +47,12 @@ function enregistrerTypeTransport($mysql) {
 		$msg = "Entrer une adresse d'arrivée";
 	}
 	
+	if (verificationDate ( $datearr ) == false) {
+		
+		$rank = 7;
+		$msg = "Entrer une date d'arrivée valide";
+	}
+	
 	if (empty ( $datearr )) {
 		$rank = 7;
 		$msg = "Entrer une date d'arrivée";
@@ -69,6 +76,12 @@ function enregistrerTypeTransport($mysql) {
 	if (empty ( $adressedep )) {
 		$rank = 3;
 		$msg = "Entrer une adresse de départ";
+	}
+	
+	if (verificationDate ( $datedep ) == false) {
+		
+		$rank = 2;
+		$msg = "Entrer une date de départ valide";
 	}
 	
 	if (empty ( $datedep )) {
@@ -202,4 +215,7 @@ function enregistrerAnnonce($mysql) {
 	header ( "location:../Vue/AccueilAnnonceur.php" );
 	exit ();
 }
+
+
+
 
