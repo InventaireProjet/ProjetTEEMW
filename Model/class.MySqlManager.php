@@ -37,10 +37,26 @@
 			$this->_conn->executeQuery ( $query );
 			$idMarchandise = $this->_conn->getLastId ();
 			
+			$query = "INSERT into RelationMarchandiseTransportSet (IDMarchandise,IDTypeTransport) VALUES('$idMarchandise', '$type');";
+			$this->_conn->executeQuery ( $query );
+			
 			// TODO Gérer lieu, FK annonceur et marchandise
 			$query = "INSERT into Annonce (Nom, DateDepart, DateArrivee,
 			AdresseDepart, AdresseArrivee, EnCours, TransportRealise, IDMarchandise, IDLieuDepart, IDLieuArrivee, IDAnnonceur )VALUES('$nom', '$datedep', '$datearr', '$adressedep', '$adressearr', true, false, '$idMarchandise', '$idLieuDepart', '$idLieuArrivee','$idAnnonceur');";
 			$this->_conn->executeQuery ( $query );
+		}
+		
+		//Récupération des types de transport et renvoi d'un array
+		public function afficherTypeTransport() {
+			$query = "SELECT * FROM typetransport" ;
+			$result = $this->_conn->selectDB ( $query );
+			$nomsTypes = array();
+			while ($row = $result->fetch()) {
+				$nomsTypes[]=$row;
+			}
+		
+			return $nomsTypes;
+			
 		}
 	}
 	?>

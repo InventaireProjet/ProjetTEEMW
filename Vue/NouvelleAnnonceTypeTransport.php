@@ -109,7 +109,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
     <?php if($rank==11) echo $msg;?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="right"><input type="submit" name="action"
+			<td colspan="2" align="left"><input type="submit" name="action"
 				value="Entrer les données sur le transport"></td>
 		</tr>
 	</table>

@@ -47,6 +47,12 @@ function enregistrerTypeTransport($mysql) {
 		$msg = "Entrer une adresse d'arrivée";
 	}
 	
+	if (comparaisonDates ( $datedep, $datearr ) == false) {
+		
+		$rank = 7;
+		$msg = "Entrer une date d'arrivée postérieure à la date de départ";
+	}
+	
 	if (verificationDate ( $datearr ) == false) {
 		
 		$rank = 7;
@@ -156,7 +162,7 @@ function enregistrerAnnonce($mysql) {
 	
 	if (empty ( $type )) {
 		$rank = 1;
-		$msg = "Entrer un type de marchandise";
+		$msg = "Entrer un type de transport";
 	}
 	
 	if (isset ( $rank )) {
@@ -215,6 +221,7 @@ function enregistrerAnnonce($mysql) {
 	header ( "location:../Vue/AccueilAnnonceur.php" );
 	exit ();
 }
+
 
 
 

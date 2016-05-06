@@ -1,5 +1,6 @@
 <?php
 require_once '../Model/class.TypeTransport.php';
+require_once '../Controller/fonctionsGenerales.php';
 include_once 'header.inc';
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
@@ -7,7 +8,7 @@ $form_data = isset ( $_SESSION ['formNouvMarchandise_data'] ) ? $_SESSION ['form
 		'',
 		'',
 		'',
-		'' ,
+		'',
 		'' 
 );
 
@@ -15,37 +16,56 @@ $form_data = isset ( $_SESSION ['formNouvMarchandise_data'] ) ? $_SESSION ['form
 <form method="post" action="../Controller/enregistrerAnnonce.php">
 
 	<table>
-	
-	<tr>
+
+		<tr>
 			<td>Type de transport :</td>
-			<td><input type="text" name="Type" value="<?php
-			echo $form_data [0];
-			?>"> 
-    <?php if($rank==1) echo $msg;?></td>
+			<td><select name="Type">; 
+<?php
+// Récupération des types de transport
+$typesTransport = afficherTypeTransport ();
+echo '<option value="">Choisissez un type de transport</option>';
+// Entrée des options de la dropdownlist
+foreach ( $typesTransport as $valeur ) {
+	
+	//Si un choix a déjà été effectué durant la session, il est sélectionné par défaut
+	if (strcmp($form_data [0], $valeur ['IDTypeTransport'])==0) {
+	
+		echo '<option value="' . $valeur ['IDTypeTransport'] . '" selected>' . $valeur ['Nom'] . '</option>';
+	} else {
+		echo '<option value="' . $valeur ['IDTypeTransport'] . '">' . $valeur ['Nom'] . '</option>';
+	}
+}
+?>
+</td>
+			</select>
+   <td> <?php if($rank==1) echo $msg;?></td>
 		</tr>
 		<tr>
 			<td>Description de la marchandise :</td>
-			<td><input type="text" name="Description" value="<?php
-			echo $form_data [1];
-			?>"> 
+			<td><input type="text" name="Description"
+				value="<?php
+				echo $form_data [1];
+				?>"> 
     <?php if($rank==2) echo $msg;?></td>
 		</tr>
 		<tr>
 			<td>Quantité :</td>
-			<td><input type="number" min=0 name="Quantite" value="<?php
-			echo $form_data [2];
-			?>"> 
+			<td><input type="number" min=0 name="Quantite"
+				value="<?php
+				echo $form_data [2];
+				?>"> 
     <?php if($rank==3) echo $msg;?></td>
 		</tr>
 		<tr>
 			<td>Volume (litres) :</td>
-			<td><input type="number" min=0 name="Volume" value="<?php
-			echo $form_data [3];
-			?>"> 
+			<td><input type="number" min=0 name="Volume"
+				value="<?php
+				echo $form_data [3];
+				?>"> 
     <?php if($rank==4) echo $msg;?></td>
 		</tr>
 		<tr>
-			<td>Poids (grammes) :</td>
+			<td>Poids (kg) :</td>
 			<td><input type="number" min=0 name="Poids"
 				value="<?php
 				echo $form_data [4];
@@ -55,15 +75,18 @@ $form_data = isset ( $_SESSION ['formNouvMarchandise_data'] ) ? $_SESSION ['form
 
 
 		<tr>
-			<td colspan="2" align="right"><input type="submit" name="action"
+			<td colspan="2" align="left"><input type="submit" name="action"
 				value="Valider l'annonce"></td>
 		</tr>
 	</table>
 </form>
-<br />
-<a href="AccueilAnnonceur.php">Accueil anonceurs</a>
+
 <a href="NouvelleAnnonceTypeTransport.php">Revenir à la première partie
 	de l'annonce</a>
+<br />
+<a href="AccueilAnnonceur.php">Accueil anonceurs</a>
+
+
 
 <?php
 include_once 'footer.inc';  
