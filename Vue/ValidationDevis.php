@@ -7,7 +7,7 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 $form_data = isset ( $_SESSION ['formNouvDevis_data'] ) ? $_SESSION ['formNouvDevis_data'] : array (
 		'',
 		'',
-		''
+		'' 
 );
 ?>
 <form method="post" action="../Controller/enregistrerDevis.php">
@@ -15,19 +15,21 @@ $form_data = isset ( $_SESSION ['formNouvDevis_data'] ) ? $_SESSION ['formNouvDe
 	<table>
 		<tr>
 			<td>Prix:</td>
-			<td><input type="text" name="Prix" value="<?php
-			echo $form_data [0];
-			?>"> 
+			<td><input type="text" name="Prix"
+				value="<?php
+				echo $form_data [0];
+				?>"> 
     <?php if($rank==1) echo $msg;?></td>
 		</tr>
 		<tr>
 			<td>Date d'expiration (format jj/mm/aaaa) :</td>
-			<td><input type="datetime" name="DateExpiration" value="<?php
-			echo $form_data [1];
-			?>"> 
+			<td><input type="datetime" name="DateExpiration"
+				value="<?php
+				echo $form_data [1];
+				?>"> 
     <?php if($rank==2) echo $msg;?></td>
 		</tr>
-		
+
 		<tr>
 			<td>Description :</td>
 			<td><input type="text" name="Description"

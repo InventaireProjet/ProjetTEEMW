@@ -51,8 +51,7 @@ function enregistrerNewDevis($mysql) {
 			$prix,
 			$dateExpiration,
 			$description 
-	)
-	;
+	);
 	
 	// $transporteur = $_SESSION ['user'];
 	// $idTransporteur = $transporteur->IDTransporteur;
@@ -64,7 +63,8 @@ function enregistrerNewDevis($mysql) {
 	
 	echo $idAnnonceur;
 	
-	$mysql->enregistrerDevis ( $prix, $dateExpiration, $description, $idAnnonceur );
+	$dateSQLExpiration = dateSQL ( $dateExpiration, 0, 0 );
+	$mysql->enregistrerDevis ( $prix, $dateSQLExpiration, $description, $idAnnonceur );
 	$_SESSION ['msg'] = 'Nouveau devis enregistré';
 	header ( "location:../Vue/AccueilTransporteur.php" );
 	exit ();

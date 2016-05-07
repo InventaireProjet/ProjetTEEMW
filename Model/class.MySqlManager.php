@@ -27,8 +27,7 @@ class MySqlManager {
 		// Transaction pour les 5
 		try {
 			
-			
-			$this->_conn->getConnection()->beginTransaction ();
+			$this->_conn->getConnection ()->beginTransaction ();
 			
 			$query = "INSERT into Lieu (NPA, Localite, Pays)VALUES('$npadep', '$localdep', '$paysdep');";
 			$this->_conn->executeQuery ( $query );
@@ -42,7 +41,7 @@ class MySqlManager {
 			Poids) VALUES('$desc', '$qte', '$vol', '$pds');";
 			$this->_conn->executeQuery ( $query );
 			$idMarchandise = $this->_conn->getLastId ();
-		
+			
 			$query = "INSERT into RelationMarchandiseTransportSet (IDMarchandise,IDTypeTransport) VALUES('$idMarchandise', '$type');";
 			$this->_conn->executeQuery ( $query );
 			
@@ -51,19 +50,18 @@ class MySqlManager {
 			AdresseDepart, AdresseArrivee, EnCours, TransportRealise, IDMarchandise, IDLieuDepart, IDLieuArrivee, IDAnnonceur )VALUES('$nom', '$datedep', '$datearr', '$adressedep', '$adressearr', true, false, '$idMarchandise', '$idLieuDepart', '$idLieuArrivee','$idAnnonceur');";
 			$this->_conn->executeQuery ( $query );
 			
-			$this->_conn->getConnection()->commit ();
+			$this->_conn->getConnection ()->commit ();
 			return true;
 		} catch ( Exception $e ) {
-			$this->_conn->getConnection()->rollback ();
+			$this->_conn->getConnection ()->rollback ();
 		}
 	}
-	
 	public function enregistrerDevis($prix, $dateExpiration, $description, /*$idTransporteur,*/ $idAnnonceur) {
-				// TODO Gérer FK transporteur et annonce ==> pour test FK annonceur
-					echo "Je suis dans MySqlManager";
-					$query = "INSERT into Devis (Prix, DateExpiration, Description, EnCours, Accepte, IDTransporteur, IDAnnonce )VALUES('$prix', '$dateExpiration', '$description', true, false, '$idAnnonceur', 1);";
-					$this->_conn->executeQuery ( $query );
-				}
+		// TODO Gérer FK transporteur et annonce ==> pour test FK annonceur
+		echo "Je suis dans MySqlManager";
+		$query = "INSERT into Devis (Prix, DateExpiration, Description, EnCours, Accepte, IDTransporteur, IDAnnonce )VALUES('$prix', '$dateExpiration', '$description', true, false, '$idAnnonceur', 1);";
+		$this->_conn->executeQuery ( $query );
+	}
 	
 	// Récupération des types de transport et renvoi d'un array
 	public function afficherTypeTransport() {
