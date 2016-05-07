@@ -2,7 +2,7 @@
 class MySqlConn {
 	const HOST = "localhost";
 	
-	Connexion web
+// 	Connexion web
 	const PORT = "80";
 	const DATABASE = "grp5";
 	const USER = "grp5";
