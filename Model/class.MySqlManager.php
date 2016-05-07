@@ -61,7 +61,7 @@ class MySqlManager {
 	public function enregistrerDevis($prix, $dateExpiration, $description, /*$idTransporteur,*/ $idAnnonceur) {
 				// TODO Gérer FK transporteur et annonce ==> pour test FK annonceur
 					echo "Je suis dans MySqlManager";
-					$query = "INSERT into Devis (Prix, DateExpiration, Description, EnCours, Accepte, IDTransporteur, IDAnnonce )VALUES('$prix', '$dateExpiration', '$description', true, false, '$idAnnonceur', null);";
+					$query = "INSERT into Devis (Prix, DateExpiration, Description, EnCours, Accepte, IDTransporteur, IDAnnonce )VALUES('$prix', '$dateExpiration', '$description', true, false, '$idAnnonceur', 1);";
 					$this->_conn->executeQuery ( $query );
 				}
 	
