@@ -58,6 +58,13 @@ class MySqlManager {
 		}
 	}
 	
+	public function enregistrerDevis($prix, $dateExpiration, $description, /*$idTransporteur,*/ $idAnnonceur) {
+				// TODO Gérer FK transporteur et annonce ==> pour test FK annonceur
+					echo "Je suis dans MySqlManager";
+					$query = "INSERT into Devis (Prix, DateExpiration, Description, EnCours, Accepte, IDTransporteur, IDAnnonce )VALUES('$prix', '$dateExpiration', '$description', true, false, '$idAnnonceur', null);";
+					$this->_conn->executeQuery ( $query );
+				}
+	
 	// Récupération des types de transport et renvoi d'un array
 	public function afficherTypeTransport() {
 		$query = "SELECT * FROM typetransport";
