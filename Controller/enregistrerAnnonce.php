@@ -26,6 +26,10 @@ function enregistrerTypeTransport($mysql) {
 	$npaarr = $_POST ['NPAArrivee'];
 	$localarr = $_POST ['LocaliteArrivee'];
 	$paysarr = $_POST ['PaysArrivee'];
+	$heuredep = $_POST ['HeureDepart'];
+	$minutesdep = $_POST ['MinutesDepart'];
+	$heurearr = $_POST ['HeureArrivee'];
+	$minutesarr = $_POST ['MinutesArrivee'];
 	
 	if (empty ( $paysarr )) {
 		$rank = 11;
@@ -47,7 +51,7 @@ function enregistrerTypeTransport($mysql) {
 		$msg = "Entrer une adresse d'arrivée";
 	}
 	
-	if (comparaisonDates ( $datedep, $datearr ) == false) {
+	if (comparaisonDates ( $datedep, $heuredep, $minutesdep, $datearr, $heurearr, $minutesarr ) == false) {
 		
 		$rank = 7;
 		$msg = "Entrer une date d'arrivée postérieure à la date de départ";
@@ -57,11 +61,6 @@ function enregistrerTypeTransport($mysql) {
 		
 		$rank = 7;
 		$msg = "Entrer une date d'arrivée valide";
-	}
-	
-	if (empty ( $datearr )) {
-		$rank = 7;
-		$msg = "Entrer une date d'arrivée";
 	}
 	
 	if (empty ( $paysdep )) {
@@ -90,11 +89,6 @@ function enregistrerTypeTransport($mysql) {
 		$msg = "Entrer une date de départ valide";
 	}
 	
-	if (empty ( $datedep )) {
-		$rank = 2;
-		$msg = "Entrer une date de départ";
-	}
-	
 	if (empty ( $nom )) {
 		$rank = 1;
 		$msg = "Entrer un nom";
@@ -114,7 +108,11 @@ function enregistrerTypeTransport($mysql) {
 				$adressearr,
 				$npaarr,
 				$localarr,
-				$paysarr 
+				$paysarr,
+				$heuredep,
+				$minutesdep ,
+				$heurearr ,
+				$minutesarr
 		);
 		header ( "location:../Vue/NouvelleAnnonceTypeTransport.php" );
 		exit ();
@@ -131,7 +129,11 @@ function enregistrerTypeTransport($mysql) {
 			$adressearr,
 			$npaarr,
 			$localarr,
-			$paysarr 
+			$paysarr ,
+			$heuredep,
+			$minutesdep ,
+			$heurearr ,
+			$minutesarr
 	);
 	header ( "location:../Vue/NouvelleAnnonceTypeMarchandise.php" );
 	exit ();
@@ -201,6 +203,7 @@ function enregistrerAnnonce($mysql) {
 			'' 
 	);
 	
+	// Récupération des données provenant du premier formulaire
 	$nom = $form_data [0];
 	$datedep = $form_data [1];
 	$adressedep = $form_data [2];
@@ -212,13 +215,32 @@ function enregistrerAnnonce($mysql) {
 	$npaarr = $form_data [8];
 	$localarr = $form_data [9];
 	$paysarr = $form_data [10];
+	$heuredep= $form_data [11];
+	$minutesdep = $form_data [12];
+	$heurearr = $form_data [13];
+	$minutesarr= $form_data [14];
 	
+	// Récupération de l'ID de l'annonceur par la variable de session
 	$annonceur = $_SESSION ['user'];
 	$idAnnonceur = $annonceur->IDAnnonceur;
 	
-	$mysql->enregistrerAnnonce ( $nom, $datedep, $adressedep, $npadep, $localdep, $paysdep, $datearr, $adressearr, $npaarr, $localarr, $paysarr, $type, $desc, $qte, $vol, $poids, $idAnnonceur );
-	$_SESSION ['msg'] = 'Nouvelle annonce enregistrée';
-	header ( "location:../Vue/AccueilAnnonceur.php" );
+	//Conversion des dates en format TimeStamp
+	$dateSQLdep= dateSQL($datedep, $heuredep, $minutesdep);
+	$dateSQLarr= dateSQL($datearr, $heurearr, $minutesarr);
+	
+	
+	$resultat = $mysql->enregistrerAnnonce ( $nom, $dateSQLdep, $adressedep, $npadep, $localdep, $paysdep, $dateSQLarr, $adressearr, $npaarr, $localarr, $paysarr, $type, $desc, $qte, $vol, $poids, $idAnnonceur );
+	
+	if ($resultat == true) {
+		$_SESSION ['msg'] = 'Nouvelle annonce enregistrée';
+		header ( "location:../Vue/AccueilAnnonceur.php" );
+	} 
+
+	else {
+		$_SESSION ['msg'] = 'Echec de l\'enregistrement de l\'annonce';
+		
+		header ( "location:../Vue/NouvelleAnnonceTypeMarchandise.php" );
+	}
 	exit ();
 }
 

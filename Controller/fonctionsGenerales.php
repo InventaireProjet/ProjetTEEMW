@@ -1,60 +1,88 @@
 <?php
 require_once '../Model/class.MySqlManager.php';
+function controleLogin() {
+	if ($_SESSION ['user'] == null) {
+		header ( "location:../Vue/" );
+	}
+}
 
-
-//Vérification de l'entrée de la date
+// Vérification de l'entrée de la date
 function verificationDate($date) {
-
-	//Vérification du format de la date
+	
+	// Vérification du format de la date
 	if (testdate ( $date ) == true) {
 		list ( $jour, $mois, $annee ) = explode ( '/', $date );
-
-		//Vérification de la validité de l'entrée
+		
+		// Vérification de la validité de l'entrée
 		if (checkdate ( $mois, $jour, $annee ) == true) {
-				
-			//Conversion des données entrées en un nombre
+			
+			// Conversion des données entrées en un nombre
 			$dateNombre = mktime ( 0, 0, 0, $mois, $jour, $annee );
-
-			//Vérification que la date entrée est postérieure à aujourd'hui
-			if ($dateNombre > time()) {
-
+			
+			// Vérification que la date entrée est postérieure à aujourd'hui
+			if ($dateNombre > time ()) {
+				
 				return true;
 			}
 		}
 	}
 }
-
-function comparaisonDates($date1, $date2) {
-	
-	if($date1==null || $date2==null){
-		return ;
+function comparaisonDates($date1, $heure1, $minutes1, $date2, $heure2, $minutes2) {
+	if (testDate ( $date1 ) == false || testDate ( $date2 ) == false) {
+		return;
 	}
-	
 	
 	list ( $jour1, $mois1, $annee1 ) = explode ( '/', $date1 );
 	list ( $jour2, $mois2, $annee2 ) = explode ( '/', $date2 );
 	
-	//Conversion des données entrées en nombres
-	$date1Nombre = mktime ( 0, 0, 0, $mois1, $jour1, $annee1 );
-	$date2Nombre = mktime ( 0, 0, 0, $mois2, $jour2, $annee2 );
-	
-	//Vérification que la date2  est postérieure à la date1
-	if ($date1Nombre <= $date2Nombre) {
-	
-		return true;
+	if ($heure1==null) {
+		$heure1=0;
+	}
+	if ($minutes1==null) {
+		$minutes1=0;
+	}
+	if ($heure2==null) {
+		$heure2=0;
+	}
+	if ($minutes2==null) {
+		$minutes2=0;
 	}
 	
+	
+	// Conversion des données entrées en nombres
+	$date1Nombre = mktime ( $heure1, $minutes1, 0, $mois1, $jour1, $annee1 );
+	$date2Nombre = mktime ( $heure2, $minutes2, 0, $mois2, $jour2, $annee2 );
+	
+	// Vérification que la date2 est postérieure à la date1
+	if ($date1Nombre <= $date2Nombre) {
+		
+		return true;
+	}
 }
 
-//Vérification du format de la date
+// Vérification du format de la date
 function testDate($value) {
 	return preg_match ( '^\d{1,2}/\d{1,2}/\d{4}$^', $value );
 }
 
-//Récupération du résultat de la requête dans la BDD qui renvoie un array des types de transport
+// Récupération du résultat de la requête dans la BDD qui renvoie un array des types de transport
 function afficherTypeTransport() {
 	$mysql = new MySqlManager ();
-	$result = $mysql->afficherTypeTransport();
+	$result = $mysql->afficherTypeTransport ();
 	
 	return $result;
+}
+
+// Convertisseur de dates en format timestamp
+function dateSQL($date, $heure, $minutes) {
+	list ( $jour, $mois, $annee ) = explode ( '/', $date );
+	if ($heure==null) {
+		$heure=0;
+	}
+	if ($minutes==null) {
+		$minutes=0;
+	}
+	$dateNombre = mktime ( $heure, $minutes, 0, $mois, $jour, $annee );
+	$dateSQL = date ( "Y-m-d H:i:s", $dateNombre );
+	return $dateSQL;
 }
