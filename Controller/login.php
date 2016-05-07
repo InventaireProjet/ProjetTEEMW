@@ -79,7 +79,7 @@ function register($mysql) {
 		exit ();
 	}
 	
-	$result = $mysql->saveUser ( $fname, $lname, $uname, $pwd );
+	$result = $mysql->saveAnnonceur ( $fname, $lname, $uname, $pwd );
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
 		$_SESSION ['msg'] = 'Username already exists';

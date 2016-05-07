@@ -6,7 +6,7 @@ include_once '../Vue/header.inc';
 $mysql = new MySqlManager ();
 
 if (isset ( $_POST ['action'] )) {
-	if ($_POST ['action'] == 'Entrer les donnÃ©es pour un devis') {
+	if ($_POST ['action'] == 'Entrer les données pour un devis') {
 		enregistrerNewDevis ( $mysql );
 	}
 }
@@ -17,7 +17,7 @@ function enregistrerNewDevis($mysql) {
 	
 	if (empty ( $description )) {
 		$rank = 3;
-		$msg = "Entrer une description de l'offre proposÃ© dans ce devis";
+		$msg = "Entrer une description de l'offre proposé dans ce devis";
 	}
 	
 	if (verificationDate ( $dateExpiration ) == false) {
@@ -42,8 +42,7 @@ function enregistrerNewDevis($mysql) {
 				$prix,
 				$dateExpiration,
 				$description 
-		)
-		;
+		);
 		header ( "location:../Vue/ValidationDevis.php" );
 		exit ();
 	}
@@ -52,27 +51,21 @@ function enregistrerNewDevis($mysql) {
 			$prix,
 			$dateExpiration,
 			$description 
-			
 	)
 	;
-
-// 	$transporteur = $_SESSION ['user'];
-// 	$idTransporteur = $transporteur->IDTransporteur;
-
+	
+	// $transporteur = $_SESSION ['user'];
+	// $idTransporteur = $transporteur->IDTransporteur;
+	
 	// pour test, fait avec annonceur
 	$annonceur = $_SESSION ['user'];
 	$idAnnonceur = $annonceur->IDAnnonceur;
 	echo "je suis dans enregistrerDevis";
-	echo $annonceur;
+	
 	echo $idAnnonceur;
 	
-	$mysql->enregistrerNewDevis( $nom, $datedep, $adressedep, $annonceur );
-	$_SESSION ['msg'] = 'Nouveau devis enregistrÃ©';
+	$mysql->enregistrerDevis ( $prix, $dateExpiration, $description, $idAnnonceur );
+	$_SESSION ['msg'] = 'Nouveau devis enregistré';
 	header ( "location:../Vue/AccueilTransporteur.php" );
 	exit ();
 }
-
-
-
-
-

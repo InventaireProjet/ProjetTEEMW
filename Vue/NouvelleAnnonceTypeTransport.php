@@ -1,7 +1,8 @@
 <?php
 require_once '../Model/class.Annonce.php';
+require_once '../Controller/fonctionsGenerales.php';
 include_once '../Vue/header.inc';
-
+controleLogin ();
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
 $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNouvTransport_data'] : array (
@@ -13,9 +14,13 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 		'',
 		'',
 		'',
-		'' ,
 		'',
-		''
+		'',
+		'',
+		'',
+		'',
+		'',
+		'' 
 );
 ?>
 <form method="post" action="../Controller/enregistrerAnnonce.php">
@@ -23,19 +28,30 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 	<table>
 		<tr>
 			<td>Nom:</td>
-			<td><input type="text" name="Nom" value="<?php
-			echo $form_data [0];
-			?>"> 
+			<td><input type="text" name="Nom"
+				value="<?php
+				echo $form_data [0];
+				?>"> 
     <?php if($rank==1) echo $msg;?></td>
 		</tr>
 		<tr>
-			<td>Date de Départ (format jj/mm/aaaa) :</td>
-			<td><input type="datetime" name="DateDepart" value="<?php
-			echo $form_data [1];
-			?>"> 
-    <?php if($rank==2) echo $msg;?></td>
+			<td>Date de départ (format jj/mm/aaaa) :</td>
+			<td><input type="datetime" name="DateDepart"
+				value="<?php
+				echo $form_data [1];
+				?>"> <?php if($rank==2) echo $msg;?></td>
 		</tr>
-		
+		<tr>
+			<td>Heure de départ :</td>
+			<td><input type="number" min="0" max="23" name="HeureDepart"
+				value="<?php
+				echo $form_data [11];
+				?>"> h <input type="number" min=0 max=59 name="MinutesDepart"
+				value="<?php
+				echo $form_data [12];
+				?>"></td>
+
+		</tr>
 		<tr>
 			<td>Adresse de départ :</td>
 			<td><input type="text" name="AdresseDepart"
@@ -75,6 +91,17 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 				echo $form_data [6];
 				?>"> 
     <?php if($rank==7) echo $msg;?></td>
+		</tr>
+		<tr>
+			<td>Heure d'arrivée :</td>
+			<td><input type="number" min="0" max="23" name="HeureArrivee"
+				value="<?php
+				echo $form_data [13];
+				?>"> h <input type="number" min=0 max=59 name="MinutesArrivee"
+				value="<?php
+				echo $form_data [14];
+				?>"></td>
+
 		</tr>
 		<tr>
 			<td>Adresse d'arrivée :</td>

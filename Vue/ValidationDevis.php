@@ -38,7 +38,7 @@ $form_data = isset ( $_SESSION ['formNouvDevis_data'] ) ? $_SESSION ['formNouvDe
 		</tr>
 		<tr>
 			<td colspan="2" align="left"><input type="submit" name="action"
-				value="Entrer les donnÃ©es pour un devis"></td>
+				value="Entrer les données pour un devis"></td>
 		</tr>
 	</table>
 </form>

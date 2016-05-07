@@ -2,6 +2,7 @@
 require_once '../Model/class.TypeTransport.php';
 require_once '../Controller/fonctionsGenerales.php';
 include_once 'header.inc';
+controleLogin ();
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
 $form_data = isset ( $_SESSION ['formNouvMarchandise_data'] ) ? $_SESSION ['formNouvMarchandise_data'] : array (
@@ -12,7 +13,12 @@ $form_data = isset ( $_SESSION ['formNouvMarchandise_data'] ) ? $_SESSION ['form
 		'' 
 );
 
+//En cas d'erreur d'enregistrement, affichage en sommet de page
+if ($_SESSION ['msg']=null && strcmp ( $_SESSION ['msg'], 'Echec de l\'enregistrement de l\'annonce' ) == 0) {
+	echo $msg;
+}
 ?>
+
 <form method="post" action="../Controller/enregistrerAnnonce.php">
 
 	<table>
@@ -27,9 +33,9 @@ echo '<option value="">Choisissez un type de transport</option>';
 // Entrée des options de la dropdownlist
 foreach ( $typesTransport as $valeur ) {
 	
-	//Si un choix a déjà été effectué durant la session, il est sélectionné par défaut
-	if (strcmp($form_data [0], $valeur ['IDTypeTransport'])==0) {
-	
+	// Si un choix a déjà été effectué durant la session, il est sélectionné par défaut
+	if (strcmp ( $form_data [0], $valeur ['IDTypeTransport'] ) == 0) {
+		
 		echo '<option value="' . $valeur ['IDTypeTransport'] . '" selected>' . $valeur ['Nom'] . '</option>';
 	} else {
 		echo '<option value="' . $valeur ['IDTypeTransport'] . '">' . $valeur ['Nom'] . '</option>';
@@ -38,7 +44,7 @@ foreach ( $typesTransport as $valeur ) {
 ?>
 </td>
 			</select>
-   <td> <?php if($rank==1) echo $msg;?></td>
+			<td> <?php if($rank==1) echo $msg;?></td>
 		</tr>
 		<tr>
 			<td>Description de la marchandise :</td>
