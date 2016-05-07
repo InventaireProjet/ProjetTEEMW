@@ -6,7 +6,7 @@
 		public function __construct() {
 			$this->_conn = new MySqlConn ();
 		}
-		public function saveUser($fname, $lname, $uname, $pwd) {
+		public function saveAnnonceur($fname, $lname, $uname, $pwd) {
 			$pwd = sha1 ( $pwd );
 			$query = "INSERT into Annonceur(Prenom, Nom, UserName,
 		MotDePasse)VALUES('$fname', '$lname', '$uname', '$pwd');";
@@ -22,6 +22,7 @@
 				return false;
 			return new Annonceur ( $row ['IDAnnonceur'], $row ['Prenom'], $row ['Nom'], $row ['UserName'], $row ['MotDePasse'], $row ['Telephone'], $row ['Email'], $row ['Adresse'] );
 		}
+		
 		public function enregistrerAnnonce($nom, $datedep, $adressedep, $npadep, $localdep, $paysdep, $datearr, $adressearr, $npaarr, $localarr, $paysarr, $type, $desc, $qte, $vol, $pds, $idAnnonceur) {
 			// TODO Transaction pour les 3
 			$query = "INSERT into Lieu (NPA, Localite, Pays)VALUES('$npadep', '$localdep', '$paysdep');";
@@ -40,13 +41,13 @@
 			$query = "INSERT into RelationMarchandiseTransportSet (IDMarchandise,IDTypeTransport) VALUES('$idMarchandise', '$type');";
 			$this->_conn->executeQuery ( $query );
 			
-			// TODO Gérer lieu, FK annonceur et marchandise
+			// TODO Gï¿½rer lieu, FK annonceur et marchandise
 			$query = "INSERT into Annonce (Nom, DateDepart, DateArrivee,
 			AdresseDepart, AdresseArrivee, EnCours, TransportRealise, IDMarchandise, IDLieuDepart, IDLieuArrivee, IDAnnonceur )VALUES('$nom', '$datedep', '$datearr', '$adressedep', '$adressearr', true, false, '$idMarchandise', '$idLieuDepart', '$idLieuArrivee','$idAnnonceur');";
 			$this->_conn->executeQuery ( $query );
 		}
 		
-		//Récupération des types de transport et renvoi d'un array
+		//Rï¿½cupï¿½ration des types de transport et renvoi d'un array
 		public function afficherTypeTransport() {
 			$query = "SELECT * FROM typetransport" ;
 			$result = $this->_conn->selectDB ( $query );
@@ -57,6 +58,13 @@
 		
 			return $nomsTypes;
 			
+		}
+		
+		public function enregistrerDevis($prix, $dateExpiration, $description, /*$idTransporteur,*/ $idAnnonceur) {
+			// TODO Gï¿½rer FK transporteur et annonce ==> pour test FK annonceur
+			echo "Je suis dans MySqlManager";
+			$query = "INSERT into Devis (Prix, DateExpiration, Description, EnCours, Accepte, IDTransporteur, IDAnnonce )VALUES('$prix', '$dateExpiration', '$description', true, false, '$idAnnonceur', null);";
+			$this->_conn->executeQuery ( $query );
 		}
 	}
 	?>
