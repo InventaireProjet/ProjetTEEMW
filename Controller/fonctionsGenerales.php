@@ -86,3 +86,10 @@ function dateSQL($date, $heure, $minutes) {
 	$dateSQL = date ( "Y-m-d H:i:s", $dateNombre );
 	return $dateSQL;
 }
+
+//Liste triée des pays concernés par le service
+function listePays() {
+	$array = Array('Suisse', 'France', 'Italie', 'Allemagne', 'Autriche', 'Liechtenstein', 'Belgique', 'Pays-Bas', 'Espagne', 'Portugal', 'Luxembourg');
+	sort($array);
+	return  $array;
+}

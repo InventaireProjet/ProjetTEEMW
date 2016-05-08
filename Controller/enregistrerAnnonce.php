@@ -144,7 +144,7 @@ function enregistrerAnnonce($mysql) {
 	$qte = $_POST ['Quantite'];
 	$vol = $_POST ['Volume'];
 	$poids = $_POST ['Poids'];
-	
+	echo $type;
 	if (empty ( $poids )) {
 		$rank = 5;
 		$msg = "Entrer un poids";

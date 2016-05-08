@@ -78,11 +78,25 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 		</tr>
 		<tr>
 			<td>Pays de départ :</td>
-			<td><input type="text" name="PaysDepart"
-				value="<?php
-				echo $form_data [5];
-				?>"> 
-    <?php if($rank==6) echo $msg;?></td>
+			<td><select name="PaysDepart">
+			<?php
+			// Récupération des pays
+			$pays = listePays ();
+			echo '<option value="">Choisissez un pays</option>';
+			// Entrée des options de la dropdownlist
+			foreach ( $pays as $valeur ) {
+				
+				// Si un choix a déjà été effectué durant la session, il est sélectionné par défaut
+				if (strcmp ( $form_data [5], $valeur ) == 0) {
+					
+					echo '<option value="' . $valeur . '" selected>' . $valeur . '</option>';
+				} else {
+					echo '<option value="' . $valeur . '">' . $valeur . '</option>';
+				}
+			}
+			?>
+		</select>
+		<?php if($rank==6) echo $msg;?></td>
 		</tr>
 		<tr>
 			<td>Date d'arrivée (format jj/mm/aaaa) :</td>
@@ -129,10 +143,24 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 		</tr>
 		<tr>
 			<td>Pays d'arrivée :</td>
-			<td><input type="text" name="PaysArrivee"
-				value="<?php
-				echo $form_data [10];
-				?>"> 
+			<td><select name="PaysArrivee">
+	<?php
+	// Récupération des pays
+	$pays = listePays ();
+	echo '<option value="">Choisissez un pays</option>';
+	// Entrée des options de la dropdownlist
+	foreach ( $pays as $valeur ) {
+		
+		// Si un choix a déjà été effectué durant la session, il est sélectionné par défaut
+		if (strcmp ( $form_data [10], $valeur ) == 0) {
+			
+			echo '<option value="' . $valeur . '" selected>' . $valeur . '</option>';
+		} else {
+			echo '<option value="' . $valeur . '">' . $valeur . '</option>';
+		}
+	}
+	?>
+				</select>
     <?php if($rank==11) echo $msg;?></td>
 		</tr>
 		<tr>
