@@ -3,3 +3,66 @@
 .error {
 	color: red;
 }
+
+/* Utilisation de Bootstrap pour la partie HTML et adaptation pour correspondre à nos attentes */
+
+
+/*Mise en forme du haut de page */
+.header {
+	overflow: hidden;
+	height: 185px;
+	background-color: black;
+}
+
+.jumbotron{
+	height: inherit;
+	background-color: pink;
+}
+/*Mise en forme du Titre */
+#title {
+	display: block;
+	letter-spacing: -2px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: lowercase;
+	font-family: 'Satisfy', cursive;
+	font-size: 54pt;
+	font-weight: 200;
+	color: #FFFFFF;
+}
+
+/*Mise en forme du sous-titre */
+p {
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 14pt;
+	font-family: 'Oswald', sans-serif;
+	font-weight: 200;
+	/*margin: 0px;
+	padding: 0px;*/
+	color: #4F4F4F;
+}
+
+/* Mise en forme de la partie centrale */
+.container {
+padding-top: 25px;
+}
+/*Mise en forme des colonnes */
+.row {
+	font-size: 15px;
+	color: #4F4F4F;
+	text-align: center;
+	margin: 0px;
+	padding:0px;
+}
+
+/*Mise en forme du bas de page */
+#footer {
+	width: 100%;
+	height: 50px;
+	/* A voir si on veut l'avoir toujour affiché ou non */
+	position: fixed;
+	bottom: 0;
+	background-color: black;
+	padding-top: 15px;
+}
