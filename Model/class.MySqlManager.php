@@ -45,7 +45,7 @@ class MySqlManager {
 			$query = "INSERT into RelationMarchandiseTransportSet (IDMarchandise,IDTypeTransport) VALUES('$idMarchandise', '$type');";
 			$this->_conn->executeQuery ( $query );
 			
-			// TODO Gérer lieu
+			// TODO Gï¿½rer lieu
 			$query = "INSERT into Annonce (Nom, DateDepart, DateArrivee,
 			AdresseDepart, AdresseArrivee, EnCours, TransportRealise, IDMarchandise, IDLieuDepart, IDLieuArrivee, IDAnnonceur )VALUES('$nom', '$datedep', '$datearr', '$adressedep', '$adressearr', true, false, '$idMarchandise', '$idLieuDepart', '$idLieuArrivee','$idAnnonceur');";
 			$this->_conn->executeQuery ( $query );
@@ -57,13 +57,21 @@ class MySqlManager {
 		}
 	}
 	public function enregistrerDevis($prix, $dateExpiration, $description, /*$idTransporteur,*/ $idAnnonceur) {
-		// TODO Gérer FK transporteur et annonce ==> pour test FK annonceur
-		echo "Je suis dans MySqlManager";
+		// TODO Gï¿½rer FK transporteur et annonce ==> pour test FK annonceur
+		try {		
+		$this->_conn->getConnection ()->beginTransaction ();
 		$query = "INSERT into Devis (Prix, DateExpiration, Description, EnCours, Accepte, IDTransporteur, IDAnnonce )VALUES('$prix', '$dateExpiration', '$description', true, false, '$idAnnonceur', 1);";
 		$this->_conn->executeQuery ( $query );
+		echo "je suis dans MySQLManager";
+		
+		$this->_conn->getConnection ()->commit ();
+		return true;
+		} catch ( Exception $e ) {
+			$this->_conn->getConnection ()->rollback ();
+		}
 	}
 	
-	// Récupération des types de transport et renvoi d'un array
+	// Rï¿½cupï¿½ration des types de transport et renvoi d'un array
 	public function afficherTypeTransport() {
 		$query = "SELECT * FROM TypeTransport";
 		$result = $this->_conn->selectDB ( $query );
