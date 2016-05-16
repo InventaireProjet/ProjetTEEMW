@@ -5,12 +5,12 @@ include_once '../Vue/header.inc';
 $mysql = new MySqlManager ();
 
 if (isset ( $_POST ['action'] )) {
-	if ($_POST ['action'] == 'Register') {
-		register ( $mysql );
+	if ($_POST ['action'] == 'enregistrerAnnonceur') {
+		enregistrerAnnonceur ( $mysql );
 	}
 	
-	if ($_POST ['action'] == 'Login') {
-		authenticate ( $mysql );
+	if ($_POST ['action'] == 'connecterAnnonceur') {
+		identifierAnnonceur ( $mysql );
 	}
 }
 if (isset ( $_GET ['action'] )) {
@@ -18,7 +18,7 @@ if (isset ( $_GET ['action'] )) {
 		logout ();
 	}
 }
-function authenticate($mysql) {
+function identifierAnnonceur($mysql) {
 	$uname = $_POST ['usr'];
 	$pwd = $_POST ['pwd'];
 	$result = $mysql->checkLogin ( $uname, $pwd );
@@ -41,29 +41,49 @@ function logout() {
 	header ( "location:../Vue/index.php" );
 	exit ();
 }
-function register($mysql) {
+function enregistrerAnnonceur($mysql) {
 	$fname = $_POST ['firstname'];
 	$lname = $_POST ['lastname'];
 	$uname = $_POST ['username'];
 	$pwd = $_POST ['password'];
+	$phone = $_POST ['phone'];
+	$email = $_POST ['Email'];
+	$adress = $_POST ['adress'];
+	$IBAN = $_POST ['IBAN'];
 	
-	if (empty ( $pwd )) {
+	if (empty ( $IBAN )) {
+		$rank = 7;
+		$msg = "Set an IBAN";
+	}
+	if (empty ( $adress )) {
+		$rank = 6;
+		$msg = "Set an adress";
+	}
+	if (empty ( $email )) {
+		$rank = 5;
+		$msg = "Set an email";
+	}
+	if (empty ( $phone )) {
 		$rank = 4;
+		$msg = "Set a phone number";
+	}
+	if (empty ( $pwd )) {
+		$rank = 3;
 		$msg = "Set a password";
 	}
 	
 	if (empty ( $uname )) {
-		$rank = 3;
+		$rank = 2;
 		$msg = "Set a username";
 	}
 	
 	if (empty ( $lname )) {
-		$rank = 2;
+		$rank = 1;
 		$msg = "Set a last name";
 	}
 	
 	if (empty ( $fname )) {
-		$rank = 1;
+		$rank = 0;
 		$msg = "Set a first name";
 	}
 	if (isset ( $rank )) {
@@ -73,13 +93,17 @@ function register($mysql) {
 				$fname,
 				$lname,
 				$uname,
-				$pwd 
+				$pwd,
+				$phone,
+				$email,
+				$adress,
+				$IBAN
 		);
-		header ( "location:../Vue/register.php" );
+		header ( "location:../Vue/InscriptionAnnonceur.php" );
 		exit ();
 	}
 	
-	$result = $mysql->saveAnnonceur ( $fname, $lname, $uname, $pwd );
+	$result = $mysql->saveAnnonceur ( $fname, $lname, $uname, $pwd, $phone, $email, $adress, $IBAN );
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
 		$_SESSION ['msg'] = 'Username already exists';
@@ -87,14 +111,18 @@ function register($mysql) {
 				$fname,
 				$lname,
 				$uname,
-				$pwd 
+				$pwd,
+				$phone,
+				$email,
+				$adress,
+				$IBAN
 		);
 	} else {
 		$_SESSION ['rank'] = 'top';
 		$_SESSION ['msg'] = 'Registration succeeded';
 	}
 	
-	header ( "location:../Vue/register.php" );
+	header ( "location:../Vue/AccueilAnnonceur.php" );
 	exit ();
 }
 

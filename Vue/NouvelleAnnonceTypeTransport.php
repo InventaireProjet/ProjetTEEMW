@@ -2,7 +2,7 @@
 require_once '../Model/class.Annonce.php';
 require_once '../Controller/fonctionsGenerales.php';
 include_once '../Vue/header.inc';
-controleLogin ();
+//controleLogin ();
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
 $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNouvTransport_data'] : array (

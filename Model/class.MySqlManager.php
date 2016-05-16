@@ -6,10 +6,10 @@ class MySqlManager {
 	public function __construct() {
 		$this->_conn = new MySqlConn ();
 	}
-	public function saveAnnonceur($fname, $lname, $uname, $pwd) {
+	public function saveAnnonceur($fname, $lname, $uname, $pwd, $phone, $email, $adress, $IBAN) {
 		$pwd = sha1 ( $pwd );
-		$query = "INSERT into Annonceur(Prenom, Nom, UserName,
-		MotDePasse)VALUES('$fname', '$lname', '$uname', '$pwd');";
+		$query = "INSERT into annonceur(Prenom, Nom, UserName,
+		MotDePasse, Telephone, Email, Adresse, IBAN)VALUES('$fname', '$lname', '$uname', '$pwd', '$phone', '$email', '$adress', '$IBAN');";
 		return $this->_conn->executeQuery ( $query );
 	}
 	public function checkLogin($uname, $pwd) {
