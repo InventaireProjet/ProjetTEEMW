@@ -12,6 +12,11 @@ class MySqlManager {
 		MotDePasse, Telephone, Email, Adresse, IBAN)VALUES('$fname', '$lname', '$uname', '$pwd', '$phone', '$email', '$adress', '$IBAN');";
 		return $this->_conn->executeQuery ( $query );
 	}
+	public function saveTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse) {
+		$pwd = sha1 ( $pwd );
+		$query = "INSERT into transporteur(NomSociete, Telephone, Email, Username, MotDePasse, Adresse)VALUES('$nomSociete', '$telephone', '$email', '$username', '$pwd', '$adresse');";
+		return $this->_conn->executeQuery ( $query );
+	}
 	public function checkLogin($uname, $pwd) {
 		$pwd = sha1 ( $pwd );
 		$query = "SELECT * FROM Annonceur WHERE UserName='$uname' AND

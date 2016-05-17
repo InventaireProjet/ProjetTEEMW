@@ -11,7 +11,7 @@ class MySqlConn {
 	
 	//Connexion en local
 //  	const PORT = "3306";
-//  	//const DATABASE = "c645_1";
+  	//const DATABASE = "c645_1";
 //  	const DATABASE = "grp5";
 //  	const USER = "c645_1";
 //  	const PWD = "c645_1";

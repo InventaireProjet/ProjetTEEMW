@@ -8,6 +8,11 @@ if (isset ( $_POST ['action'] )) {
 	if ($_POST ['action'] == 'enregistrerAnnonceur') {
 		enregistrerAnnonceur ( $mysql );
 	}
+if (isset ( $_POST ['action'] )) {
+	if ($_POST ['action'] == 'enregistrerTransporteur') {
+		enregistrerTransporteur ( $mysql);
+	}
+}
 	
 	if ($_POST ['action'] == 'connecterAnnonceur') {
 		identifierAnnonceur ( $mysql );
@@ -123,6 +128,79 @@ function enregistrerAnnonceur($mysql) {
 	}
 	
 	header ( "location:../Vue/AccueilAnnonceur.php" );
+	exit ();
+}
+
+function enregistrerTransporteur($mysql) {
+	$nomSociete = $_POST ['NomSociete'];
+	$telephone = $_POST ['Telephone'];
+	$email = $_POST ['Email'];
+	$username = $_POST ['Utilisateur'];
+	$motDePasse = $_POST ['MotDePasse'];
+	$adresse = $_POST ['Adresse'];
+	
+	if (empty ( $adresse )) {
+		$rank = 5;
+		$msg = "Set an adress";
+	}
+	if (empty ( $motDePasse )) {
+		$rank = 4;
+		$msg = "Set a password";
+	}
+	if (empty ( $username )) {
+		$rank = 3;
+		$msg = "Set an username";
+	}
+
+	if (empty ( $email )) {
+		$rank = 2;
+		$msg = "Set an email";
+	}
+
+	if (empty ( $telephone )) {
+		$rank = 1;
+		$msg = "Set a phone number";
+	}
+
+	if (empty ( $nomSociete )) {
+		$rank = 0;
+		$msg = "Set a enterprise name";
+	}
+	if (isset ( $rank )) {
+		$_SESSION ['rank'] = $rank;
+		$_SESSION ['msg'] = $msg;
+		$_SESSION ['form_data'] = array (
+				$nomSociete,
+				$telephone,
+				$email,
+				$username,
+				$motDePasse,
+				$adresse
+				
+		);
+		header ( "location:../Vue/InscriptionTransporteur.php" );
+		exit ();
+	}
+
+	$result = $mysql->saveTransporteur ( $nomSociete, $telephone, $email, $username, $motDePasse, $adresse);
+	if ($result == 'doublon') {
+		$_SESSION ['rank'] = 3;
+		$_SESSION ['msg'] = 'Username already exists';
+		$_SESSION ['form_data'] = array (
+				$nomSociete,
+				$telephone,
+				$email,
+				$username,
+				$motDePasse,
+				$adresse
+				
+		);
+	} else {
+		$_SESSION ['rank'] = 'top';
+		$_SESSION ['msg'] = 'Registration succeeded';
+	}
+
+	header ( "location:../Vue/AccueilTransporteur.php" );
 	exit ();
 }
 
