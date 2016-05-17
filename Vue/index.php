@@ -25,7 +25,7 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 			</table>
 
 		</form>
-		<br /> <a href="register.php">Register</a>
+		<br /> <a href="InscriptionAnnonceur.php">Register</a>
 
 
  <?php
