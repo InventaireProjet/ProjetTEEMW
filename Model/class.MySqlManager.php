@@ -17,7 +17,7 @@ class MySqlManager {
 		$query = "INSERT into Transporteur(NomSociete, Telephone, Email, Username, MotDePasse, Adresse)VALUES('$nomSociete', '$telephone', '$email', '$username', '$pwd', '$adresse');";
 		return $this->_conn->executeQuery ( $query );
 	}
-	public function checkLogin($uname, $pwd) {
+	public function VerifierLoginAnnonceur($uname, $pwd) {
 		$pwd = sha1 ( $pwd );
 		$query = "SELECT * FROM Annonceur WHERE UserName='$uname' AND
 		MotDePasse='$pwd'";
@@ -26,6 +26,16 @@ class MySqlManager {
 		if (! $row)
 			return false;
 		return new Annonceur ( $row ['IDAnnonceur'], $row ['Prenom'], $row ['Nom'], $row ['UserName'], $row ['MotDePasse'], $row ['Telephone'], $row ['Email'], $row ['Adresse'] );
+	}
+	public function VerifierLoginTransporteur($uname, $pwd) {
+		$pwd = sha1 ( $pwd );
+		$query = "SELECT * FROM Transporteur WHERE UserName='$uname' AND
+		MotDePasse='$pwd'";
+		$result = $this->_conn->selectDB ( $query );
+		$row = $result->fetch ();
+		if (! $row)
+			return false;
+			return new Transporteur ( $row ['IDTransporteur'], $row ['NomSociete'], $row ['Telephone'], $row ['UserName'], $row ['MotDePasse'], $row ['Email'], $row ['Adresse'] );
 	}
 	public function enregistrerAnnonce($nom, $datedep, $adressedep, $npadep, $localdep, $paysdep, $datearr, $adressearr, $npaarr, $localarr, $paysarr, $type, $desc, $qte, $vol, $pds, $idAnnonceur) {
 		

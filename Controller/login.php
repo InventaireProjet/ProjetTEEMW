@@ -30,14 +30,14 @@ if (isset ( $_GET ['action'] )) {
 function identifierAnnonceur($mysql) {
 	$NomUtilisateur = $_POST ['NomUtilisateur'];
 	$Mdp = $_POST ['MotDePasse'];
-	$result = $mysql->checkLogin ( $NomUtilisateur, $Mdp );
+	$result = $mysql->VerifierLoginAnnonceur ( $NomUtilisateur, $Mdp );
 	if (! $result) {
 		$_SESSION ['form_data'] = array (
 				$NomUtilisateur,
 				$Mdp 
 		);
 		$_SESSION ['msg'] = 'Nom d utilisateur ou mot de passe incorrect';
-		header ( "location:../Vue/Accueil.php" );
+		header ( "location:../Vue/Index.php" );
 		exit ();
 	}
 	$_SESSION ['msg'] = 'Bienvenue ' . $result->Prenom . ' ' . $result->Nom;
@@ -48,14 +48,14 @@ function identifierAnnonceur($mysql) {
 function identifierTransporteur($mysql) {
 	$NomUtilisateur = $_POST ['NomUtilisateur'];
 	$Mdp = $_POST ['MotDePasse'];
-	$result = $mysql->checkLogin ( $NomUtilisateur, $Mdp );
+	$result = $mysql->VerifierLoginTransporteur ( $NomUtilisateur, $Mdp );
 	if (! $result) {
 		$_SESSION ['form_data'] = array (
 				$NomUtilisateur,
 				$Mdp
 		);
 		$_SESSION ['msg'] = 'Nom d utilisateur ou mot de passe incorrect';
-		header ( "location:../Vue/Accueil.php" );
+		header ( "location:../Vue/Index.php" );
 		exit ();
 	}
 	$_SESSION ['msg'] = 'Bienvenue ' . $result->Prenom . ' ' . $result->Nom;
