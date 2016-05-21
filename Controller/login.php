@@ -24,20 +24,20 @@ if (isset ( $_GET ['action'] )) {
 	}
 }
 function identifierAnnonceur($mysql) {
-	$uname = $_POST ['usr'];
-	$pwd = $_POST ['pwd'];
-	$result = $mysql->checkLogin ( $uname, $pwd );
+	$NomUtilisateur = $_POST ['NomUtilisateur'];
+	$Mdp = $_POST ['MotDePasse'];
+	$result = $mysql->checkLogin ( $NomUtilisateur, $Mdp );
 	if (! $result) {
 		$_SESSION ['form_data'] = array (
-				$uname,
-				$pwd 
+				$NomUtilisateur,
+				$Mdp 
 		);
-		$_SESSION ['msg'] = 'Username or password incorrect';
+		$_SESSION ['msg'] = 'Nom d utilisateur ou mot de passe incorrect';
 		header ( "location:../Vue/index.php" );
 		exit ();
 	}
-	$_SESSION ['msg'] = 'Welcome ' . $result->Prenom . ' ' . $result->Nom;
-	$_SESSION ['user'] = $result;
+	$_SESSION ['msg'] = 'Bienvenue ' . $result->Prenom . ' ' . $result->Nom;
+	$_SESSION ['utilisateur'] = $result;
 	header ( "location:../Vue/NouvelleAnnonceTypeTransport.php" );
 	exit ();
 }
@@ -47,84 +47,84 @@ function logout() {
 	exit ();
 }
 function enregistrerAnnonceur($mysql) {
-	$fname = $_POST ['firstname'];
-	$lname = $_POST ['lastname'];
-	$uname = $_POST ['username'];
-	$pwd = $_POST ['password'];
-	$phone = $_POST ['phone'];
-	$email = $_POST ['Email'];
-	$adress = $_POST ['adress'];
+	$Prenom = $_POST ['Prenom'];
+	$Nom = $_POST ['Nom'];
+	$NomUtilisateur = $_POST ['NomUtilisateur'];
+	$Mdp = $_POST ['Mdp'];
+	$Téléphone = $_POST ['Telephone'];
+	$Email = $_POST ['Email'];
+	$Adresse = $_POST ['Adresse'];
 	$IBAN = $_POST ['IBAN'];
 	
 	if (empty ( $IBAN )) {
 		$rank = 7;
-		$msg = "Set an IBAN";
+		$msg = "Inscrivez un IBAN";
 	}
-	if (empty ( $adress )) {
+	if (empty ( $Adresse )) {
 		$rank = 6;
-		$msg = "Set an adress";
+		$msg = "Inscrivez une adresse";
 	}
-	if (empty ( $email )) {
+	if (empty ( $Email )) {
 		$rank = 5;
-		$msg = "Set an email";
+		$msg = "Inscrivez un email";
 	}
-	if (empty ( $phone )) {
+	if (empty ( $Téléphone )) {
 		$rank = 4;
-		$msg = "Set a phone number";
+		$msg = "Inscrivez un numéro de téléphone";
 	}
-	if (empty ( $pwd )) {
+	if (empty ( $Mdp )) {
 		$rank = 3;
-		$msg = "Set a password";
+		$msg = "Inscrivez un mot de passe";
 	}
 	
-	if (empty ( $uname )) {
+	if (empty ( $NomUtilisateur )) {
 		$rank = 2;
-		$msg = "Set a username";
+		$msg = "Inscrivez un nom d'utilisateur";
 	}
 	
-	if (empty ( $lname )) {
+	if (empty ( $Nom )) {
 		$rank = 1;
-		$msg = "Set a last name";
+		$msg = "Inscrivez un nom";
 	}
 	
-	if (empty ( $fname )) {
+	if (empty ( $Prenom )) {
 		$rank = 0;
-		$msg = "Set a first name";
+		$msg = "Inscrivez un prénom";
 	}
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
 		$_SESSION ['msg'] = $msg;
 		$_SESSION ['form_data'] = array (
-				$fname,
-				$lname,
-				$uname,
-				$pwd,
-				$phone,
-				$email,
-				$adress,
+				$Prenom,
+				$Nom,
+				$NomUtilisateur,
+				$Mdp,
+				$Téléphone,
+				$Email,
+				$Adresse,
 				$IBAN
 		);
 		header ( "location:../Vue/InscriptionAnnonceur.php" );
 		exit ();
 	}
 	
-	$result = $mysql->saveAnnonceur ( $fname, $lname, $uname, $pwd, $phone, $email, $adress, $IBAN );
+	$result = $mysql->enregistrerAnnonceur ( $Prenom, $Nom, $NomUtilisateur, $Mdp, $Téléphone, $Email, $Adresse, $IBAN );
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
-		$_SESSION ['msg'] = 'Username already exists';
+		$_SESSION ['msg'] = 'Le nom d utilisateur existe déjà';
 		$_SESSION ['form_data'] = array (
-				$fname,
-				$lname,
-				$uname,
-				$pwd,
-				$phone,
-				$email,
-				$adress,
+				$Prenom,
+				$Nom,
+				$NomUtilisateur,
+				$Mdp,
+				$Téléphone,
+				$Email,
+				$Adresse,
 				$IBAN
 		);
 	} else {
 		$_SESSION ['rank'] = 'top';
-		$_SESSION ['msg'] = 'Registration succeeded';
+		$_SESSION ['msg'] = 'Inscription effectuée';
 	}
 	
 	header ( "location:../Vue/AccueilAnnonceur.php" );
@@ -141,30 +141,30 @@ function enregistrerTransporteur($mysql) {
 	
 	if (empty ( $adresse )) {
 		$rank = 5;
-		$msg = "Set an adress";
+		$msg = "Indiquez une adresse";
 	}
 	if (empty ( $motDePasse )) {
 		$rank = 4;
-		$msg = "Set a password";
+		$msg = "Indiquez un mot de passe";
 	}
 	if (empty ( $username )) {
 		$rank = 3;
-		$msg = "Set an username";
+		$msg = "Indiquez un nom d'utilisateur";
 	}
 
 	if (empty ( $email )) {
 		$rank = 2;
-		$msg = "Set an email";
+		$msg = "Indiquez un email";
 	}
 
 	if (empty ( $telephone )) {
 		$rank = 1;
-		$msg = "Set a phone number";
+		$msg = "Indiquez un numéro de téléphone";
 	}
 
 	if (empty ( $nomSociete )) {
 		$rank = 0;
-		$msg = "Set a enterprise name";
+		$msg = "Indiquez un nom de société";
 	}
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
@@ -182,10 +182,10 @@ function enregistrerTransporteur($mysql) {
 		exit ();
 	}
 
-	$result = $mysql->saveTransporteur ( $nomSociete, $telephone, $email, $username, $motDePasse, $adresse);
+	$result = $mysql->enregistrerTransporteur ( $nomSociete, $telephone, $email, $username, $motDePasse, $adresse);
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
-		$_SESSION ['msg'] = 'Username already exists';
+		$_SESSION ['msg'] = 'Le nom d utilisateur existe déjà';
 		$_SESSION ['form_data'] = array (
 				$nomSociete,
 				$telephone,
@@ -197,7 +197,7 @@ function enregistrerTransporteur($mysql) {
 		);
 	} else {
 		$_SESSION ['rank'] = 'top';
-		$_SESSION ['msg'] = 'Registration succeeded';
+		$_SESSION ['msg'] = 'Inscription effectuée';
 	}
 
 	header ( "location:../Vue/AccueilTransporteur.php" );

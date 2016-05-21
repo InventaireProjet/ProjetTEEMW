@@ -6,13 +6,13 @@ class MySqlManager {
 	public function __construct() {
 		$this->_conn = new MySqlConn ();
 	}
-	public function saveAnnonceur($fname, $lname, $uname, $pwd, $phone, $email, $adress, $IBAN) {
-		$pwd = sha1 ( $pwd );
+	public function enregistrerAnnonceur($Prenom, $Nom, $Utilisateur, $Mdp, $Telephone, $Email, $Adresse, $IBAN) {
+		$Mdp = sha1 ( $Mdp );
 		$query = "INSERT into annonceur(Prenom, Nom, UserName,
-		MotDePasse, Telephone, Email, Adresse, IBAN)VALUES('$fname', '$lname', '$uname', '$pwd', '$phone', '$email', '$adress', '$IBAN');";
+		MotDePasse, Telephone, Email, Adresse, IBAN)VALUES('$Prenom', '$Nom', '$Utilisateur', '$Mdp', '$Telephone', '$Email', '$Adresse', '$IBAN');";
 		return $this->_conn->executeQuery ( $query );
 	}
-	public function saveTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse) {
+	public function enregistrerTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse) {
 		$pwd = sha1 ( $pwd );
 		$query = "INSERT into transporteur(NomSociete, Telephone, Email, Username, MotDePasse, Adresse)VALUES('$nomSociete', '$telephone', '$email', '$username', '$pwd', '$adresse');";
 		return $this->_conn->executeQuery ( $query );

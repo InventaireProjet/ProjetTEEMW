@@ -22,40 +22,40 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
   <?php if($rank=='top') echo $msg;?>
   <table>
 				<tr>
-					<td>First name:</td>
-					<td><input type="text" name="firstname"
+					<td>Prénom:</td>
+					<td><input type="text" name="Prenom"
 						value="<?php
 						echo $form_data [0];
 						?>"> 
     <?php if($rank==1) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Last name:</td>
-					<td><input type="text" name="lastname"
+					<td>Nom:</td>
+					<td><input type="text" name="Nom"
 						value="<?php
 						echo $form_data [1];
 						?>"> 
     <?php if($rank==2) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>User name:</td>
-					<td><input type="text" name="username"
+					<td>Nom d'utilisateur:</td>
+					<td><input type="text" name="NomUtilisateur"
 						value="<?php
 						echo $form_data [2];
 						?>"> 
-    <?php if($rank==3) echo $msg;?></td>
+   <?php if($rank==3) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Password:</td>
-					<td><input type="password" name="password"
+					<td>Mot de passe:</td>
+					<td><input type="text" name="Mdp"
 						value="<?php
 						echo $form_data [3];
 						?>"> 
 	<?php if($rank==4) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Phone:</td>
-					<td><input type="text" name="phone"
+					<td>Téléphone:</td>
+					<td><input type="text" name="Telephone"
 						value="<?php
 						echo $form_data [4];
 						?>"> 
@@ -70,8 +70,8 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	<?php if($rank==6) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Adress:</td>
-					<td><input type="text" name="adress"
+					<td>Adresse:</td>
+					<td><input type="text" name="Adresse"
 						value="<?php
 						echo $form_data [6];
 						?>"> 
