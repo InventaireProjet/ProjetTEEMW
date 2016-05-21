@@ -17,7 +17,7 @@ function enregistrerDevis($mysql) {
 	
 	if (empty ( $description )) {
 		$rank = 3;
-		$msg = "Entrer une description de l'offre proposée dans ce devis";
+		$msg = "Entrer une description de l'offre proposée dans ce devis d'été";
 	}
 	
 	if (verificationDate ( $dateExpiration ) == false) {
