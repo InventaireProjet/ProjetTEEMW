@@ -6,20 +6,20 @@ function controleLogin() {
 	}
 }
 
-// Vérification de l'entrée de la date
+// VÃ©rification de l'entrÃ©e de la date
 function verificationDate($date) {
 	
-	// Vérification du format de la date
+	// VÃ©rification du format de la date
 	if (testdate ( $date ) == true) {
 		list ( $jour, $mois, $annee ) = explode ( '/', $date );
 		
-		// Vérification de la validité de l'entrée
+		// VÃ©rification de la validitÃ© de l'entrÃ©e
 		if (checkdate ( $mois, $jour, $annee ) == true) {
 			
-			// Conversion des données entrées en un nombre
+			// Conversion des donnÃ©es entrÃ©es en un nombre
 			$dateNombre = mktime ( 0, 0, 0, $mois, $jour, $annee );
 			
-			// Vérification que la date entrée est postérieure à aujourd'hui
+			// VÃ©rification que la date entrÃ©e est postÃ©rieure Ã  aujourd'hui
 			if ($dateNombre > time ()) {
 				
 				return true;
@@ -49,23 +49,23 @@ function comparaisonDates($date1, $heure1, $minutes1, $date2, $heure2, $minutes2
 	}
 	
 	
-	// Conversion des données entrées en nombres
+	// Conversion des donnÃ©es entrÃ©es en nombres
 	$date1Nombre = mktime ( $heure1, $minutes1, 0, $mois1, $jour1, $annee1 );
 	$date2Nombre = mktime ( $heure2, $minutes2, 0, $mois2, $jour2, $annee2 );
 	
-	// Vérification que la date2 est postérieure à la date1
+	// VÃ©rification que la date2 est postÃ©rieure Ã  la date1
 	if ($date1Nombre <= $date2Nombre) {
 		
 		return true;
 	}
 }
 
-// Vérification du format de la date
+// VÃ©rification du format de la date
 function testDate($value) {
 	return preg_match ( '^\d{1,2}/\d{1,2}/\d{4}$^', $value );
 }
 
-// Récupération du résultat de la requête dans la BDD qui renvoie un array des types de transport
+// RÃ©cupÃ©ration du rÃ©sultat de la requÃªte dans la BDD qui renvoie un array des types de transport
 function afficherTypeTransport() {
 	$mysql = new MySqlManager ();
 	$result = $mysql->afficherTypeTransport ();
@@ -87,7 +87,7 @@ function dateSQL($date, $heure, $minutes) {
 	return $dateSQL;
 }
 
-//Liste triée des pays concernés par le service
+//Liste triÃ©e des pays concernÃ©s par le service
 function listePays() {
 	$array = Array('Suisse', 'France', 'Italie', 'Allemagne', 'Autriche', 'Liechtenstein', 'Belgique', 'Pays-Bas', 'Espagne', 'Portugal', 'Luxembourg');
 	sort($array);

@@ -20,7 +20,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
   <?php if($rank=='top') echo $msg;?>
   <table>
 				<tr>
-					<td>Nom de la société:</td>
+					<td>Nom de la sociÃ©tÃ©:</td>
 					<td><input type="text" name="NomSociete"
 						value="<?php
 						echo $form_data [0];
@@ -28,7 +28,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
     <?php if($rank==1) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Numéro de téléphone:</td>
+					<td>NumÃ©ro de tÃ©lÃ©phone:</td>
 					<td><input type="text" name="Telephone"
 						value="<?php
 						echo $form_data [1];

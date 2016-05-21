@@ -11,7 +11,7 @@ session_start ();
 <head>
 <title>TEEMW</title>
 
-<!-- ajouter référence feuille de style -->
+<!-- ajouter rÃ©fÃ©rence feuille de style -->
 <link rel="stylesheet" href="../CSS/styles.css" type="text/css">
 
 <!--  Utilisation de Bootstrap pour la partie HTML -->

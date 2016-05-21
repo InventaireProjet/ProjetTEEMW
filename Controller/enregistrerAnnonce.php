@@ -54,7 +54,7 @@ function enregistrerTypeTransport($mysql) {
 	if (comparaisonDates ( $datedep, $heuredep, $minutesdep, $datearr, $heurearr, $minutesarr ) == false) {
 		
 		$rank = 7;
-		$msg = "Entrer une date d'arrivée postérieure é la date de départ";
+		$msg = "Entrer une date d'arrivée postérieure à la date de départ";
 	}
 	
 	if (verificationDate ( $datearr ) == false) {

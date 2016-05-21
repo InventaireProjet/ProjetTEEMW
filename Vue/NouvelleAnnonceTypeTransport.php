@@ -39,14 +39,14 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
     <?php if($rank==1) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Date de départ (format jj/mm/aaaa) :</td>
+					<td>Date de dÃ©part (format jj/mm/aaaa) :</td>
 					<td><input type="datetime" name="DateDepart"
 						value="<?php
 						echo $form_data [1];
 						?>"> <?php if($rank==2) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Heure de départ :</td>
+					<td>Heure de dÃ©part :</td>
 					<td><input type="number" min="0" max="23" name="HeureDepart"
 						value="<?php
 						echo $form_data [11];
@@ -57,7 +57,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 
 				</tr>
 				<tr>
-					<td>Adresse de départ :</td>
+					<td>Adresse de dÃ©part :</td>
 					<td><input type="text" name="AdresseDepart"
 						value="<?php
 						echo $form_data [2];
@@ -65,7 +65,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
     <?php if($rank==3) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>NPA de départ :</td>
+					<td>NPA de dÃ©part :</td>
 					<td><input type="text" name="NPADepart"
 						value="<?php
 						echo $form_data [3];
@@ -73,7 +73,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
     <?php if($rank==4) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Localité de départ :</td>
+					<td>LocalitÃ© de dÃ©part :</td>
 					<td><input type="text" name="LocaliteDepart"
 						value="<?php
 						echo $form_data [4];
@@ -81,16 +81,16 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
     <?php if($rank==5) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Pays de départ :</td>
+					<td>Pays de dÃ©part :</td>
 					<td><select name="PaysDepart">
 			<?php
-			// Récupération des pays
+			// RÃ©cupÃ©ration des pays
 			$pays = listePays ();
 			echo '<option value="">Choisissez un pays</option>';
-			// Entrée des options de la dropdownlist
+			// EntrÃ©e des options de la dropdownlist
 			foreach ( $pays as $valeur ) {
 				
-				// Si un choix a déjà été effectué durant la session, il est sélectionné par défaut
+				// Si un choix a dÃ©jÃ  Ã©tÃ© effectuÃ© durant la session, il est sÃ©lectionnÃ© par dÃ©faut
 				if (strcmp ( $form_data [5], $valeur ) == 0) {
 					
 					echo '<option value="' . $valeur . '" selected>' . $valeur . '</option>';
@@ -103,7 +103,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 		<?php if($rank==6) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Date d'arrivée (format jj/mm/aaaa) :</td>
+					<td>Date d'arrivÃ©e (format jj/mm/aaaa) :</td>
 					<td><input type="datetime" name="DateArrivee"
 						value="<?php
 						echo $form_data [6];
@@ -111,7 +111,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
     <?php if($rank==7) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Heure d'arrivée :</td>
+					<td>Heure d'arrivÃ©e :</td>
 					<td><input type="number" min="0" max="23" name="HeureArrivee"
 						value="<?php
 						echo $form_data [13];
@@ -122,7 +122,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 
 				</tr>
 				<tr>
-					<td>Adresse d'arrivée :</td>
+					<td>Adresse d'arrivÃ©e :</td>
 					<td><input type="text" name="AdresseArrivee"
 						value="<?php
 						echo $form_data [7];
@@ -130,7 +130,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
     <?php if($rank==8) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>NPA d'arrivée :</td>
+					<td>NPA d'arrivÃ©e :</td>
 					<td><input type="text" name="NPAArrivee"
 						value="<?php
 						echo $form_data [8];
@@ -138,7 +138,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
     <?php if($rank==9) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Localité d'arrivée :</td>
+					<td>LocalitÃ© d'arrivÃ©e :</td>
 					<td><input type="text" name="LocaliteArrivee"
 						value="<?php
 						echo $form_data [9];
@@ -146,16 +146,16 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
     <?php if($rank==10) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Pays d'arrivée :</td>
+					<td>Pays d'arrivÃ©e :</td>
 					<td><select name="PaysArrivee">
 	<?php
-	// Récupération des pays
+	// RÃ©cupÃ©ration des pays
 	$pays = listePays ();
 	echo '<option value="">Choisissez un pays</option>';
-	// Entrée des options de la dropdownlist
+	// EntrÃ©e des options de la dropdownlist
 	foreach ( $pays as $valeur ) {
 		
-		// Si un choix a déjà été effectué durant la session, il est sélectionné par défaut
+		// Si un choix a dÃ©jÃ  Ã©tÃ© effectuÃ© durant la session, il est sÃ©lectionnÃ© par dÃ©faut
 		if (strcmp ( $form_data [10], $valeur ) == 0) {
 			
 			echo '<option value="' . $valeur . '" selected>' . $valeur . '</option>';
@@ -169,7 +169,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 				</tr>
 				<tr>
 					<td colspan="2" align="left"><input type="submit" name="action"
-						value="Entrer les données sur le transport"></td>
+						value="Entrer les donnÃ©es sur le transport"></td>
 				</tr>
 			</table>
 		</form>

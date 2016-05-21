@@ -51,7 +51,7 @@ function enregistrerAnnonceur($mysql) {
 	$Nom = $_POST ['Nom'];
 	$NomUtilisateur = $_POST ['NomUtilisateur'];
 	$Mdp = $_POST ['Mdp'];
-	$TÈlÈphone = $_POST ['Telephone'];
+	$T√©l√©phone = $_POST ['Telephone'];
 	$Email = $_POST ['Email'];
 	$Adresse = $_POST ['Adresse'];
 	$IBAN = $_POST ['IBAN'];
@@ -68,9 +68,9 @@ function enregistrerAnnonceur($mysql) {
 		$rank = 5;
 		$msg = "Inscrivez un email";
 	}
-	if (empty ( $TÈlÈphone )) {
+	if (empty ( $T√©l√©phone )) {
 		$rank = 4;
-		$msg = "Inscrivez un numÈro de tÈlÈphone";
+		$msg = "Inscrivez un num√©ro de t√©l√©phone";
 	}
 	if (empty ( $Mdp )) {
 		$rank = 3;
@@ -89,7 +89,7 @@ function enregistrerAnnonceur($mysql) {
 	
 	if (empty ( $Prenom )) {
 		$rank = 0;
-		$msg = "Inscrivez un prÈnom";
+		$msg = "Inscrivez un pr√©nom";
 	}
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
@@ -99,7 +99,7 @@ function enregistrerAnnonceur($mysql) {
 				$Nom,
 				$NomUtilisateur,
 				$Mdp,
-				$TÈlÈphone,
+				$T√©l√©phone,
 				$Email,
 				$Adresse,
 				$IBAN
@@ -108,23 +108,23 @@ function enregistrerAnnonceur($mysql) {
 		exit ();
 	}
 	
-	$result = $mysql->enregistrerAnnonceur ( $Prenom, $Nom, $NomUtilisateur, $Mdp, $TÈlÈphone, $Email, $Adresse, $IBAN );
+	$result = $mysql->enregistrerAnnonceur ( $Prenom, $Nom, $NomUtilisateur, $Mdp, $T√©l√©phone, $Email, $Adresse, $IBAN );
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
-		$_SESSION ['msg'] = 'Le nom d utilisateur existe dÈj‡';
+		$_SESSION ['msg'] = 'Le nom d utilisateur existe d√©j√†';
 		$_SESSION ['form_data'] = array (
 				$Prenom,
 				$Nom,
 				$NomUtilisateur,
 				$Mdp,
-				$TÈlÈphone,
+				$T√©l√©phone,
 				$Email,
 				$Adresse,
 				$IBAN
 		);
 	} else {
 		$_SESSION ['rank'] = 'top';
-		$_SESSION ['msg'] = 'Inscription effectuÈe';
+		$_SESSION ['msg'] = 'Inscription effectu√©e';
 	}
 	
 	header ( "location:../Vue/AccueilAnnonceur.php" );
@@ -159,12 +159,12 @@ function enregistrerTransporteur($mysql) {
 
 	if (empty ( $telephone )) {
 		$rank = 1;
-		$msg = "Indiquez un numÈro de tÈlÈphone";
+		$msg = "Indiquez un num√©ro de t√©l√©phone";
 	}
 
 	if (empty ( $nomSociete )) {
 		$rank = 0;
-		$msg = "Indiquez un nom de sociÈtÈ";
+		$msg = "Indiquez un nom de soci√©t√©";
 	}
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
@@ -185,7 +185,7 @@ function enregistrerTransporteur($mysql) {
 	$result = $mysql->enregistrerTransporteur ( $nomSociete, $telephone, $email, $username, $motDePasse, $adresse);
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
-		$_SESSION ['msg'] = 'Le nom d utilisateur existe dÈj‡';
+		$_SESSION ['msg'] = 'Le nom d utilisateur existe d√©j√†';
 		$_SESSION ['form_data'] = array (
 				$nomSociete,
 				$telephone,
@@ -197,7 +197,7 @@ function enregistrerTransporteur($mysql) {
 		);
 	} else {
 		$_SESSION ['rank'] = 'top';
-		$_SESSION ['msg'] = 'Inscription effectuÈe';
+		$_SESSION ['msg'] = 'Inscription effectu√©e';
 	}
 
 	header ( "location:../Vue/AccueilTransporteur.php" );

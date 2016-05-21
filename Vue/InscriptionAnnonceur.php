@@ -22,7 +22,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
   <?php if($rank=='top') echo $msg;?>
   <table>
 				<tr>
-					<td>Prénom:</td>
+					<td>PrÃ©nom:</td>
 					<td><input type="text" name="Prenom"
 						value="<?php
 						echo $form_data [0];
@@ -54,7 +54,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	<?php if($rank==4) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>Téléphone:</td>
+					<td>TÃ©lÃ©phone:</td>
 					<td><input type="text" name="Telephone"
 						value="<?php
 						echo $form_data [4];

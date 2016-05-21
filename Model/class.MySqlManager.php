@@ -50,7 +50,7 @@ class MySqlManager {
 			$query = "INSERT into RelationMarchandiseTransportSet (IDMarchandise,IDTypeTransport) VALUES('$idMarchandise', '$type');";
 			$this->_conn->executeQuery ( $query );
 			
-			// TODO G�rer lieu
+			// TODO Gérer lieu
 			$query = "INSERT into Annonce (Nom, DateDepart, DateArrivee,
 			AdresseDepart, AdresseArrivee, EnCours, TransportRealise, IDMarchandise, IDLieuDepart, IDLieuArrivee, IDAnnonceur )VALUES('$nom', '$datedep', '$datearr', '$adressedep', '$adressearr', true, false, '$idMarchandise', '$idLieuDepart', '$idLieuArrivee','$idAnnonceur');";
 			$this->_conn->executeQuery ( $query );
@@ -62,7 +62,7 @@ class MySqlManager {
 		}
 	}
 	public function enregistrerDevis($prix, $dateExpiration, $description, /*$idTransporteur,*/ $idAnnonceur) {
-		// TODO G�rer FK transporteur et annonce ==> pour test FK annonceur
+		// TODO Gérer FK transporteur et annonce ==> pour test FK annonceur
 		try {		
 		$this->_conn->getConnection ()->beginTransaction ();
 		$query = "INSERT into Devis (Prix, DateExpiration, Description, EnCours, Accepte, IDTransporteur, IDAnnonce )VALUES('$prix', '$dateExpiration', '$description', true, false, '$idAnnonceur', 1);";
@@ -76,7 +76,7 @@ class MySqlManager {
 		}
 	}
 	
-	// R�cup�ration des types de transport et renvoi d'un array
+	// Récupération des types de transport et renvoi d'un array
 	public function afficherTypeTransport() {
 		$query = "SELECT * FROM TypeTransport";
 		$result = $this->_conn->selectDB ( $query );
