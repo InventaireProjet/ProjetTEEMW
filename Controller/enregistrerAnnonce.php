@@ -6,7 +6,7 @@ include_once '../Vue/header.inc';
 $mysql = new MySqlManager ();
 
 if (isset ( $_POST ['action'] )) {
-	if ($_POST ['action'] == 'Entrer les données sur le transport') {
+	if ($_POST ['action'] == 'Entrer les donnÃ©es sur le transport') {
 		enregistrerTypeTransport ( $mysql );
 	}
 	
@@ -33,60 +33,60 @@ function enregistrerTypeTransport($mysql) {
 	
 	if (empty ( $paysarr )) {
 		$rank = 11;
-		$msg = "Entrer un pays d'arrivée";
+		$msg = "Entrer un pays d'arrivÃ©e";
 	}
 	
 	if (empty ( $localarr )) {
 		$rank = 10;
-		$msg = "Entrer une localité d'arrivée";
+		$msg = "Entrer une localitÃ© d'arrivÃ©e";
 	}
 	
 	if (empty ( $npaarr )) {
 		$rank = 9;
-		$msg = "Entrer un NPA d'arrivée";
+		$msg = "Entrer un NPA d'arrivÃ©e";
 	}
 	
 	if (empty ( $adressearr )) {
 		$rank = 8;
-		$msg = "Entrer une adresse d'arrivée";
+		$msg = "Entrer une adresse d'arrivÃ©e";
 	}
 	
 	if (comparaisonDates ( $datedep, $heuredep, $minutesdep, $datearr, $heurearr, $minutesarr ) == false) {
 		
 		$rank = 7;
-		$msg = "Entrer une date d'arrivée postérieure à la date de départ";
+		$msg = "Entrer une date d'arrivÃ©e postÃ©rieure Ã© la date de dÃ©part";
 	}
 	
 	if (verificationDate ( $datearr ) == false) {
 		
 		$rank = 7;
-		$msg = "Entrer une date d'arrivée valide";
+		$msg = "Entrer une date d'arrivÃ©e valide";
 	}
 	
 	if (empty ( $paysdep )) {
 		$rank = 6;
-		$msg = "Entrer un pays de départ";
+		$msg = "Entrer un pays de dÃ©part";
 	}
 	
 	if (empty ( $localdep )) {
 		$rank = 5;
-		$msg = "Entrer une localité de départ";
+		$msg = "Entrer une localitÃ© de dÃ©part";
 	}
 	
 	if (empty ( $npadep )) {
 		$rank = 4;
-		$msg = "Entrer un NPA de départ";
+		$msg = "Entrer un NPA de dÃ©part";
 	}
 	
 	if (empty ( $adressedep )) {
 		$rank = 3;
-		$msg = "Entrer une adresse de départ";
+		$msg = "Entrer une adresse de dÃ©part";
 	}
 	
 	if (verificationDate ( $datedep ) == false) {
 		
 		$rank = 2;
-		$msg = "Entrer une date de départ valide";
+		$msg = "Entrer une date de dÃ©part valide";
 	}
 	
 	if (empty ( $nom )) {
@@ -155,7 +155,7 @@ function enregistrerAnnonce($mysql) {
 	}
 	if (empty ( $qte )) {
 		$rank = 3;
-		$msg = "Entrer une quantité";
+		$msg = "Entrer une quantitÃ©";
 	}
 	if (empty ( $desc )) {
 		$rank = 2;
@@ -203,7 +203,7 @@ function enregistrerAnnonce($mysql) {
 			'' 
 	);
 	
-	// Récupération des données provenant du premier formulaire
+	// RÃ©cupÃ©ration des donnÃ©es provenant du premier formulaire
 	$nom = $form_data [0];
 	$datedep = $form_data [1];
 	$adressedep = $form_data [2];
@@ -220,7 +220,7 @@ function enregistrerAnnonce($mysql) {
 	$heurearr = $form_data [13];
 	$minutesarr= $form_data [14];
 	
-	// Récupération de l'ID de l'annonceur par la variable de session
+	// RÃ©cupÃ©ration de l'ID de l'annonceur par la variable de session
 	$annonceur = $_SESSION ['user'];
 	$idAnnonceur = $annonceur->IDAnnonceur;
 	
@@ -232,7 +232,7 @@ function enregistrerAnnonce($mysql) {
 	$resultat = $mysql->enregistrerAnnonce ( $nom, $dateSQLdep, $adressedep, $npadep, $localdep, $paysdep, $dateSQLarr, $adressearr, $npaarr, $localarr, $paysarr, $type, $desc, $qte, $vol, $poids, $idAnnonceur );
 	
 	if ($resultat == true) {
-		$_SESSION ['msg'] = 'Nouvelle annonce enregistrée';
+		$_SESSION ['msg'] = 'Nouvelle annonce enregistrÃ©e';
 		header ( "location:../Vue/AccueilAnnonceur.php" );
 	} 
 
