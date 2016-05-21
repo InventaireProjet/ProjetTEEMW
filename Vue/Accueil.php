@@ -1,5 +1,6 @@
 <?php
 require_once '../Model/class.Annonceur.php';
+require_once '../Model/class.Transporteur.php';
 include_once 'header.inc';
 
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
@@ -16,6 +17,8 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 
 			<h4>Transporteur</h4>
 			<div>
+			
+		<form method="post" action="../Controller/login.php"> 
 				<?php if($msg) echo $msg;?>
   
   <table align="center">
@@ -31,7 +34,7 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 				<tr></tr>
 				<tr>
 					<td colspan="2" align="right"><button type="submit" name="action"
-						value="connecter Transporteur">connexion</td>
+						value="connecterTransporteur">connexion</td>
 				</tr>
 			</table>
 
@@ -49,7 +52,7 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 
 			<h4>Annonceur</h4>
 			<div>
-
+				<form method="post" action="../Controller/login.php"> 
 				<?php if($msg) echo $msg;?>
   
   <table align="center">
@@ -63,7 +66,7 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 				</tr>
 				<tr>
 					<td colspan="2" align="right"><input type="submit" name="action"
-						value="connecter Annonceur"></td>
+						value="connecterAnnonceur"></td>
 				</tr>
 			</table>
 

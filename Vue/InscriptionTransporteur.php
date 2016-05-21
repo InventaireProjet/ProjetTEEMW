@@ -68,8 +68,8 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	    <?php if($rank==8) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="right"><input type="submit" name="action"
-						value="enregistrerTransporteur"></td>
+					<td colspan="2" align="right"><button type="submit" name="action"
+						value="enregistrerTransporteur">Inscription</td>
 				</tr>
 			</table>
 		</form>
