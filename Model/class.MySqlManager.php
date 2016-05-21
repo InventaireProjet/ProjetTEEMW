@@ -9,13 +9,18 @@ class MySqlManager {
 	}
 	public function enregistrerAnnonceur($Prenom, $Nom, $Utilisateur, $Mdp, $Telephone, $Email, $Adresse, $IBAN) {
 		$Mdp = sha1 ( $Mdp );
+		
+		//TODO Gérer le lieu
 		$query = "INSERT into Annonceur(Prenom, Nom, UserName,
 		MotDePasse, Telephone, Email, Adresse, IBAN)VALUES('$Prenom', '$Nom', '$Utilisateur', '$Mdp', '$Telephone', '$Email', '$Adresse', '$IBAN');";
 		return $this->_conn->executeQuery ( $query );
 	}
 	public function enregistrerTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse) {
 		$pwd = sha1 ( $pwd );
-		$query = "INSERT into Transporteur(NomSociete, Telephone, Email, Username, MotDePasse, Adresse)VALUES('$nomSociete', '$telephone', '$email', '$username', '$pwd', '$adresse');";
+		
+		//TODO Gérer le lieu
+		$idLieu =1;
+		$query = "INSERT into Transporteur(NomSociete, Telephone, Email, Username, MotDePasse, Adresse, IDLieu)VALUES('$nomSociete', '$telephone', '$email', '$username', '$pwd', '$adresse', $idLieu);";
 		return $this->_conn->executeQuery ( $query );
 	}
 	public function VerifierLoginAnnonceur($uname, $pwd) {

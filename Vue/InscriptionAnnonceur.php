@@ -91,7 +91,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 				</tr>
 			</table>
 		</form>
-		<br /> <a href="index.php">Login</a>
+		<br /> <a href="index.php">Accueil</a>
 	</h4>
 </div>
 <?php

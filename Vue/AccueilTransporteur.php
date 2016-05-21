@@ -1,5 +1,4 @@
 <?php
-
 require_once '../Model/class.Transporteur.php';
 include_once 'header.inc';
 
@@ -10,12 +9,13 @@ if ($msg)
 <div class="container">
 
 	<h4>Accueil Transporteur</h4>
-	
-		
-&nbsp;&nbsp;&nbsp;<a href="../Controller/login.php?action=logout">Logout 
-(<?php 
+
+	<br /> <a href="ValidationDevis.php">Proposer un devis</a> <br /> <a
+		href="../Controller/login.php?action=logout">Logout 
+(<?php
 $user = $_SESSION ['transporteur'];
-echo $user->NomSociete;?>)</a> 
+echo $user->NomSociete;
+?>)</a>
 
 </div>
 <?php

@@ -19,7 +19,7 @@ class MySqlConn {
 	private $_connection;
 	public function __construct() {
 		try {
-			$this->_connection = new PDO ( 'mysql:host=' . self::HOST . ';port=' . self::PORT . ';dbname=' . self::DATABASE, self::USER, self::PWD );
+			$this->_connection = new PDO ( 'mysql:host=' . self::HOST . ';port=' . self::PORT . ';dbname=' . self::DATABASE, self::USER, self::PWD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
 		} catch ( PDOException $e ) {
 			die ( 'Connection failed: ' . $e->getMessage () );
 		}

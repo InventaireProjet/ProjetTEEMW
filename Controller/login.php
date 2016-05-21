@@ -37,12 +37,12 @@ function identifierAnnonceur($mysql) {
 				$Mdp 
 		);
 		$_SESSION ['msg'] = 'Nom d utilisateur ou mot de passe incorrect';
-		header ( "location:../Vue/Index.php" );
+		header ( "location:../Vue/index.php" );
 		exit ();
 	}
 	$_SESSION ['msg'] = 'Bienvenue ' . $result->Prenom . ' ' . $result->Nom;
 	$_SESSION ['annonceur'] = $result;
-	header ( "location:../Vue/NouvelleAnnonceTypeTransport.php" );
+	header ( "location:../Vue/AccueilAnnonceur.php" );
 	exit ();
 }
 function identifierTransporteur($mysql) {
@@ -55,12 +55,12 @@ function identifierTransporteur($mysql) {
 				$Mdp
 		);
 		$_SESSION ['msg'] = 'Nom d utilisateur ou mot de passe incorrect';
-		header ( "location:../Vue/Index.php" );
+		header ( "location:../Vue/index.php" );
 		exit ();
 	}
 	$_SESSION ['msg'] = 'Bienvenue ' . $result->NomSociete;
 	$_SESSION ['transporteur'] = $result;
-	header ( "location:../Vue/ValidationDevis.php" );
+	header ( "location:../Vue/AccueilTransporteur.php" );
 	exit ();
 }
 function logout() {

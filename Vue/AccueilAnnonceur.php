@@ -5,11 +5,13 @@ include_once 'header.inc';
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
 
 ?>
+<?php if($msg) echo $msg;?>
 <div class="container">
 	<h4>Accueil Annonceur</h4>
 		
-
-&nbsp;&nbsp;&nbsp;<a href="../Controller/login.php?action=logout">Logout 
+<br /> <a href="NouvelleAnnonceTypeTransport.php">Insérer une annonce</a>
+<br /> 
+<a href="../Controller/login.php?action=logout">Logout 
 (<?php 
 $user = $_SESSION ['annonceur'];
 echo $user->Prenom .' '. $user->Nom;?>)</a> 
