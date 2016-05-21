@@ -14,9 +14,13 @@ if (isset ( $_POST ['action'] )) {
 	}
 }
 	
-	if ($_POST ['action'] == 'connecterAnnonceur') {
+	if ($_POST ['action'] == 'connecter Annonceur') {
 		identifierAnnonceur ( $mysql );
 	}
+	if ($_POST ['action'] == 'connecter Transporteur') {
+		identifierTransporteur ( $mysql );
+	}
+	
 }
 if (isset ( $_GET ['action'] )) {
 	if ($_GET ['action'] == 'logout') {
@@ -51,7 +55,11 @@ function enregistrerAnnonceur($mysql) {
 	$Nom = $_POST ['Nom'];
 	$NomUtilisateur = $_POST ['NomUtilisateur'];
 	$Mdp = $_POST ['Mdp'];
+<<<<<<< HEAD
+	$Telephone = $_POST ['Telephone'];
+=======
 	$Téléphone = $_POST ['Telephone'];
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 	$Email = $_POST ['Email'];
 	$Adresse = $_POST ['Adresse'];
 	$IBAN = $_POST ['IBAN'];
@@ -68,9 +76,17 @@ function enregistrerAnnonceur($mysql) {
 		$rank = 5;
 		$msg = "Inscrivez un email";
 	}
+<<<<<<< HEAD
+	if (empty ( $Telephone )) {
+=======
 	if (empty ( $Téléphone )) {
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 		$rank = 4;
+<<<<<<< HEAD
+		$msg = "Inscrivez un num�ro de t�l�phone";
+=======
 		$msg = "Inscrivez un numéro de téléphone";
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 	}
 	if (empty ( $Mdp )) {
 		$rank = 3;
@@ -89,7 +105,11 @@ function enregistrerAnnonceur($mysql) {
 	
 	if (empty ( $Prenom )) {
 		$rank = 0;
+<<<<<<< HEAD
+		$msg = "Inscrivez un pr�nom";
+=======
 		$msg = "Inscrivez un prénom";
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 	}
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
@@ -99,7 +119,11 @@ function enregistrerAnnonceur($mysql) {
 				$Nom,
 				$NomUtilisateur,
 				$Mdp,
+<<<<<<< HEAD
+				$Telephone,
+=======
 				$Téléphone,
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 				$Email,
 				$Adresse,
 				$IBAN
@@ -108,23 +132,39 @@ function enregistrerAnnonceur($mysql) {
 		exit ();
 	}
 	
+<<<<<<< HEAD
+	$result = $mysql->enregistrerAnnonceur ( $Prenom, $Nom, $NomUtilisateur, $Mdp, $Telephone, $Email, $Adresse, $IBAN );
+=======
 	$result = $mysql->enregistrerAnnonceur ( $Prenom, $Nom, $NomUtilisateur, $Mdp, $Téléphone, $Email, $Adresse, $IBAN );
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
+<<<<<<< HEAD
+		$_SESSION ['msg'] = 'Le nom d utilisateur existe d�j�';
+=======
 		$_SESSION ['msg'] = 'Le nom d utilisateur existe déjà';
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 		$_SESSION ['form_data'] = array (
 				$Prenom,
 				$Nom,
 				$NomUtilisateur,
 				$Mdp,
+<<<<<<< HEAD
+				$Telephone,
+=======
 				$Téléphone,
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 				$Email,
 				$Adresse,
 				$IBAN
 		);
 	} else {
 		$_SESSION ['rank'] = 'top';
+<<<<<<< HEAD
+		$_SESSION ['msg'] = 'Inscription effectu�e';
+=======
 		$_SESSION ['msg'] = 'Inscription effectuée';
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 	}
 	
 	header ( "location:../Vue/AccueilAnnonceur.php" );
@@ -132,39 +172,47 @@ function enregistrerAnnonceur($mysql) {
 }
 
 function enregistrerTransporteur($mysql) {
-	$nomSociete = $_POST ['NomSociete'];
-	$telephone = $_POST ['Telephone'];
-	$email = $_POST ['Email'];
-	$username = $_POST ['Utilisateur'];
-	$motDePasse = $_POST ['MotDePasse'];
-	$adresse = $_POST ['Adresse'];
+	$NomSociete = $_POST ['NomSociete'];
+	$Telephone = $_POST ['Telephone'];
+	$Email = $_POST ['Email'];
+	$Username = $_POST ['Utilisateur'];
+	$MotDePasse = $_POST ['MotDePasse'];
+	$Adresse = $_POST ['Adresse'];
 	
-	if (empty ( $adresse )) {
+	if (empty ( $Adresse )) {
 		$rank = 5;
 		$msg = "Indiquez une adresse";
 	}
-	if (empty ( $motDePasse )) {
+	if (empty ( $MotDePasse )) {
 		$rank = 4;
 		$msg = "Indiquez un mot de passe";
 	}
-	if (empty ( $username )) {
+	if (empty ( $Username )) {
 		$rank = 3;
 		$msg = "Indiquez un nom d'utilisateur";
 	}
 
-	if (empty ( $email )) {
+	if (empty ( $Email )) {
 		$rank = 2;
 		$msg = "Indiquez un email";
 	}
 
 	if (empty ( $telephone )) {
 		$rank = 1;
+<<<<<<< HEAD
+		$msg = "Indiquez un num�ro de t�l�phone";
+=======
 		$msg = "Indiquez un numéro de téléphone";
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 	}
 
 	if (empty ( $nomSociete )) {
 		$rank = 0;
+<<<<<<< HEAD
+		$msg = "Indiquez un nom de soci�t�";
+=======
 		$msg = "Indiquez un nom de société";
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 	}
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
@@ -185,7 +233,11 @@ function enregistrerTransporteur($mysql) {
 	$result = $mysql->enregistrerTransporteur ( $nomSociete, $telephone, $email, $username, $motDePasse, $adresse);
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
+<<<<<<< HEAD
+		$_SESSION ['msg'] = 'Le nom d utilisateur existe d�j�';
+=======
 		$_SESSION ['msg'] = 'Le nom d utilisateur existe déjà';
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 		$_SESSION ['form_data'] = array (
 				$nomSociete,
 				$telephone,
@@ -197,7 +249,11 @@ function enregistrerTransporteur($mysql) {
 		);
 	} else {
 		$_SESSION ['rank'] = 'top';
+<<<<<<< HEAD
+		$_SESSION ['msg'] = 'Inscription effectu�e';
+=======
 		$_SESSION ['msg'] = 'Inscription effectuée';
+>>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 	}
 
 	header ( "location:../Vue/AccueilTransporteur.php" );

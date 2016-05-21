@@ -11,11 +11,11 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 <?php if($msg) echo $msg;?>
   <table>
 				<tr>
-					<td>User:</td>
+					<td>Nom d'utilisateur:</td>
 					<td><input type="text" name="usr"></td>
 				</tr>
 				<tr>
-					<td>Password:</td>
+					<td>Mot de passe:</td>
 					<td><input type="password" name="pwd"></td>
 				</tr>
 				<tr>
