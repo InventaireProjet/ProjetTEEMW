@@ -24,12 +24,12 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
   <table align="center">
 				<tr>
 					<td>Nom d'utilisateur:</td>
-					<td><input type="text" name="usr"></td>
+					<td><input type="text" name="NomUtilisateur"></td>
 				</tr>
 				
 				<tr>
 					<td>Mot de passe:</td>
-					<td><input type="password" name="pwd"></td>
+					<td><input type="password" name="MotDePasse"></td>
 				</tr>
 				<tr></tr>
 				<tr>
@@ -58,11 +58,11 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
   <table align="center">
 				<tr>
 					<td>Nom d'utilisateur:</td>
-					<td><input type="text" name="usr"></td>
+					<td><input type="text" name="NomUtilisateur"></td>
 				</tr>
 				<tr>
 					<td>Mot de passe:</td>
-					<td><input type="password" name="pwd"></td>
+					<td><input type="password" name="MotDePasse"></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="right"><input type="submit" name="action"
