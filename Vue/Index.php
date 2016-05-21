@@ -1,10 +1,13 @@
 <?php
 require_once '../Model/class.Annonceur.php';
 require_once '../Model/class.Transporteur.php';
+require_once '../Controller/login.php';
 include_once 'header.inc';
 
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
 
+if (isset ( $_SESSION ['transporteur']) ||isset ( $_SESSION ['annonceur'] )) {
+		logout();}
 ?>
 
 
@@ -17,30 +20,40 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 
 			<h4>Transporteur</h4>
 			<div>
-			
-		<form method="post" action="../Controller/login.php"> 
+
+				<form method="post" action="../Controller/login.php"> 
 				<?php if($msg) echo $msg;?>
   
   <table align="center">
-				<tr>
-					<td>Nom d'utilisateur:</td>
-					<td><input type="text" name="NomUtilisateur"></td>
-				</tr>
-				
-				<tr>
-					<td>Mot de passe:</td>
-					<td><input type="password" name="MotDePasse"></td>
-				</tr>
-				<tr></tr>
-				<tr>
-					<td colspan="2" align="right"><button type="submit" name="action"
-						value="connecterTransporteur">connexion</td>
-				</tr>
-			</table>
+						<tr>
+							<td>Nom d'utilisateur:</td>
+							<td><input type="text" name="NomUtilisateur"></td>
+						</tr>
 
-		</form>
-		<br /> <a href="InscriptionTransporteur.php">Register</a>
+						<tr>
+							<td>Mot de passe:</td>
+							<td><input type="password" name="MotDePasse"></td>
+						</tr>
+						<tr></tr>
+						<tr>
+							<td colspan="2" align="right"><button type="submit" name="action"
+									value="connecterTransporteur">Se connecter en tant que transporteur</td>
+						</tr>
+					</table>
 
+				</form>
+				<br /> <a href="InscriptionTransporteur.php">S'inscrire en tant que transporteur</a>
+ <?php
+	
+	if (isset ( $_SESSION ['transporteur'] )) {
+		$user = $_SESSION ['transporteur'];
+		?> 
+&nbsp;&nbsp;&nbsp;<a href="../Controller/login.php?action=logout">Logout 
+(<?php echo $user->NomSociete;?>)</a> 
+
+<?php
+	}
+	?>
 
 			</div>
 
@@ -56,40 +69,38 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 				<?php if($msg) echo $msg;?>
   
   <table align="center">
-				<tr>
-					<td>Nom d'utilisateur:</td>
-					<td><input type="text" name="NomUtilisateur"></td>
-				</tr>
-				<tr>
-					<td>Mot de passe:</td>
-					<td><input type="password" name="MotDePasse"></td>
-				</tr>
-				<tr>
-					<td colspan="2" align="right"><input type="submit" name="action"
-						value="connecterAnnonceur"></td>
-				</tr>
-			</table>
+						<tr>
+							<td>Nom d'utilisateur:</td>
+							<td><input type="text" name="NomUtilisateur"></td>
+						</tr>
+						<tr>
+							<td>Mot de passe:</td>
+							<td><input type="password" name="MotDePasse"></td>
+						</tr>
+						<tr>
+							<td colspan="2" align="right"><button type="submit" name="action"
+								value="connecterAnnonceur">Se connecter en tant qu'annonceur</td>
+						</tr>
+					</table>
 
-		</form>
-		<br /> <a href="InscriptionAnnonceur.php">Register</a>
+				</form>
+				<br /> <a href="InscriptionAnnonceur.php">S'inscrire en tant qu'annonceur</a>
 
 
  <?php
 	
-	if (isset ( $_SESSION ['user'] )) {
-		$user = $_SESSION ['user'];
+	if (isset ( $_SESSION ['annonceur'] )) {
+		$user = $_SESSION ['annonceur'];
 		?> 
 &nbsp;&nbsp;&nbsp;<a href="../Controller/login.php?action=logout">Logout 
 (<?php echo $user->Prenom .' '. $user->Nom;?>)</a> 
 
-<?php	
-}
-?>
+<?php
+	}
+	?>
 
 			</div>
 		</div>
-
-
 
 	</div>
 

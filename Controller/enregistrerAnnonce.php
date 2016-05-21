@@ -221,7 +221,7 @@ function enregistrerAnnonce($mysql) {
 	$minutesarr= $form_data [14];
 	
 	// Récupération de l'ID de l'annonceur par la variable de session
-	$annonceur = $_SESSION ['user'];
+	$annonceur = $_SESSION ['annonceur'];
 	$idAnnonceur = $annonceur->IDAnnonceur;
 	
 	//Conversion des dates en format TimeStamp

@@ -22,11 +22,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
   <?php if($rank=='top') echo $msg;?>
   <table>
 				<tr>
-<<<<<<< HEAD
-					<td>Pr�nom:</td>
-=======
 					<td>Prénom:</td>
->>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 					<td><input type="text" name="Prenom"
 						value="<?php
 						echo $form_data [0];
@@ -58,11 +54,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	<?php if($rank==4) echo $msg;?></td>
 				</tr>
 				<tr>
-<<<<<<< HEAD
-					<td>T�l�phone:</td>
-=======
 					<td>Téléphone:</td>
->>>>>>> branch 'master' of https://github.com/InventaireProjet/ProjetTEEMW.git
 					<td><input type="text" name="Telephone"
 						value="<?php
 						echo $form_data [4];
@@ -95,7 +87,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 				</tr>
 				<tr>
 					<td colspan="2" align="right"><button type="submit" name="action"
-						value="enregistrerAnnonceur">inscription</td>
+						value="enregistrerAnnonceur">Inscription</td>
 				</tr>
 			</table>
 		</form>

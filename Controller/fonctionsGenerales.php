@@ -1,7 +1,7 @@
 <?php
 require_once '../Model/class.MySqlManager.php';
 function controleLogin() {
-	if ($_SESSION ['user'] == null) {
+	if ($_SESSION ['annonceur'] == null) {
 		header ( "location:../Vue/" );
 	}
 }

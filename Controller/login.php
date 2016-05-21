@@ -41,7 +41,7 @@ function identifierAnnonceur($mysql) {
 		exit ();
 	}
 	$_SESSION ['msg'] = 'Bienvenue ' . $result->Prenom . ' ' . $result->Nom;
-	$_SESSION ['utilisateur'] = $result;
+	$_SESSION ['annonceur'] = $result;
 	header ( "location:../Vue/NouvelleAnnonceTypeTransport.php" );
 	exit ();
 }
@@ -58,9 +58,9 @@ function identifierTransporteur($mysql) {
 		header ( "location:../Vue/Index.php" );
 		exit ();
 	}
-	$_SESSION ['msg'] = 'Bienvenue ' . $result->Prenom . ' ' . $result->Nom;
-	$_SESSION ['utilisateur'] = $result;
-	header ( "location:../Vue/NouvelleAnnonceTypeTransport.php" );
+	$_SESSION ['msg'] = 'Bienvenue ' . $result->NomSociete;
+	$_SESSION ['transporteur'] = $result;
+	header ( "location:../Vue/ValidationDevis.php" );
 	exit ();
 }
 function logout() {
@@ -147,6 +147,9 @@ function enregistrerAnnonceur($mysql) {
 	} else {
 		$_SESSION ['rank'] = 'top';
 		$_SESSION ['msg'] = 'Inscription effectuée';
+
+		$result = $mysql->VerifierLoginAnnonceur ( $NomUtilisateur, $Mdp );
+		$_SESSION ['annonceur'] =$result;
 	}
 	
 	header ( "location:../Vue/AccueilAnnonceur.php" );
@@ -154,27 +157,27 @@ function enregistrerAnnonceur($mysql) {
 }
 
 function enregistrerTransporteur($mysql) {
-	$NomSociete = $_POST ['NomSociete'];
-	$Telephone = $_POST ['Telephone'];
-	$Email = $_POST ['Email'];
-	$Username = $_POST ['Utilisateur'];
-	$MotDePasse = $_POST ['MotDePasse'];
-	$Adresse = $_POST ['Adresse'];
+	$nomSociete = $_POST ['NomSociete'];
+	$telephone = $_POST ['Telephone'];
+	$email = $_POST ['Email'];
+	$username = $_POST ['Utilisateur'];
+	$motDePasse = $_POST ['MotDePasse'];
+	$adresse = $_POST ['Adresse'];
 	
-	if (empty ( $Adresse )) {
+	if (empty ( $adresse )) {
 		$rank = 5;
 		$msg = "Indiquez une adresse";
 	}
-	if (empty ( $MotDePasse )) {
+	if (empty ( $motDePasse )) {
 		$rank = 4;
 		$msg = "Indiquez un mot de passe";
 	}
-	if (empty ( $Username )) {
+	if (empty ( $username )) {
 		$rank = 3;
 		$msg = "Indiquez un nom d'utilisateur";
 	}
 
-	if (empty ( $Email )) {
+	if (empty ( $email )) {
 		$rank = 2;
 		$msg = "Indiquez un email";
 	}
@@ -220,6 +223,9 @@ function enregistrerTransporteur($mysql) {
 	} else {
 		$_SESSION ['rank'] = 'top';
 		$_SESSION ['msg'] = 'Inscription effectuée';
+
+		$result = $mysql->VerifierLoginTransporteur ( $username, $motDePasse );
+		$_SESSION ['transporteur'] =$result;
 	}
 
 	header ( "location:../Vue/AccueilTransporteur.php" );

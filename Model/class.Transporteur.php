@@ -1,6 +1,6 @@
 <?php
 class Transporteur {
-	public $ID;
+	public $IDTransporteur;
 	public $NomSociete;
 	public $Telephone;
 	public $Email;
@@ -8,7 +8,7 @@ class Transporteur {
 	public $MotDePasse;
 	public $Adresse;
 	public function __construct($id, $nomSociete, $telephone, $email, $userName, $motDePasse, $adresse) {
-		$this->ID = $id;
+		$this->IDTransporteur = $id;
 		$this->NomSociete = $nomSociete;
 		$this->Telephone = $telephone;
 		$this->Email = $email;

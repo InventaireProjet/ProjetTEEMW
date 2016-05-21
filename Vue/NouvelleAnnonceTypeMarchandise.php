@@ -31,13 +31,13 @@ if ($_SESSION ['msg'] = null && strcmp ( $_SESSION ['msg'], 'Echec de l\'enregis
 					<td>Type de transport :</td>
 					<td><select name="Type">; 
 <?php
-// RÈcupÈration des types de transport
+// R√©cup√©ration des types de transport
 $typesTransport = afficherTypeTransport ();
 echo '<option value="">Choisissez un type de transport</option>';
-// EntrÈe des options de la dropdownlist
+// Entr√©e des options de la dropdownlist
 foreach ( $typesTransport as $valeur ) {
 	
-	// Si un choix a dÈj‡ ÈtÈ effectuÈ durant la session, il est sÈlectionnÈ par dÈfaut
+	// Si un choix a d√©j√† √©t√© effectu√© durant la session, il est s√©lectionn√© par d√©faut
 	if (strcmp ( $form_data [0], $valeur ['IDTypeTransport'] ) == 0) {
 		
 		echo '<option value="' . $valeur ['IDTypeTransport'] . '" selected>' . $valeur ['Nom'] . '</option>';
@@ -59,7 +59,7 @@ foreach ( $typesTransport as $valeur ) {
     <?php if($rank==2) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td>QuantitÈ :</td>
+					<td>Quantit√© :</td>
 					<td><input type="number" min=0 name="Quantite"
 						value="<?php
 						echo $form_data [2];
@@ -91,7 +91,7 @@ foreach ( $typesTransport as $valeur ) {
 			</table>
 		</form>
 
-		<a href="NouvelleAnnonceTypeTransport.php">Revenir ‡ la premiËre
+		<a href="NouvelleAnnonceTypeTransport.php">Revenir √† la premi√®re
 			partie de l'annonce</a> <br /> <a href="AccueilAnnonceur.php">Accueil
 			anonceurs</a>
 

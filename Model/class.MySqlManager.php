@@ -1,5 +1,6 @@
 <?php
 require_once 'class.Annonceur.php';
+require_once 'class.Transporteur.php';
 require_once 'class.MySqlConn.php';
 class MySqlManager {
 	private $_conn;
@@ -35,7 +36,7 @@ class MySqlManager {
 		$row = $result->fetch ();
 		if (! $row)
 			return false;
-			return new Transporteur ( $row ['IDTransporteur'], $row ['NomSociete'], $row ['Telephone'], $row ['UserName'], $row ['MotDePasse'], $row ['Email'], $row ['Adresse'] );
+			return new Transporteur ( $row ['IDTransporteur'], $row ['NomSociete'], $row ['Telephone'], $row ['Username'], $row ['MotDePasse'], $row ['Email'], $row ['Adresse'] );
 	}
 	public function enregistrerAnnonce($nom, $datedep, $adressedep, $npadep, $localdep, $paysdep, $datearr, $adressearr, $npaarr, $localarr, $paysarr, $type, $desc, $qte, $vol, $pds, $idAnnonceur) {
 		
