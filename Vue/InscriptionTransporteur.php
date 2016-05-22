@@ -9,6 +9,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 		'',
 		'',
 		'',
+		'',
 		''
 		);
 
@@ -65,10 +66,18 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 						value="<?php
 						echo $form_data [5];
 						?>"> 
-	    <?php if($rank==8) echo $msg;?></td>
+	    <?php if($rank==6) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="right"><button type="submit" name="action"
+					<td>IBAN:</td>
+					<td><input type="text" name="IBAN"
+						value="<?php
+						echo $form_data [6];
+						?>"> 
+    <?php if($rank==7) echo $msg;?></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="left"><button type="submit" name="action"
 						value="enregistrerTransporteur">Inscription</td>
 				</tr>
 			</table>

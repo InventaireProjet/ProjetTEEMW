@@ -54,7 +54,7 @@ function identifierTransporteur($mysql) {
 				$NomUtilisateur,
 				$Mdp
 		);
-		$_SESSION ['msg'] = 'Nom d utilisateur ou mot de passe incorrect';
+		$_SESSION ['msg'] = 'Nom d\'utilisateur ou mot de passe incorrect';
 		header ( "location:../Vue/index.php" );
 		exit ();
 	}
@@ -76,41 +76,36 @@ function enregistrerAnnonceur($mysql) {
 	$Telephone = $_POST ['Telephone'];
 	$Email = $_POST ['Email'];
 	$Adresse = $_POST ['Adresse'];
-	$IBAN = $_POST ['IBAN'];
 	
-	if (empty ( $IBAN )) {
-		$rank = 7;
-		$msg = "Inscrivez un IBAN";
-	}
 	if (empty ( $Adresse )) {
-		$rank = 6;
+		$rank = 7;
 		$msg = "Inscrivez une adresse";
 	}
 	if (empty ( $Email )) {
-		$rank = 5;
+		$rank = 6;
 		$msg = "Inscrivez un email";
 	}
 	if (empty ( $Telephone )) {
-		$rank = 4;
+		$rank = 5;
 		$msg = "Inscrivez un numéro de téléphone";
 	}
 	if (empty ( $Mdp )) {
-		$rank = 3;
+		$rank = 4;
 		$msg = "Inscrivez un mot de passe";
 	}
 	
 	if (empty ( $NomUtilisateur )) {
-		$rank = 2;
+		$rank = 3;
 		$msg = "Inscrivez un nom d'utilisateur";
 	}
 	
 	if (empty ( $Nom )) {
-		$rank = 1;
+		$rank = 2;
 		$msg = "Inscrivez un nom";
 	}
 	
 	if (empty ( $Prenom )) {
-		$rank = 0;
+		$rank = 1;
 		$msg = "Inscrivez un prénom";
 	}
 	if (isset ( $rank )) {
@@ -123,17 +118,16 @@ function enregistrerAnnonceur($mysql) {
 				$Mdp,
 				$Telephone,
 				$Email,
-				$Adresse,
-				$IBAN
+				$Adresse
 		);
 		header ( "location:../Vue/InscriptionAnnonceur.php" );
 		exit ();
 	}
 	
-	$result = $mysql->enregistrerAnnonceur ( $Prenom, $Nom, $NomUtilisateur, $Mdp, $Telephone, $Email, $Adresse, $IBAN );
+	$result = $mysql->enregistrerAnnonceur ( $Prenom, $Nom, $NomUtilisateur, $Mdp, $Telephone, $Email, $Adresse);
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
-		$_SESSION ['msg'] = 'Le nom d utilisateur existe déjà';
+		$_SESSION ['msg'] = 'Le nom d\'utilisateur existe déjà';
 		$_SESSION ['form_data'] = array (
 				$Prenom,
 				$Nom,
@@ -141,11 +135,10 @@ function enregistrerAnnonceur($mysql) {
 				$Mdp,
 				$Telephone,
 				$Email,
-				$Adresse,
-				$IBAN
+				$Adresse
 		);
 	} else {
-		$_SESSION ['rank'] = 'top';
+	
 		$_SESSION ['msg'] = 'Inscription effectuée';
 
 		$result = $mysql->VerifierLoginAnnonceur ( $NomUtilisateur, $Mdp );
@@ -163,32 +156,38 @@ function enregistrerTransporteur($mysql) {
 	$username = $_POST ['Utilisateur'];
 	$motDePasse = $_POST ['MotDePasse'];
 	$adresse = $_POST ['Adresse'];
+	$IBAN = $_POST ['IBAN'];
+	
+	if (empty ( $IBAN )) {
+		$rank = 7;
+		$msg = "Inscrivez un IBAN";
+	}
 	
 	if (empty ( $adresse )) {
-		$rank = 5;
+		$rank = 6;
 		$msg = "Indiquez une adresse";
 	}
 	if (empty ( $motDePasse )) {
-		$rank = 4;
+		$rank = 5;
 		$msg = "Indiquez un mot de passe";
 	}
 	if (empty ( $username )) {
-		$rank = 3;
+		$rank = 4;
 		$msg = "Indiquez un nom d'utilisateur";
 	}
 
 	if (empty ( $email )) {
-		$rank = 2;
+		$rank = 3;
 		$msg = "Indiquez un email";
 	}
 
 	if (empty ( $telephone )) {
-		$rank = 1;
+		$rank = 2;
 		$msg = "Indiquez un numéro de téléphone";
 	}
 
 	if (empty ( $nomSociete )) {
-		$rank = 0;
+		$rank = 1;
 		$msg = "Indiquez un nom de société";
 	}
 	if (isset ( $rank )) {
@@ -200,28 +199,30 @@ function enregistrerTransporteur($mysql) {
 				$email,
 				$username,
 				$motDePasse,
-				$adresse
+				$adresse,
+				$IBAN
 				
 		);
 		header ( "location:../Vue/InscriptionTransporteur.php" );
 		exit ();
 	}
 
-	$result = $mysql->enregistrerTransporteur ( $nomSociete, $telephone, $email, $username, $motDePasse, $adresse);
+	$result = $mysql->enregistrerTransporteur ( $nomSociete, $telephone, $email, $username, $motDePasse, $adresse, $IBAN );
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
-		$_SESSION ['msg'] = 'Le nom d utilisateur existe déjà';
+		$_SESSION ['msg'] = 'Le nom d\'utilisateur existe déjà';
 		$_SESSION ['form_data'] = array (
 				$nomSociete,
 				$telephone,
 				$email,
 				$username,
 				$motDePasse,
-				$adresse
+				$adresse,
+				$IBAN
 				
 		);
 	} else {
-		$_SESSION ['rank'] = 'top';
+	
 		$_SESSION ['msg'] = 'Inscription effectuée';
 
 		$result = $mysql->VerifierLoginTransporteur ( $username, $motDePasse );

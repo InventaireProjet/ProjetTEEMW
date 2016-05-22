@@ -1,4 +1,5 @@
 <?php
+require_once '../Model/class.Transporteur.php';
 require_once '../Model/class.Devis.php';
 include_once '../Vue/header.inc';
 
