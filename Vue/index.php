@@ -6,8 +6,9 @@ include_once 'header.inc';
 
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
 
-if (isset ( $_SESSION ['transporteur']) ||isset ( $_SESSION ['annonceur'] )) {
-		logout();}
+if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
+	logout ();
+}
 ?>
 
 
@@ -24,25 +25,29 @@ if (isset ( $_SESSION ['transporteur']) ||isset ( $_SESSION ['annonceur'] )) {
 				<form method="post" action="../Controller/login.php"> 
 				<?php if($msg) echo $msg;?>
   
-  <table align="center">
+  			<table class="table" align="center">
+
+
 						<tr>
 							<td>Nom d'utilisateur:</td>
 							<td><input type="text" name="NomUtilisateur"></td>
 						</tr>
-
 						<tr>
 							<td>Mot de passe:</td>
 							<td><input type="password" name="MotDePasse"></td>
 						</tr>
-						<tr></tr>
+
 						<tr>
-							<td colspan="2" align="right"><button type="submit" name="action"
-									value="connecterTransporteur">Se connecter en tant que transporteur</td>
+							<td colspan="2" align="right"><button class="btn btn-default"
+									type="submit" name="action" value="connecterTransporteur">Se
+									connecter en tant que transporteur</td>
 						</tr>
-					</table>
+					
+				</table>
 
 				</form>
-				<br /> <a href="InscriptionTransporteur.php">S'inscrire en tant que transporteur</a>
+				<br /> <a href="InscriptionTransporteur.php">S'inscrire en tant que
+					transporteur</a>
  <?php
 	
 	if (isset ( $_SESSION ['transporteur'] )) {
@@ -68,23 +73,31 @@ if (isset ( $_SESSION ['transporteur']) ||isset ( $_SESSION ['annonceur'] )) {
 				<form method="post" action="../Controller/login.php"> 
 				<?php if($msg) echo $msg;?>
   
-  <table align="center">
+  <table class="table" align="center">
+
 						<tr>
 							<td>Nom d'utilisateur:</td>
 							<td><input type="text" name="NomUtilisateur"></td>
 						</tr>
+
 						<tr>
 							<td>Mot de passe:</td>
 							<td><input type="password" name="MotDePasse"></td>
 						</tr>
+
 						<tr>
-							<td colspan="2" align="right"><button type="submit" name="action"
-								value="connecterAnnonceur">Se connecter en tant qu'annonceur</td>
+							<td colspan="2" align="right"><button class="btn btn-default"
+									type="submit" name="action" value="connecterAnnonceur">Se
+									connecter en tant qu'annonceur</td>
 						</tr>
+
+
+
 					</table>
 
 				</form>
-				<br /> <a href="InscriptionAnnonceur.php">S'inscrire en tant qu'annonceur</a>
+				<br /> <a href="InscriptionAnnonceur.php">S'inscrire en tant
+					qu'annonceur</a>
 
 
  <?php

@@ -6,7 +6,6 @@
 
 /* Utilisation de Bootstrap pour la partie HTML et adaptation pour correspondre à nos attentes */
 
-
 /*Mise en forme du haut de page */
 .header {
 	overflow: hidden;
@@ -14,7 +13,7 @@
 	background-color: black;
 }
 
-.jumbotron{
+.jumbotron {
 	height: inherit;
 	background-color: pink;
 }
@@ -43,9 +42,23 @@ p {
 	color: #4F4F4F;
 }
 
+/* Mise en forme des tables */
+.table{
+max-width: 100%;
+margin-bottom: 20px;
+}
+
+.aligncentre
+{
+	width: 50%;
+	margin: auto;
+}
+
+
+
 /* Mise en forme de la partie centrale */
 .container {
-padding-top: 25px;
+	padding-top: 25px;
 }
 /*Mise en forme des colonnes */
 .row {
@@ -53,7 +66,7 @@ padding-top: 25px;
 	color: #4F4F4F;
 	text-align: center;
 	margin: 0px;
-	padding:0px;
+	padding: 0px;
 }
 
 /*Mise en forme du bas de page */
