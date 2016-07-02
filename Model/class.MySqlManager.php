@@ -10,7 +10,7 @@ class MySqlManager {
 	public function enregistrerAnnonceur($Prenom, $Nom, $Utilisateur, $Mdp, $Telephone, $Email, $Adresse) {
 		$Mdp = sha1 ( $Mdp );
 		
-		//TODO Gérer le lieu
+		// TODO Gérer le lieu
 		$query = "INSERT into Annonceur(Prenom, Nom, UserName,
 		MotDePasse, Telephone, Email, Adresse)VALUES('$Prenom', '$Nom', '$Utilisateur', '$Mdp', '$Telephone', '$Email', '$Adresse');";
 		return $this->_conn->executeQuery ( $query );
@@ -18,8 +18,8 @@ class MySqlManager {
 	public function enregistrerTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse, $IBAN) {
 		$pwd = sha1 ( $pwd );
 		
-		//TODO Gérer le lieu
-		$idLieu =1;
+		// TODO Gérer le lieu
+		$idLieu = 1;
 		$query = "INSERT into Transporteur(NomSociete, Telephone, Email, Username, MotDePasse, Adresse, IDLieu, IBAN)VALUES('$nomSociete', '$telephone', '$email', '$username', '$pwd', '$adresse', $idLieu, '$IBAN');";
 		return $this->_conn->executeQuery ( $query );
 	}
@@ -41,7 +41,7 @@ class MySqlManager {
 		$row = $result->fetch ();
 		if (! $row)
 			return false;
-			return new Transporteur ( $row ['IDTransporteur'], $row ['NomSociete'], $row ['Telephone'],$row ['Email'], $row ['Username'], $row ['MotDePasse'], $row ['IBAN'],  $row ['Adresse'] );
+		return new Transporteur ( $row ['IDTransporteur'], $row ['NomSociete'], $row ['Telephone'], $row ['Email'], $row ['Username'], $row ['MotDePasse'], $row ['IBAN'], $row ['Adresse'] );
 	}
 	public function enregistrerAnnonce($nom, $datedep, $adressedep, $npadep, $localdep, $paysdep, $datearr, $adressearr, $npaarr, $localarr, $paysarr, $type, $desc, $qte, $vol, $pds, $idAnnonceur) {
 		
@@ -78,14 +78,13 @@ class MySqlManager {
 		}
 	}
 	public function enregistrerDevis($prix, $dateExpiration, $description, $idTransporteur) {
-		
-		try {		
-		$this->_conn->getConnection ()->beginTransaction ();
-		$query = "INSERT into Devis (Prix, DateExpiration, Description, EnCours, Accepte, IDTransporteur, IDAnnonce )VALUES('$prix', '$dateExpiration', '$description', true, false, '$idTransporteur', 1);";
-		$this->_conn->executeQuery ( $query );
-		
-		$this->_conn->getConnection ()->commit ();
-		return true;
+		try {
+			$this->_conn->getConnection ()->beginTransaction ();
+			$query = "INSERT into Devis (Prix, DateExpiration, Description, EnCours, Accepte, IDTransporteur, IDAnnonce )VALUES('$prix', '$dateExpiration', '$description', true, false, '$idTransporteur', 1);";
+			$this->_conn->executeQuery ( $query );
+			
+			$this->_conn->getConnection ()->commit ();
+			return true;
 		} catch ( Exception $e ) {
 			$this->_conn->getConnection ()->rollback ();
 		}
@@ -99,8 +98,32 @@ class MySqlManager {
 		while ( $row = $result->fetch () ) {
 			$nomsTypes [] = $row;
 		}
-		
 		return $nomsTypes;
+	}
+	
+	// Récupération des Annonces selon IDAnnonceur
+	public function getAnnonces($IDAnnonceur) {
+		$query = "SELECT * FROM Annonce WHERE IDAnnonceur = $IDAnnonceur AND EnCours = 1";
+		$result = $this->_conn->selectDB ( $query );
+		$annonces = array ();
+		while ( $object = $result->fetch () ) {
+			$annonces [] = $object;
+		}
+		return $annonces;
+	}
+	
+	// Affichage des annonces dans un tableau
+	public function afficherAnnonces($IDAnnonceur) {
+		$table_str = '<table>';
+		$annonces = getAnnonces ( $IDAnnonceur );
+		$i = 1;
+		foreach ( $annonces as $annonce ) {
+			$table_str .= '<tr>';
+			$table_str .= '<td>' . ($i ++) . '</td><td>' . $annonce->Nom . '</td><td>' . $annonce->DateDepart . '</td><td>' . $annonce->DateArrivee . '</td><td>' . $annonce->AdresseDepart . '</td><td>' . $annonce->AdresseArrivee . '</td>';
+			$table_str .= '</tr>';
+		}
+		$table_str .= '</table>';
+		return $table_str;
 	}
 }
 ?>

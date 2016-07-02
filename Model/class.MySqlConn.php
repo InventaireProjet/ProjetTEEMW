@@ -3,18 +3,18 @@ class MySqlConn {
 	const HOST = "localhost";
 	
 // 	Connexion web
-	const PORT = "80";
-	const DATABASE = "grp5";
-	const USER = "grp5";
-	const PWD = "Reunion2012";
+// 	const PORT = "80";
+// 	const DATABASE = "grp5";
+// 	const USER = "grp5";
+// 	const PWD = "Reunion2012";
 	
 	
 	//Connexion en local
-//   	const PORT = "3306";
+  	const PORT = "3306";
 //   	const DATABASE = "c645_1";
-// // 	const DATABASE = "grp5";
-//   	const USER = "c645_1";
-//   	const PWD = "c645_1";
+	const DATABASE = "grp5";
+  	const USER = "c645_1";
+  	const PWD = "c645_1";
 	
 	private $_connection;
 	public function __construct() {
