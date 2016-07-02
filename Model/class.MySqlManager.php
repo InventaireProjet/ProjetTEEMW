@@ -112,18 +112,12 @@ class MySqlManager {
 		return $annonces;
 	}
 	
-	// Affichage des annonces dans un tableau
-	public function afficherAnnonces($IDAnnonceur) {
-		$table_str = '<table>';
-		$annonces = getAnnonces ( $IDAnnonceur );
-		$i = 1;
-		foreach ( $annonces as $annonce ) {
-			$table_str .= '<tr>';
-			$table_str .= '<td>' . ($i ++) . '</td><td>' . $annonce->Nom . '</td><td>' . $annonce->DateDepart . '</td><td>' . $annonce->DateArrivee . '</td><td>' . $annonce->AdresseDepart . '</td><td>' . $annonce->AdresseArrivee . '</td>';
-			$table_str .= '</tr>';
-		}
-		$table_str .= '</table>';
-		return $table_str;
+	public function nombreDevisParAnnonce($IDAnnonce) {
+		$query = "SELECT count(*) from Devis where IDAnnonce = $IDAnnonce";
+		$result = $this->_conn->selectDB ( $query );
+		$nombre =$result->fetchcolumn();
+		return $nombre;
 	}
+
 }
 ?>

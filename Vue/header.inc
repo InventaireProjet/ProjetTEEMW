@@ -40,4 +40,18 @@ session_start ();
 	<div class="header">
 		<h1 id="title">Teemw</h1>
 		<p>Votre transporteur de marchandises</p>
+		
+<!-- 		Affichage du logout si un client est connecté -->
+<?php
+if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
+	
+	if (isset ( $_SESSION ['transporteur'] )) {
+		$user = $_SESSION ['transporteur'];
+		echo '<a href="../Controller/login.php?action=logout">Logout (' . $user->NomSociete . ')</a>';
+	} else {
+		$user = $_SESSION ['annonceur'];
+		echo '<a href="../Controller/login.php?action=logout">Logout (' . $user->Prenom . ' ' . $user->Nom . ')</a>';
+	}
+}
+?>
 	</div>

@@ -10,12 +10,7 @@ if ($msg)
 
 	<h4>Accueil Transporteur</h4>
 
-	<br /> <a href="ValidationDevis.php">Proposer un devis</a> <br /> <a
-		href="../Controller/login.php?action=logout">Logout 
-(<?php
-$user = $_SESSION ['transporteur'];
-echo $user->NomSociete;
-?>)</a>
+	<br /> <a href="ValidationDevis.php">Proposer un devis</a> <br /> 
 
 </div>
 <?php
