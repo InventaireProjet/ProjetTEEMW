@@ -5,7 +5,10 @@ require_once '../Controller/login.php';
 include_once 'header.inc';
 
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
+$msgA = isset ( $_SESSION ['msgA'] ) ? '<span class="error">*' . $_SESSION ['msgA'] . '</span>' : '';
+$msgT = isset ( $_SESSION ['msgT'] ) ? '<span class="error">*' . $_SESSION ['msgT'] . '</span>' : '';
 
+//Si une session est en cours, elle est fermée
 if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 	logout ();
 }
@@ -13,6 +16,7 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 
 
 <div class="container">
+<?php if($msg) echo $msg;?>
 	<div class="row">
 		<div class="col-md-6">
 			<img class="img-circle"
@@ -23,7 +27,7 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 			<div>
 
 				<form method="post" action="../Controller/login.php"> 
-				<?php if($msg) echo $msg;?>
+				<?php if($msgT) echo $msgT;?>
   
   			<table class="table" align="center">
 
@@ -42,8 +46,8 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 									type="submit" name="action" value="connecterTransporteur">Se
 									connecter en tant que transporteur</td>
 						</tr>
-					
-				</table>
+
+					</table>
 
 				</form>
 				<br /> <a href="InscriptionTransporteur.php">S'inscrire en tant que
@@ -71,7 +75,7 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 			<h4>Annonceur</h4>
 			<div>
 				<form method="post" action="../Controller/login.php"> 
-				<?php if($msg) echo $msg;?>
+				<?php if($msgA) echo $msgA;?>
   
   <table class="table" align="center">
 
@@ -121,5 +125,7 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 
 
 <?php
+unset ( $_SESSION ['msgA'] );
+unset ( $_SESSION ['msgT'] );
 include_once 'footer.inc';
 ?>

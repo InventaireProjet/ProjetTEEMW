@@ -5,6 +5,7 @@ include_once '../Vue/header.inc';
 
 $mysql = new MySqlManager ();
 
+// Fonction appelée selon la valeur d'action
 if (isset ( $_POST ['action'] )) {
 	if ($_POST ['action'] == 'Entrer les données sur le transport') {
 		enregistrerTypeTransport ( $mysql );
@@ -15,6 +16,8 @@ if (isset ( $_POST ['action'] )) {
 	}
 }
 function enregistrerTypeTransport($mysql) {
+	
+	// Variables
 	$nom = $_POST ['Nom'];
 	$datedep = $_POST ['DateDepart'];
 	$datearr = $_POST ['DateArrivee'];
@@ -31,6 +34,7 @@ function enregistrerTypeTransport($mysql) {
 	$heurearr = $_POST ['HeureArrivee'];
 	$minutesarr = $_POST ['MinutesArrivee'];
 	
+	// Messages d'erreur
 	if (empty ( $paysarr )) {
 		$rank = 11;
 		$msg = "Entrer un pays d'arrivée";
@@ -51,6 +55,7 @@ function enregistrerTypeTransport($mysql) {
 		$msg = "Entrer une adresse d'arrivée";
 	}
 	
+	// Vérifications que les dates respectent bien les contraintes
 	if (comparaisonDates ( $datedep, $heuredep, $minutesdep, $datearr, $heurearr, $minutesarr ) == false) {
 		
 		$rank = 7;
@@ -94,6 +99,7 @@ function enregistrerTypeTransport($mysql) {
 		$msg = "Entrer un nom";
 	}
 	
+	// Si erreur, affichage du message d'erreur. Les données entrées sont conservées dans la variable session
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
 		$_SESSION ['msg'] = $msg;
@@ -110,14 +116,18 @@ function enregistrerTypeTransport($mysql) {
 				$localarr,
 				$paysarr,
 				$heuredep,
-				$minutesdep ,
-				$heurearr ,
-				$minutesarr
+				$minutesdep,
+				$heurearr,
+				$minutesarr 
 		);
 		header ( "location:../Vue/NouvelleAnnonceTypeTransport.php" );
 		exit ();
 	}
 	
+	/*
+	 * Si les entrées sont valides, elles sont enregistrées dans la variable session,
+	 * redirection vers la 2è page de création d'annonce
+	 */
 	$_SESSION ['formNouvTransport_data'] = array (
 			$nom,
 			$datedep,
@@ -129,11 +139,11 @@ function enregistrerTypeTransport($mysql) {
 			$adressearr,
 			$npaarr,
 			$localarr,
-			$paysarr ,
+			$paysarr,
 			$heuredep,
-			$minutesdep ,
-			$heurearr ,
-			$minutesarr
+			$minutesdep,
+			$heurearr,
+			$minutesarr 
 	);
 	header ( "location:../Vue/NouvelleAnnonceTypeMarchandise.php" );
 	exit ();
@@ -145,6 +155,8 @@ function enregistrerAnnonce($mysql) {
 	$vol = $_POST ['Volume'];
 	$poids = $_POST ['Poids'];
 	echo $type;
+	
+	//Messages d'erreur
 	if (empty ( $poids )) {
 		$rank = 5;
 		$msg = "Entrer un poids";
@@ -167,6 +179,7 @@ function enregistrerAnnonce($mysql) {
 		$msg = "Entrer un type de transport";
 	}
 	
+	// Si erreur, affichage du message d'erreur. Les données entrées sont conservées dans la variable session
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
 		$_SESSION ['msg'] = $msg;
@@ -189,6 +202,7 @@ function enregistrerAnnonce($mysql) {
 			$poids 
 	);
 	
+	// préparation à la récupération des données provenant du premier formulaire
 	$form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNouvTransport_data'] : array (
 			'',
 			'',
@@ -215,27 +229,29 @@ function enregistrerAnnonce($mysql) {
 	$npaarr = $form_data [8];
 	$localarr = $form_data [9];
 	$paysarr = $form_data [10];
-	$heuredep= $form_data [11];
+	$heuredep = $form_data [11];
 	$minutesdep = $form_data [12];
 	$heurearr = $form_data [13];
-	$minutesarr= $form_data [14];
+	$minutesarr = $form_data [14];
 	
 	// Récupération de l'ID de l'annonceur par la variable de session
 	$annonceur = $_SESSION ['annonceur'];
 	$idAnnonceur = $annonceur->IDAnnonceur;
 	
-	//Conversion des dates en format TimeStamp
-	$dateSQLdep= dateSQL($datedep, $heuredep, $minutesdep);
-	$dateSQLarr= dateSQL($datearr, $heurearr, $minutesarr);
+	// Conversion des dates en format TimeStamp
+	$dateSQLdep = dateSQL ( $datedep, $heuredep, $minutesdep );
+	$dateSQLarr = dateSQL ( $datearr, $heurearr, $minutesarr );
 	
-	
+	// Enregistrement de l'anonce dans la BD
 	$resultat = $mysql->enregistrerAnnonce ( $nom, $dateSQLdep, $adressedep, $npadep, $localdep, $paysdep, $dateSQLarr, $adressearr, $npaarr, $localarr, $paysarr, $type, $desc, $qte, $vol, $poids, $idAnnonceur );
 	
+	//Enregistrement réussi
 	if ($resultat == true) {
 		$_SESSION ['msg'] = 'Nouvelle annonce enregistrée';
 		header ( "location:../Vue/AccueilAnnonceur.php" );
 	} 
 
+	//Echec enregistrement
 	else {
 		$_SESSION ['msg'] = 'Echec de l\'enregistrement de l\'annonce';
 		

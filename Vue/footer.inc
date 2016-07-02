@@ -1,4 +1,5 @@
 <?php
+//Désactive le message d'erreur
 unset ( $_SESSION ['msg'] );
 unset ( $_SESSION ['form_data'] );
 unset ( $_SESSION ['rank'] );

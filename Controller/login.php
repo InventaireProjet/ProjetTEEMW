@@ -4,15 +4,16 @@ include_once '../Vue/header.inc';
 
 $mysql = new MySqlManager ();
 
+// Fonction à appeler selon la valeur d'action
 if (isset ( $_POST ['action'] )) {
 	if ($_POST ['action'] == 'enregistrerAnnonceur') {
 		enregistrerAnnonceur ( $mysql );
 	}
-if (isset ( $_POST ['action'] )) {
-	if ($_POST ['action'] == 'enregistrerTransporteur') {
-		enregistrerTransporteur ( $mysql);
+	if (isset ( $_POST ['action'] )) {
+		if ($_POST ['action'] == 'enregistrerTransporteur') {
+			enregistrerTransporteur ( $mysql );
+		}
 	}
-}
 	
 	if ($_POST ['action'] == 'connecterAnnonceur') {
 		identifierAnnonceur ( $mysql );
@@ -20,23 +21,26 @@ if (isset ( $_POST ['action'] )) {
 	if ($_POST ['action'] == 'connecterTransporteur') {
 		identifierTransporteur ( $mysql );
 	}
-	
 }
 if (isset ( $_GET ['action'] )) {
 	if ($_GET ['action'] == 'logout') {
 		logout ();
 	}
 }
+
+// Vérification du login annonceur
 function identifierAnnonceur($mysql) {
 	$NomUtilisateur = $_POST ['NomUtilisateur'];
 	$Mdp = $_POST ['MotDePasse'];
 	$result = $mysql->VerifierLoginAnnonceur ( $NomUtilisateur, $Mdp );
+	
+	// Si échec, message d'erreur
 	if (! $result) {
 		$_SESSION ['form_data'] = array (
 				$NomUtilisateur,
 				$Mdp 
 		);
-		$_SESSION ['msg'] = 'Nom d utilisateur ou mot de passe incorrect';
+		$_SESSION ['msgA'] = 'Nom d\'utilisateur ou mot de passe incorrect';
 		header ( "location:../Vue/index.php" );
 		exit ();
 	}
@@ -45,16 +49,20 @@ function identifierAnnonceur($mysql) {
 	header ( "location:../Vue/AccueilAnnonceur.php" );
 	exit ();
 }
+
+// Vérification du login transporteur
 function identifierTransporteur($mysql) {
 	$NomUtilisateur = $_POST ['NomUtilisateur'];
 	$Mdp = $_POST ['MotDePasse'];
 	$result = $mysql->VerifierLoginTransporteur ( $NomUtilisateur, $Mdp );
+	
+	// Si échec, message d'erreur
 	if (! $result) {
 		$_SESSION ['form_data'] = array (
 				$NomUtilisateur,
-				$Mdp
+				$Mdp 
 		);
-		$_SESSION ['msg'] = 'Nom d\'utilisateur ou mot de passe incorrect';
+		$_SESSION ['msgT'] = 'Nom d\'utilisateur ou mot de passe incorrect';
 		header ( "location:../Vue/index.php" );
 		exit ();
 	}
@@ -63,6 +71,8 @@ function identifierTransporteur($mysql) {
 	header ( "location:../Vue/AccueilTransporteur.php" );
 	exit ();
 }
+
+// Fonction de logout éliminant toutes les valeurs de session stockées
 function logout() {
 	session_destroy ();
 	header ( "location:../Vue/index.php" );
@@ -77,6 +87,7 @@ function enregistrerAnnonceur($mysql) {
 	$Email = $_POST ['Email'];
 	$Adresse = $_POST ['Adresse'];
 	
+	// Messages d'erreur
 	if (empty ( $Adresse )) {
 		$rank = 7;
 		$msg = "Inscrivez une adresse";
@@ -108,6 +119,7 @@ function enregistrerAnnonceur($mysql) {
 		$rank = 1;
 		$msg = "Inscrivez un prénom";
 	}
+	// Si erreur, affichage du message d'erreur. Les données entrées sont conservées dans la variable session
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
 		$_SESSION ['msg'] = $msg;
@@ -118,13 +130,15 @@ function enregistrerAnnonceur($mysql) {
 				$Mdp,
 				$Telephone,
 				$Email,
-				$Adresse
+				$Adresse 
 		);
 		header ( "location:../Vue/InscriptionAnnonceur.php" );
 		exit ();
 	}
 	
-	$result = $mysql->enregistrerAnnonceur ( $Prenom, $Nom, $NomUtilisateur, $Mdp, $Telephone, $Email, $Adresse);
+	$result = $mysql->enregistrerAnnonceur ( $Prenom, $Nom, $NomUtilisateur, $Mdp, $Telephone, $Email, $Adresse );
+	
+	// Erreur en cas de doublon
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
 		$_SESSION ['msg'] = 'Le nom d\'utilisateur existe déjà';
@@ -135,20 +149,19 @@ function enregistrerAnnonceur($mysql) {
 				$Mdp,
 				$Telephone,
 				$Email,
-				$Adresse
+				$Adresse 
 		);
 	} else {
-	
+		
 		$_SESSION ['msg'] = 'Inscription effectuée';
-
+		
 		$result = $mysql->VerifierLoginAnnonceur ( $NomUtilisateur, $Mdp );
-		$_SESSION ['annonceur'] =$result;
+		$_SESSION ['annonceur'] = $result;
 	}
 	
 	header ( "location:../Vue/AccueilAnnonceur.php" );
 	exit ();
 }
-
 function enregistrerTransporteur($mysql) {
 	$nomSociete = $_POST ['NomSociete'];
 	$telephone = $_POST ['Telephone'];
@@ -158,6 +171,7 @@ function enregistrerTransporteur($mysql) {
 	$adresse = $_POST ['Adresse'];
 	$IBAN = $_POST ['IBAN'];
 	
+	// Messages d'erreur
 	if (empty ( $IBAN )) {
 		$rank = 7;
 		$msg = "Inscrivez un IBAN";
@@ -175,21 +189,23 @@ function enregistrerTransporteur($mysql) {
 		$rank = 4;
 		$msg = "Indiquez un nom d'utilisateur";
 	}
-
+	
 	if (empty ( $email )) {
 		$rank = 3;
 		$msg = "Indiquez un email";
 	}
-
+	
 	if (empty ( $telephone )) {
 		$rank = 2;
 		$msg = "Indiquez un numéro de téléphone";
 	}
-
+	
 	if (empty ( $nomSociete )) {
 		$rank = 1;
 		$msg = "Indiquez un nom de société";
 	}
+	
+	// Si erreur, affichage du message d'erreur. Les données entrées sont conservées dans la variable session
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
 		$_SESSION ['msg'] = $msg;
@@ -200,14 +216,15 @@ function enregistrerTransporteur($mysql) {
 				$username,
 				$motDePasse,
 				$adresse,
-				$IBAN
-				
+				$IBAN 
 		);
 		header ( "location:../Vue/InscriptionTransporteur.php" );
 		exit ();
 	}
-
+	
 	$result = $mysql->enregistrerTransporteur ( $nomSociete, $telephone, $email, $username, $motDePasse, $adresse, $IBAN );
+	
+	// Erreur en cas de doublon
 	if ($result == 'doublon') {
 		$_SESSION ['rank'] = 3;
 		$_SESSION ['msg'] = 'Le nom d\'utilisateur existe déjà';
@@ -218,19 +235,17 @@ function enregistrerTransporteur($mysql) {
 				$username,
 				$motDePasse,
 				$adresse,
-				$IBAN
-				
+				$IBAN 
 		);
 	} else {
-	
+		
 		$_SESSION ['msg'] = 'Inscription effectuée';
-
+		
 		$result = $mysql->VerifierLoginTransporteur ( $username, $motDePasse );
-		$_SESSION ['transporteur'] =$result;
+		$_SESSION ['transporteur'] = $result;
 	}
-
+	
 	header ( "location:../Vue/AccueilTransporteur.php" );
 	exit ();
 }
 
-include_once '../Vue/footer.inc';

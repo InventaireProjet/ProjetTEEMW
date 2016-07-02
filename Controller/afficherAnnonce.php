@@ -5,5 +5,5 @@ include_once '../Vue/header.inc';
 $mysql = new MySqlManager ();
 
 function afficherAnnonces($IDAnnonceur){
-	//test
+	
 }
