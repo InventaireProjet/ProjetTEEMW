@@ -6,7 +6,7 @@ class Devis {
 	public $Description;
 	public $EnCours;
 	public function __construct($id, $prix, $dateExpiration, $description, $enCours) {
-		$this->ID = $id;
+		$this->IDDevis = $id;
 		$this->Prix = $prix;
 		$this->DateExpiration = $dateExpiration;
 		$this->Description = $description;

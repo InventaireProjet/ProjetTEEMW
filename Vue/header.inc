@@ -1,5 +1,5 @@
 <?php
-
+require_once '../Controller/login.php';
 // Start the session
 session_start ();
 
@@ -41,8 +41,11 @@ session_start ();
 		<h1 id="title">Teemw</h1>
 		<p>Votre transporteur de marchandises</p>
 		
-<!-- 		Affichage du logout si un client est connecté -->
+
 <?php
+$host = $_SERVER['REQUEST_URI'];
+
+//Affichage du logout si un client est connecté
 if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 	
 	if (isset ( $_SESSION ['transporteur'] )) {
@@ -52,6 +55,10 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 		$user = $_SESSION ['annonceur'];
 		echo '<a href="../Controller/login.php?action=logout">Logout (' . $user->Prenom . ' ' . $user->Nom . ')</a>';
 	}
+}
+//Logout si tentative d'accession sans être enregistré, sauf si sur page d'accueil ou en train de se loguer
+elseif ($host !="/ProjetTEEMW/Vue/index.php" && $host !="/ProjetTEEMW/Controller/login.php" ) {
+	logout();
 }
 ?>
 	</div>

@@ -112,12 +112,50 @@ class MySqlManager {
 		return $annonces;
 	}
 	
-	public function nombreDevisParAnnonce($IDAnnonce) {
-		$query = "SELECT count(*) from Devis where IDAnnonce = $IDAnnonce";
+	// Récupération d'une annonce selon IDAnnonce
+	public function getAnnonce($IDAnnonce) {
+		$query = "SELECT * FROM Annonce WHERE IDAnnonce = $IDAnnonce";
 		$result = $this->_conn->selectDB ( $query );
-		$nombre =$result->fetchcolumn();
+		$annonce = $result->fetch ();		
+		return $annonce;
+	}
+	
+	// Récupération d'une annonce et des données liées sur les lieux et la marchandise  selon IDAnnonce
+	public function getAnnonceMarchandiseLieu($IDAnnonce) {
+		$query = "SELECT a.Nom, a.DateDepart, a.AdresseDepart, a.AdresseArrivee, a.DateArrivee, l.NPA as 'NPADepart',
+		l.Localite as 'LieuDepart', l.Pays as 'PaysDepart', l2.NPA as 'NPAArrivee', l2.Localite as 'LieuArrivee', 
+		l2.Pays as 'PaysArrivee', m.Description, m.Volume, m.Quantite, m.Poids FROM Annonce a, Marchandise m, Lieu l, Lieu l2 WHERE a.IDAnnonce = $IDAnnonce and 
+				a.`IDMarchandise`=m.`IDMarchandise` and a.`IDLieuDepart`=l.`IDLieu` and a.`IDLieuArrivee`=l2.`IDLieu` ";
+		$result = $this->_conn->selectDB ( $query );
+		$annonce =  $result->fetch ();
+		return $annonce;
+	}
+	
+	//Tout est dans le nom de la fonction
+	public function nombreDevisParAnnonce($IDAnnonce) {
+		$query = "SELECT count(IDDevis) from Devis where IDAnnonce = $IDAnnonce";
+		$result = $this->_conn->selectDB ( $query );
+		$nombre = $result->fetchcolumn ();
 		return $nombre;
 	}
-
+	
+	// Récupération des Devis selon IDAnnonce
+	public function getDevis($IDAnnonce) {
+		$query = "SELECT * from Devis where IDAnnonce = $IDAnnonce";
+		$result = $this->_conn->selectDB ( $query );
+		$devis = array ();
+		while ( $object = $result->fetch () ) {
+			$devis [] = $object;
+		}
+		return $devis;
+	}
+	
+	// Récupération d'un Devis selon IDDevis
+	public function getUnDevis($IDDevis) {
+		$query = "SELECT * from Devis where IDDevis = $IDDevis";
+		$result = $this->_conn->selectDB ( $query );
+		$devis = $result->fetch () ;
+		return $devis;
+	}
 }
 ?>

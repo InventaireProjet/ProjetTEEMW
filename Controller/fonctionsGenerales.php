@@ -1,10 +1,6 @@
 <?php
 require_once '../Model/class.MySqlManager.php';
-function controleLogin() {
-	if ($_SESSION ['annonceur'] == null) {
-		header ( "location:../Vue/" );
-	}
-}
+
 
 // Vérification de l'entrée de la date
 function verificationDate($date) {
