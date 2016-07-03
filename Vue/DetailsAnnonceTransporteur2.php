@@ -1,15 +1,21 @@
 <?php
-require_once '../Model/class.Annonceur.php';
 require_once '../Controller/afficherAnnonce.php';
-include_once 'header.inc';
+require_once '../Controller/affichageTransporteur.php';
+include_once '../Vue/header.inc';
+
+$msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
+if ($msg)
+	echo $msg;
 ?>
 <div class="container">
 
+
 	<h3>Détails de l'annonce</h3>
 	<?php
-	// Récupération de l'annonce à afficher
+	// Récupération de l'annonce à afficher et du transporteur
 	$idAnnonce = $_GET ['id'];
 	$annonce = getAnnonceMarchandiseLieu ( $idAnnonce );
+	$user = $_SESSION ['transporteur'];
 	?>
 	
 	<table>
@@ -72,36 +78,19 @@ include_once 'header.inc';
 			echo $typeTransport ['Nom']?></td>
 		</tr>
 	</table>
-	<br>
-	<h4>Devis soumis</h4>
+	<br> 
 
-<?php
-// Récupération des devis qui concernent l'annonce affichés dans un tableau
-$devisT = getDevis ( $idAnnonce );
-if ($devisT != null) {
-	$table_str = '<table class="table">';
-	$i = 1;
-	$table_str .= '<tr>' . '<td>' . '</td><th >' . "Date de validité" . '</th><th>' . "Prix" . '</th>';
-	$table_str .= '</tr>';
-	foreach ( $devisT as $devis ) {
-		$table_str .= '<tr>';
-		// Lien à chaque ligne du tableau vers le devis correspondant via le paramètre id
-		$table_str .= '<td>' . ($i ++) . '</td><td>' . $devis ['DateExpiration'] . '</td><td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '"> ' . $devis ['Prix'] . '</td>';
-		$table_str .= '</tr>';
-	}
-	$table_str .= '</table>';
-	echo $table_str;
-} else {
-	echo 'Aucun devis soumis';
-}
-?>
-
-
-	<br>
-	<br> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
-
+<!-- Bouton pour la soumission de devis -->
+	<form method="post" action="ValidationDevis.php">
+		<input type="hidden" name="idAnnonce" value="<?php echo $idAnnonce?>"> <input
+			type="submit" name="action" value="Proposer un devis">
+	</form>
+<br> <a href="../Vue/RechercheAnnonce.php">Retour à la recherche d'annonces</a>
 </div>
+ 
+
 <?php
 include_once 'footer.inc';
 ?>
 
+	

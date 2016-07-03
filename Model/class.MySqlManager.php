@@ -67,7 +67,7 @@ class MySqlManager {
 			$query = "INSERT into RelationMarchandiseTransportSet (IDMarchandise,IDTypeTransport) VALUES('$idMarchandise', '$type');";
 			$this->_conn->executeQuery ( $query );
 			
-			// TODO Gérer lieu
+		
 			$query = "INSERT into Annonce (Nom, DateDepart, DateArrivee,
 			AdresseDepart, AdresseArrivee, EnCours, TransportRealise, IDMarchandise, IDLieuDepart, IDLieuArrivee, IDAnnonceur )
 			VALUES('$nom', '$datedep', '$datearr', '$adressedep', '$adressearr', true, false, 
@@ -80,11 +80,13 @@ class MySqlManager {
 			$this->_conn->getConnection ()->rollback ();
 		}
 	}
-	public function enregistrerDevis($prix, $dateExpiration, $description, $idTransporteur) {
+	
+	
+	public function enregistrerDevis($prix, $dateExpiration, $description, $idTransporteur, $idAnnonce) {
 		try {
 			$this->_conn->getConnection ()->beginTransaction ();
 			$query = "INSERT into Devis (Prix, DateExpiration, Description, EnCours, Accepte, IDTransporteur, IDAnnonce )
-			VALUES('$prix', '$dateExpiration', '$description', true, false, '$idTransporteur', 1);";
+			VALUES('$prix', '$dateExpiration', '$description', true, false, '$idTransporteur', '$idAnnonce');";
 			$this->_conn->executeQuery ( $query );
 			
 			$this->_conn->getConnection ()->commit ();
@@ -128,8 +130,8 @@ class MySqlManager {
 	public function getAnnonceMarchandiseLieu($IDAnnonce) {
 		$query = "SELECT a.Nom, a.DateDepart, a.AdresseDepart, a.AdresseArrivee, a.DateArrivee, l.NPA as 'NPADepart',
 		l.Localite as 'LieuDepart', l.Pays as 'PaysDepart', l2.NPA as 'NPAArrivee', l2.Localite as 'LieuArrivee', 
-		l2.Pays as 'PaysArrivee', m.Description, m.Volume, m.Quantite, m.Poids FROM Annonce a, Marchandise m, Lieu l, Lieu l2
-		WHERE a.IDAnnonce = $IDAnnonce and a.`IDMarchandise`=m.`IDMarchandise` and a.`IDLieuDepart`=l.`IDLieu` and a.`IDLieuArrivee`=l2.`IDLieu` ";
+		l2.Pays as 'PaysArrivee', m.IDMarchandise, m.Description, m.Volume, m.Quantite, m.Poids FROM Annonce a, Marchandise m, Lieu l, Lieu l2
+		WHERE a.IDAnnonce = $IDAnnonce and a.IDMarchandise=m.IDMarchandise and a.IDLieuDepart=l.IDLieu and a.IDLieuArrivee=l2.IDLieu ";
 		$result = $this->_conn->selectDB ( $query );
 		$annonce = $result->fetch ();
 		return $annonce;
@@ -242,6 +244,31 @@ class MySqlManager {
 		$result = $this->_conn->selectDB ( $query );
 		$lieu = $result->fetch ();
 		return $lieu;
+	}
+	
+	//Retourne le type de tranport associé à la marchandise à livrer
+	public function getTypeTransportFromMarchandise($IDMarchandise)  {
+		$query = "SELECT * from TypeTransport tt, RelationMarchandiseTransportSet mt where mt.IDMarchandise = $IDMarchandise 
+		and mt.IDTypeTransport=tt.IDTypeTransport";
+		$result = $this->_conn->selectDB ( $query );
+		$typeTransport = $result->fetch ();
+		return $typeTransport;
+	}
+	
+	//Retourne les annonces correspondant aux types de transport pris en charge par le transporteur
+	public function getSelectionAnnonces($IDTransporteur)  {
+		$query = "SELECT a.IDAnnonce, a.IDLieuDepart, a.DateDepart, a.DateArrivee, a.IDLieuArrivee, a.Nom as 'NomAnnonce', tt.Nom as 'TypeTransport'  
+		FROM RelationMarchandiseTransportSet rmt, RelationTransporteurTransportSet rtt, Annonce a, 
+				TypeTransport tt, Marchandise m 
+				WHERE rtt.IDTransporteur=$IDTransporteur and rtt.IDTypeTransport=tt.IDTypeTransport 
+				and tt.IDTypeTransport=rmt.IDTypeTransport and rmt.IDMarchandise =m.IDMarchandise 
+				and m.IDMarchandise=a.IDMarchandise ";
+		$result = $this->_conn->selectDB ( $query );
+		$annonces = array ();
+		while ( $object = $result->fetch () ) {
+			$annonces [] = $object;
+		}
+		return $annonces;
 	}
 }
 ?>

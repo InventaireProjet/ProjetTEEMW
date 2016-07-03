@@ -14,6 +14,7 @@ function enregistrerDevis($mysql) {
 	$prix = $_POST ['Prix'];
 	$dateExpiration = $_POST ['DateExpiration'];
 	$description = $_POST ['Description'];
+	$idAnnonce = $_POST ['idAnnonce'];
 	
 	if (empty ( $description )) {
 		$rank = 3;
@@ -58,7 +59,7 @@ function enregistrerDevis($mysql) {
 	
 	
 	$dateSQLExpiration = dateSQL ( $dateExpiration, 0, 0 );
-	$mysql->enregistrerDevis ( $prix, $dateSQLExpiration, $description, $idTransporteur );
+	$mysql->enregistrerDevis ( $prix, $dateSQLExpiration, $description, $idTransporteur, $idAnnonce );
 	$_SESSION ['msg'] = 'Nouveau devis enregistré';
 	header ( "location:../Vue/AccueilTransporteur.php" );
 	exit ();

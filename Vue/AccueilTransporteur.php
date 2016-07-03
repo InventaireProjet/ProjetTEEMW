@@ -3,6 +3,9 @@ require_once '../Model/class.Transporteur.php';
 require_once '../Controller/affichageTransporteur.php';
 include_once 'header.inc';
 
+// Récupération de l'annonceur connecté
+$user = $_SESSION ['transporteur'];
+$idTransporteur = $user->IDTransporteur;
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
 if ($msg)
 	echo $msg;
@@ -14,14 +17,13 @@ if ($msg)
 	<form method="post" action="../Vue/RechercheAnnonce.php">
 		<input type="submit" name="action" value="Rechercher une annonce">
 	</form>
-<br>
+	<br>
 	<h4>Transports à effectuer</h4>
 	<?php
-	// Récupération de l'annonceur connecté
-	$user = $_SESSION ['transporteur'];
+
 	
 	// Récupération des transports à effectuer qui concernent le transporteur affichés dans un tableau
-	$annonces = getTransportsAEffectuer ( $user->IDTransporteur );
+	$annonces = getTransportsAEffectuer ( $idTransporteur );
 	if ($annonces != null) {
 		$table_str = '<table class="table">';
 		$i = 1;
@@ -41,11 +43,11 @@ if ($msg)
 	
 	?>
 <br>
-<h4>Devis en attente</h4>
+	<h4>Devis en attente</h4>
 	<?php
 	
 	// Récupération des transports à effectuer qui concernent le transporteur affichés dans un tableau
-	$annonces = getAnnoncesPossibles ( $user->IDTransporteur );
+	$annonces = getAnnoncesPossibles ( $idTransporteur );
 	if ($annonces != null) {
 		$table_str = '<table class="table">';
 		$i = 1;
@@ -68,8 +70,7 @@ if ($msg)
 
 
 
- <br>
-	<a href="HistoriqueAnnonceur.php">Consulter l'historique</a> <br>
+ <br> <a href="HistoriqueAnnonceur.php">Consulter l'historique</a> <br>
 	<a href="InfosPersonnellesAnnonceur.php">Données de l'entreprise</a>
 </div>
 </div>

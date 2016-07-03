@@ -10,6 +10,7 @@ $form_data = isset ( $_SESSION ['formNouvDevis_data'] ) ? $_SESSION ['formNouvDe
 		'',
 		'' 
 );
+$idAnnonce = $_POST ['idAnnonce'];
 ?>
 
 
@@ -46,7 +47,9 @@ $form_data = isset ( $_SESSION ['formNouvDevis_data'] ) ? $_SESSION ['formNouvDe
     <?php if($rank==3) echo $msg;?></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="left"><input type="submit" name="action"
+					<td colspan="2" align="left">
+					<input type="hidden" name="idAnnonce" value="<?php echo $idAnnonce ?>">
+					<input type="submit" name="action"
 						value="Entrer les données pour un devis"></td>
 				</tr>
 			</table>

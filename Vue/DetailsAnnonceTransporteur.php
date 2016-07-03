@@ -3,7 +3,6 @@ require_once '../Controller/afficherAnnonce.php';
 require_once '../Controller/affichageTransporteur.php';
 include_once 'header.inc';
 
-
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
 if ($msg)
 	echo $msg;
@@ -72,7 +71,12 @@ if ($msg)
 			<td>Quantité :</td>
 			<td><?php echo $annonce['Quantite']?></td>
 		</tr>
-
+		<tr>
+			<td>Type de transport :</td>
+			<td><?php
+			$typeTransport = getTypeTransportFromMarchandise ( $annonce ['IDMarchandise'] );
+			echo $typeTransport ['Nom']?></td>
+		</tr>
 	</table>
 	<br>
 	
@@ -103,10 +107,10 @@ $devis = getDevisTransporteurAnnonce ( $user->IDTransporteur, $idAnnonce );
 
 
 <?php
-$devisAccepte = $_GET ['a'];
+$typeAffichage = $_GET ['a'];
 
 // Affichage des coordonnées client si le devis a été accepté (paramètre 'a' du GET = 1)
-if ($devisAccepte == 1) {
+if ($typeAffichage == 1) {
 	
 	$annonceur = getAnnonceurDevis ( $devis ['IDDevis'] );
 	
@@ -150,12 +154,11 @@ if ($devisAccepte == 1) {
 	// Bouton d'archivage
 	echo $boutonArchiver = '<br><form method="post" action="../Controller/affichageTransporteur.php/">
 		<input type="hidden" name="idAnnonce" value="' . $idAnnonce . '">
-		<input type="hidden" name="devisAccepte" value="' . $devisAccepte . '">
+		<input type="hidden" name="typeAffichage" value="' . $typeAffichage . '">
 		<input type="submit" name="action" value="Archiver">
 	</form> ';
-	
-	
 }
+
 ?>
 
 
