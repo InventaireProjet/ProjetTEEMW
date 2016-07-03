@@ -2,7 +2,6 @@
 require_once '../Model/class.TypeTransport.php';
 require_once '../Controller/fonctionsGenerales.php';
 include_once 'header.inc';
-controleLogin ();
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
 $form_data = isset ( $_SESSION ['formNouvMarchandise_data'] ) ? $_SESSION ['formNouvMarchandise_data'] : array (

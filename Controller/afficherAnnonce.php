@@ -2,7 +2,7 @@
 require_once '../Model/class.MySqlManager.php';
 include_once '../Vue/header.inc';
 
-$mysql = new MySqlManager ();
+
 function getAnnonces($IDAnnonceur) {
 	$mysql = new MySqlManager ();
 	$result = $mysql->getAnnonces ( $IDAnnonceur );
@@ -43,3 +43,5 @@ function getUnDevis($IDDevis) {
 
 	return $result;
 }
+
+?>

@@ -1,7 +1,9 @@
 <?php
 require_once '../Controller/afficherAnnonce.php';
 include_once 'header.inc';
-?>
+
+$msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
+ if($msg) echo $msg;?>
 <div class="container">
 
 
@@ -9,10 +11,11 @@ include_once 'header.inc';
 	// Récupération du devis à afficher
 	$idDevis = $_GET ['devis'];
 	$devis = getUnDevis ( $idDevis );
-	$idAnnonce =$_GET ['id'];
+	$numeroDevis = $_GET ['i'];
+	$idAnnonce = $devis['IDAnnonce'];
 	?>
 	
-	<h3>Detail Devis <?php echo $idDevis?></h3>
+	<h3>Détails Devis <?php echo $numeroDevis ?></h3>
 
 	<table>
 		<tr>
@@ -28,7 +31,14 @@ include_once 'header.inc';
 			<td><?php echo $devis ['Description']?></td>
 		</tr>
 	</table>
-<br><br> <a href="../Vue/DetailsAnnonceAnnonceur.php?id= <?php echo $idAnnonce?>">Retour à l'annonce</a>
+	<form method="post" action="../Controller/validerDevis.php/">
+		<input type="hidden" name="idDevis" value="<?php echo  $idDevis?>">
+		<input type="hidden" name="noDevis" value="<?php echo  $numeroDevis?>">
+		<input type="submit" name="action" value="Valider ce devis">
+	</form> 
+	<a href="../Vue/DetailsAnnonceAnnonceur.php?id=<?php echo $idAnnonce?>">Retour
+		à l'annonce</a>
+
 </div>
 <?php
 include_once 'footer.inc';

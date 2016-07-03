@@ -4,9 +4,7 @@ require_once '../Controller/afficherAnnonce.php';
 include_once 'header.inc';
 
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
-
-?>
-<?php if($msg) echo $msg;?>
+ if($msg) echo $msg;?>
 <div class="container">
 	<h3>Accueil Annonceur</h3>
 	
@@ -27,7 +25,7 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 	foreach ( $annonces as $annonce ) {
 		$table_str .= '<tr>';
 		//Lien à chaque ligne du tableau vers l'annonce correspondante via le paramètre id
-		$table_str .= '<td>' . ($i ++) . '</td><td><a href="DetailsAnnonceAnnonceur.php?id=' .$annonce['IDAnnonce'] 
+		$table_str .= '<td>' . ($i ++) . '</td><td><a href="DetailsAnnonceAnnonceur.php?id=' . $annonce['IDAnnonce'] 
 		. '"> ' . $annonce ['Nom'] . '</td><td>' . nombreDevisParAnnonce($annonce['IDAnnonce']) . '</td>';
 		$table_str .= '</tr>';
 	}

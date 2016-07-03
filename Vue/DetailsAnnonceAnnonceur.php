@@ -8,7 +8,7 @@ include_once 'header.inc';
 	<h3>Détails Annonce</h3>
 	<?php
 	// Récupération de l'annonce à afficher
-	$idAnnonce = $_GET ['id'];
+	$idAnnonce = $_GET['id'];
 	$annonce = getAnnonceMarchandiseLieu ( $idAnnonce );
 	?>
 	
@@ -81,7 +81,7 @@ $table_str .= '</tr>';
 foreach ( $devisT as $devis ) {
 	$table_str .= '<tr>';
 	// Lien à chaque ligne du tableau vers le devis correspondant via le paramètre id
-	$table_str .= '<td>' . ($i ++) . '</td><td>' . $devis ['DateExpiration'] . '</td><td><a href="DetailsDevis.php?id=' .$idAnnonce .'&devis='  . $devis ['IDDevis'] . '"> ' . $devis ['Prix'] . '</td>';
+	$table_str .= '<td>' . ($i ++) . '</td><td>' . $devis ['DateExpiration'] . '</td><td><a href="DetailsDevis.php?devis='  . $devis ['IDDevis'] .'&i=' . ($i-1)  . '"> ' . $devis ['Prix'] . '</td>';
 	$table_str .= '</tr>';
 }
 $table_str .= '</table>';

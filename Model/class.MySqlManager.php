@@ -14,6 +14,7 @@ class MySqlManager {
 		$query = "INSERT into Annonceur(Prenom, Nom, UserName,
 		MotDePasse, Telephone, Email, Adresse)VALUES('$Prenom', '$Nom', '$Utilisateur', '$Mdp', '$Telephone', '$Email', '$Adresse');";
 		return $this->_conn->executeQuery ( $query );
+		
 	}
 	public function enregistrerTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse, $IBAN) {
 		$pwd = sha1 ( $pwd );
@@ -116,22 +117,22 @@ class MySqlManager {
 	public function getAnnonce($IDAnnonce) {
 		$query = "SELECT * FROM Annonce WHERE IDAnnonce = $IDAnnonce";
 		$result = $this->_conn->selectDB ( $query );
-		$annonce = $result->fetch ();		
+		$annonce = $result->fetch ();
 		return $annonce;
 	}
 	
-	// Récupération d'une annonce et des données liées sur les lieux et la marchandise  selon IDAnnonce
+	// Récupération d'une annonce et des données liées sur les lieux et la marchandise selon IDAnnonce
 	public function getAnnonceMarchandiseLieu($IDAnnonce) {
 		$query = "SELECT a.Nom, a.DateDepart, a.AdresseDepart, a.AdresseArrivee, a.DateArrivee, l.NPA as 'NPADepart',
 		l.Localite as 'LieuDepart', l.Pays as 'PaysDepart', l2.NPA as 'NPAArrivee', l2.Localite as 'LieuArrivee', 
 		l2.Pays as 'PaysArrivee', m.Description, m.Volume, m.Quantite, m.Poids FROM Annonce a, Marchandise m, Lieu l, Lieu l2 WHERE a.IDAnnonce = $IDAnnonce and 
 				a.`IDMarchandise`=m.`IDMarchandise` and a.`IDLieuDepart`=l.`IDLieu` and a.`IDLieuArrivee`=l2.`IDLieu` ";
 		$result = $this->_conn->selectDB ( $query );
-		$annonce =  $result->fetch ();
+		$annonce = $result->fetch ();
 		return $annonce;
 	}
 	
-	//Tout est dans le nom de la fonction
+	// Tout est dans le nom de la fonction
 	public function nombreDevisParAnnonce($IDAnnonce) {
 		$query = "SELECT count(IDDevis) from Devis where IDAnnonce = $IDAnnonce";
 		$result = $this->_conn->selectDB ( $query );
@@ -154,8 +155,33 @@ class MySqlManager {
 	public function getUnDevis($IDDevis) {
 		$query = "SELECT * from Devis where IDDevis = $IDDevis";
 		$result = $this->_conn->selectDB ( $query );
-		$devis = $result->fetch () ;
+		$devis = $result->fetch ();
 		return $devis;
 	}
+	
+	// Validation d'un Devis selon IDDevis
+	public function validerDevis($IDDevis) {
+		try {
+			$this->_conn->getConnection ()->beginTransaction ();
+			$query = "UPDATE Devis SET Accepte=1 WHERE IDDevis= $IDDevis";
+			$result = $this->_conn->executeQuery ( $query );
+			$this->_conn->getConnection ()->commit ();
+			return true;
+		} catch ( Exception $e ) {
+			$this->_conn->getConnection ()->rollback ();
+		}
+	}
+	
+	// Obtenir le transporteur et son lieu d'après l'ID du devis
+	public function getTransporteur($IDDevis) {
+		$query = "SELECT * from transporteur t, Devis d, Lieu l where IDDevis = $IDDevis and d.IDTransporteur=t.IDTransporteur and t.IDLieu=l.IDLieu";
+		$result = $this->_conn->selectDB ( $query );
+		$transporteur = $result->fetch ();
+		return $transporteur;
+	}
+	
+	
+	
+	
 }
 ?>
