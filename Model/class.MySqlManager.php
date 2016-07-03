@@ -180,8 +180,26 @@ class MySqlManager {
 		return $transporteur;
 	}
 	
+	// Récupération des annonces pour lesquelles le transporteur doit effectuer le transport
+	public function getTransportsAEffectuer($IDTransporteur) {
+		$query = "SELECT * from Devis d, Annonce a where d.IDTransporteur=$IDTransporteur and d.Accepte=1 and d.IDAnnonce = a.IDAnnonce and a.TransportRealise=0 ";
+		$result = $this->_conn->selectDB ( $query );
+		$annonces = array ();
+		while ( $object = $result->fetch () ) {
+			$annonces [] = $object;
+		}
+		return $annonces;
+	}
 	
-	
-	
+	// Récupération des annonces pour lesquelles le transporteur a soumis un devis et qui ne sont pas encore attribuées
+	public function getAnnoncesPossibles($IDTransporteur) {
+		$query = "SELECT * from Devis d, Annonce a where d.IDTransporteur=$IDTransporteur and d.Accepte=0 and d.EnCours=1 and d.IDAnnonce = a.IDAnnonce and a.TransportRealise=0 ";
+		$result = $this->_conn->selectDB ( $query );
+		$annonces = array ();
+		while ( $object = $result->fetch () ) {
+			$annonces [] = $object;
+		}
+		return $annonces;
+	}
 }
 ?>

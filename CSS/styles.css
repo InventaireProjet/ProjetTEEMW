@@ -56,9 +56,13 @@ margin-bottom: 20px;
 
 
 
-/* Mise en forme de la partie centrale */
+/* Mise en forme de la partie centrale 
+Les éléments relatifs au bottom permettent de garder le footer en fond de page
+ et d'afficher tout le contenu du container*/
 .container {
 	padding-top: 25px;
+	margin-bottom: -50px;
+	padding-bottom: 50px;
 }
 /*Mise en forme des colonnes */
 .row {

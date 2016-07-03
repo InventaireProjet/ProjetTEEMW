@@ -43,8 +43,7 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 	<br> <a href="NouvelleAnnonceTypeTransport.php">Insérer une annonce</a>	
  <br><a href="HistoriqueAnnonceur.php">Consulter l'historique</a>
 <br><a href="InfosPersonnellesAnnonceur.php">Mes données personnelles</a>
-	
+</div> 	
 <?php
-echo '</div> </h4>';
 include_once 'footer.inc';
 ?>
