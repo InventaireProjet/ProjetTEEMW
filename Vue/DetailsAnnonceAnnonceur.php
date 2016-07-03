@@ -5,7 +5,7 @@ include_once 'header.inc';
 ?>
 <div class="container">
 
-	<h3>Détails Annonce</h3>
+	<h3>Détails de l'annonce</h3>
 	<?php
 	// Récupération de l'annonce à afficher
 	$idAnnonce = $_GET['id'];
@@ -93,7 +93,7 @@ else {
 ?>
 
 
-	<br><br> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceurs</a>
+	<br><br> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
 
 </div>
 <?php

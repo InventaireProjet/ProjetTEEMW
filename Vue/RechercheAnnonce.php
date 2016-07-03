@@ -12,7 +12,7 @@ if ($msg)
 	
 
 
-<br><a href="AccueilTransporteur.php">Revenir à l'accueil</a>
+<br> <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a>
 </div> 	
 </div>
 <?php

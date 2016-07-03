@@ -5,9 +5,9 @@ include_once 'header.inc';
 
 <div class="container">
 
-	<h4>Historique Annonceur PHP</h4>
+	<h4>Historique Annonceur </h4>
 
-<br /> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceurs</a>
+<br /> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
 </div>
 <?php
 include_once 'footer.inc';

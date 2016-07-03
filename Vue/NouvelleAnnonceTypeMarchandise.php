@@ -92,7 +92,7 @@ foreach ( $typesTransport as $valeur ) {
 
 		<a href="NouvelleAnnonceTypeTransport.php">Revenir à la première
 			partie de l'annonce</a> <br /> <a href="AccueilAnnonceur.php">Accueil
-			anonceurs</a>
+			anonceur</a>
 
 	</h4>
 

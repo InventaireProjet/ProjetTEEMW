@@ -30,7 +30,7 @@ if ($msg)
 		foreach ( $annonces as $annonce ) {
 			$table_str .= '<tr>';
 			// Lien à chaque ligne du tableau vers l'annonce correspondante via le paramètre id
-			$table_str .= '<td>' . ($i ++) . '</td><td><a href="DetailsAnnonceTransporteur.php?id=' . $annonce ['IDAnnonce'] . '"> ' . $annonce ['Nom'] . '</td>';
+			$table_str .= '<td>' . ($i ++) . '</td><td><a href="DetailsAnnonceTransporteur.php?id=' . $annonce ['IDAnnonce'] . '&a=1"> ' . $annonce ['Nom'] . '</td>';
 			$table_str .= '</tr>';
 		}
 		$table_str .= '</table>';
@@ -40,7 +40,7 @@ if ($msg)
 	}
 	
 	?>
-
+<br>
 <h4>Devis en attente</h4>
 	<?php
 	
@@ -54,7 +54,7 @@ if ($msg)
 		foreach ( $annonces as $annonce ) {
 			$table_str .= '<tr>';
 			// Lien à chaque ligne du tableau vers l'annonce correspondante via le paramètre id
-			$table_str .= '<td>' . ($i ++) . '</td><td><a href="DetailsAnnonceTransporteur.php?id=' . $annonce ['IDAnnonce'] . '"> ' . $annonce ['Nom'] . '</td>';
+			$table_str .= '<td>' . ($i ++) . '</td><td><a href="DetailsAnnonceTransporteur.php?id=' . $annonce ['IDAnnonce'] . '&a=0"> ' . $annonce ['Nom'] . '</td>';
 			$table_str .= '</tr>';
 		}
 		$table_str .= '</table>';

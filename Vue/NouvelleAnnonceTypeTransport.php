@@ -172,7 +172,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 				</tr>
 			</table>
 		</form>
-		<br /> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceurs</a>
+		<br /> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
 
 
 	</h4>
