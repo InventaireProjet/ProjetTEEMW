@@ -1,6 +1,6 @@
 <?php
 require_once '../Controller/afficherAnnonce.php';
-require_once '../Controller/validerDevis.php';
+require_once '../Controller/confirmerDevis.php';
 include_once 'header.inc';
 
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';

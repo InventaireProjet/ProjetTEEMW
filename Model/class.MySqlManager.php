@@ -161,11 +161,17 @@ class MySqlManager {
 		return $devis;
 	}
 	
-	// Validation d'un devis selon IDDevis
-	public function validerDevis($IDDevis) {
+	// Validation d'un devis selon IDDevis et IDAnnonce, changement des valeurs encours et accepté
+	public function validerDevis($IDDevis, $IDAnnonce) {
 		try {
 			$this->_conn->getConnection ()->beginTransaction ();
-			$query = "UPDATE Devis SET Accepte=1 WHERE IDDevis= $IDDevis";
+			//Tous les devis et l'annonce concernés sont désactivés
+			$query = "UPDATE Annonce a, Devis d SET d.Encours=0, a.EnCours=0
+			WHERE   d.IDAnnonce=$IDAnnonce and d.IDAnnonce=a.IDAnnonce";
+			$result = $this->_conn->executeQuery ( $query );
+			//Le devis choisi est marqué
+			$query = "UPDATE Devis d SET d.Accepte=1 
+			WHERE d.IDDevis=$IDDevis ";
 			$result = $this->_conn->executeQuery ( $query );
 			$this->_conn->getConnection ()->commit ();
 			return true;
@@ -259,7 +265,7 @@ class MySqlManager {
 				TypeTransport tt, Marchandise m 
 				WHERE rtt.IDTransporteur=$IDTransporteur and rtt.IDTypeTransport=tt.IDTypeTransport 
 				and tt.IDTypeTransport=rmt.IDTypeTransport and rmt.IDMarchandise =m.IDMarchandise 
-				and m.IDMarchandise=a.IDMarchandise ";
+				and m.IDMarchandise=a.IDMarchandise and a.EnCours=1 ";
 		$result = $this->_conn->selectDB ( $query );
 		$annonces = array ();
 		while ( $object = $result->fetch () ) {
@@ -283,7 +289,7 @@ class MySqlManager {
 	//EN réalité, mettre Accepte 1 et TransportRealise 1
 	public function getTransportsEffectue($IDTransporteur) {
 		$query = "SELECT * from Devis d, Annonce a where d.IDTransporteur=$IDTransporteur 
-		and d.Accepte=0 and d.IDAnnonce = a.IDAnnonce and a.TransportRealise=0 ";
+		and d.Accepte=1 and d.IDAnnonce = a.IDAnnonce and a.TransportRealise=1 ";
 		$result = $this->_conn->selectDB ( $query );
 		$annonces = array ();
 		while ( $object = $result->fetch () ) {

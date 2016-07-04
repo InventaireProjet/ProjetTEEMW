@@ -31,9 +31,10 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 			<td><?php echo $devis ['Description']?></td>
 		</tr>
 	</table>
-	<form method="post" action="../Controller/validerDevis.php/">
+	<form method="post" action="../Controller/confirmerDevis.php/">
 		<input type="hidden" name="idDevis" value="<?php echo  $idDevis?>">
 		<input type="hidden" name="noDevis" value="<?php echo  $numeroDevis?>">
+		<input type="hidden" name="idAnnonce" value="<?php echo  $idAnnonce?>">
 		<input type="submit" name="action" value="Valider ce devis">
 	</form> 
 	<a href="../Vue/DetailsAnnonceAnnonceur.php?id=<?php echo $idAnnonce?>">Retour

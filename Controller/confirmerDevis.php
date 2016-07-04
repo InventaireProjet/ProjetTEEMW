@@ -15,7 +15,8 @@ if (isset ( $_POST ['action'] )) {
 function validerDevis($mysql) {
 	$idDevis = $_POST ['idDevis'];
 	$noDevis = $_POST ['noDevis'];
-	$resultat = $mysql->validerDevis ( $idDevis );
+	$idAnnonce= $_POST['idAnnonce'];
+	$resultat = $mysql->validerDevis ( $idDevis, $idAnnonce );
 	
 	if ($resultat) {
 		header ( "location:/ProjetTEEMW/Vue/ConfirmationDevis.php?devis=$idDevis&i=$noDevis" );
