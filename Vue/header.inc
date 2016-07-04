@@ -44,7 +44,7 @@ session_start ();
 
 <?php
 $host = $_SERVER['REQUEST_URI'];
-
+$vue="/ProjetTEEMW/Vue/";
 //Affichage du logout si un client est connecté
 if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 	
@@ -56,8 +56,11 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 		echo '<a href="../Controller/login.php?action=logout">Logout (' . $user->Prenom . ' ' . $user->Nom . ')</a>';
 	}
 }
-//Logout si tentative d'accession sans être enregistré, sauf si sur page d'accueil ou en train de se loguer
-elseif ($host !="/ProjetTEEMW/Vue/index.php" && $host !="/ProjetTEEMW/Controller/login.php" ) {
+//Logout si tentative d'accession sans être enregistré, sauf si sur pages d'accueil, d'inscription ou en train de se loguer
+
+elseif ($host !=$vue +"index.php" && $host !=$vue +"InscriptionAnnonceur.php" 
+		&& $host !=$vue +"InscriptionTransporteur.php" && $host !=$vue +"InscriptionTransporteur2.php" 
+		&& $host !="/ProjetTEEMW/Controller/login.php" ) {
 	logout();
 }
 ?>

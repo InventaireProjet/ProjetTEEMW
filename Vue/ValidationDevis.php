@@ -50,7 +50,7 @@ $idAnnonce = $_POST ['idAnnonce'];
 					<td colspan="2" align="left">
 					<input type="hidden" name="idAnnonce" value="<?php echo $idAnnonce ?>">
 					<input type="submit" name="action"
-						value="Entrer les données pour un devis"></td>
+						value="Soumettre le devis"></td>
 				</tr>
 			</table>
 		</form>

@@ -6,7 +6,7 @@ include_once '../Vue/header.inc';
 $mysql = new MySqlManager ();
 
 if (isset ( $_POST ['action'] )) {
-	if ($_POST ['action'] == 'Entrer les données pour un devis') {
+	if ($_POST ['action'] == 'Soumettre le devis') {
 		enregistrerDevis ( $mysql );
 	}
 }

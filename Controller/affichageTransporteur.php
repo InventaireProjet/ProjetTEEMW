@@ -6,14 +6,10 @@ $mysql = new MySqlManager ();
 // Fonction appelée selon la valeur d'action
 if (isset ( $_POST ['action'] )) {
 	
-	
 	if ($_POST ['action'] == 'Archiver') {
 		archiverAnnonce ( $mysql );
 	}
 }
-
-
-
 function archiverAnnonce($mysql) {
 	$idAnnonce = $_POST ['idAnnonce'];
 	$typeAffichage = $_POST ['typeAffichage'];
@@ -59,19 +55,40 @@ function getLieu($IDLieu) {
 	return $result;
 }
 
-function getSelectionAnnonces( $idTransporteur ) {
+//Transmet les annonces correspondant aux types de transport après avoir ignoré 
+//les annonces pour lesquelles l'annonceur a déjà soumissionné
+function getSelectionAnnonces($IDTransporteur) {
 	$mysql = new MySqlManager ();
-	$result = $mysql->getSelectionAnnonces ( $idTransporteur );
-
-	return $result;
+	$annonces = $mysql->getSelectionAnnonces ( $IDTransporteur );
+	$annoncesAvecDevis = getAnnoncesPossibles ( $IDTransporteur );
+	$annonceAAfficher=array();
+	foreach ( $annonces as $annonce ) {
+		if (testAnnoncesIdentiques($annonce['IDAnnonce'], $annoncesAvecDevis)==false) {
+			
+			$annonceAAfficher[] = $annonce;
+		}
+		
+	}
+	
+	return $annonceAAfficher;
 }
 
-function getTransportsEffectue ( $IDTransporteur )
-{
+//Si l'annonce est présente dans le tableau, retourne true
+function testAnnoncesIdentiques($IDAnnonce, $tableauAnnonces) {
+	
+	foreach ( $tableauAnnonces as $annonce ) {
+		if ($annonce['IDAnnonce']==$IDAnnonce){
+				return true;
+		}
+	}
+	return false;
+}
+
+function getTransportsEffectue($IDTransporteur) {
 	$mysql = new MySqlManager ();
 	$result = $mysql->getTransportsEffectue ( $IDTransporteur );
 	
 	return $result;
-	}
+}
 
 ?>

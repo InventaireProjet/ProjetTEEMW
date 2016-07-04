@@ -110,7 +110,7 @@ $devis = getDevisTransporteurAnnonce ( $user->IDTransporteur, $idAnnonce );
 $typeAffichage = $_GET ['a'];
 
 // Affichage des coordonnées client si le devis a été accepté (paramètre 'a' du GET = 1)
-if ($typeAffichage == 1) {
+if ($typeAffichage == 1 || $typeAffichage == 2) {
 	
 	$annonceur = getAnnonceurDevis ( $devis ['IDDevis'] );
 	
@@ -151,12 +151,14 @@ if ($typeAffichage == 1) {
 	
 	</table>';
 	
-	// Bouton d'archivage
-	echo $boutonArchiver = '<br><form method="post" action="../Controller/affichageTransporteur.php/">
+	if ($typeAffichage == 1) {
+		// Bouton d'archivage
+		echo $boutonArchiver = '<br><form method="post" action="../Controller/affichageTransporteur.php/">
 		<input type="hidden" name="idAnnonce" value="' . $idAnnonce . '">
 		<input type="hidden" name="typeAffichage" value="' . $typeAffichage . '">
 		<input type="submit" name="action" value="Archiver">
 	</form> ';
+	}
 }
 
 ?>
