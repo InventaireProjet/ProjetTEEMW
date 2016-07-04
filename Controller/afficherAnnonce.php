@@ -51,4 +51,11 @@ function getTypeTransportFromMarchandise($IDMarchandise)  {
 	return $result;
 }
 
+function getAnnonceRealise($IDAnnonceur) {
+	$mysql = new MySqlManager ();
+	$result = $mysql->getAnnonceRealise ( $IDAnnonceur );
+
+	return $result;
+}
+
 ?>

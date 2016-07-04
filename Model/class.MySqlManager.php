@@ -270,5 +270,17 @@ class MySqlManager {
 		}
 		return $annonces;
 	}
+	
+	
+	// Récupération des Annonces terminé selon IDAnnonceur -> pour les tests afficher les non réalisé donc 0
+	public function getAnnonceRealise($IDAnnonceur) {
+		$query = "SELECT * FROM Annonce WHERE IDAnnonceur = $IDAnnonceur AND TransportRealise = 1";
+		$result = $this->_conn->selectDB ( $query );
+		$annonces = array ();
+		while ( $object = $result->fetch () ) {
+			$annonces [] = $object;
+		}
+		return $annonces;
+	}
 }
 ?>
