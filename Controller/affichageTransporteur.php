@@ -66,4 +66,12 @@ function getSelectionAnnonces( $idTransporteur ) {
 	return $result;
 }
 
+function getTransportsEffectue ( $IDTransporteur )
+{
+	$mysql = new MySqlManager ();
+	$result = $mysql->getTransportsEffectue ( $IDTransporteur );
+	
+	return $result;
+	}
+
 ?>

@@ -67,7 +67,6 @@ class MySqlManager {
 			$query = "INSERT into RelationMarchandiseTransportSet (IDMarchandise,IDTypeTransport) VALUES('$idMarchandise', '$type');";
 			$this->_conn->executeQuery ( $query );
 			
-		
 			$query = "INSERT into Annonce (Nom, DateDepart, DateArrivee,
 			AdresseDepart, AdresseArrivee, EnCours, TransportRealise, IDMarchandise, IDLieuDepart, IDLieuArrivee, IDAnnonceur )
 			VALUES('$nom', '$datedep', '$datearr', '$adressedep', '$adressearr', true, false, 
@@ -80,8 +79,6 @@ class MySqlManager {
 			$this->_conn->getConnection ()->rollback ();
 		}
 	}
-	
-	
 	public function enregistrerDevis($prix, $dateExpiration, $description, $idTransporteur, $idAnnonce) {
 		try {
 			$this->_conn->getConnection ()->beginTransaction ();
@@ -246,8 +243,8 @@ class MySqlManager {
 		return $lieu;
 	}
 	
-	//Retourne le type de tranport associé à la marchandise à livrer
-	public function getTypeTransportFromMarchandise($IDMarchandise)  {
+	// Retourne le type de tranport associé à la marchandise à livrer
+	public function getTypeTransportFromMarchandise($IDMarchandise) {
 		$query = "SELECT * from TypeTransport tt, RelationMarchandiseTransportSet mt where mt.IDMarchandise = $IDMarchandise 
 		and mt.IDTypeTransport=tt.IDTypeTransport";
 		$result = $this->_conn->selectDB ( $query );
@@ -255,8 +252,8 @@ class MySqlManager {
 		return $typeTransport;
 	}
 	
-	//Retourne les annonces correspondant aux types de transport pris en charge par le transporteur
-	public function getSelectionAnnonces($IDTransporteur)  {
+	// Retourne les annonces correspondant aux types de transport pris en charge par le transporteur
+	public function getSelectionAnnonces($IDTransporteur) {
 		$query = "SELECT a.IDAnnonce, a.IDLieuDepart, a.DateDepart, a.DateArrivee, a.IDLieuArrivee, a.Nom as 'NomAnnonce', tt.Nom as 'TypeTransport'  
 		FROM RelationMarchandiseTransportSet rmt, RelationTransporteurTransportSet rtt, Annonce a, 
 				TypeTransport tt, Marchandise m 
@@ -271,10 +268,22 @@ class MySqlManager {
 		return $annonces;
 	}
 	
-	
 	// Récupération des Annonces terminé selon IDAnnonceur -> pour les tests afficher les non réalisé donc 0
 	public function getAnnonceRealise($IDAnnonceur) {
 		$query = "SELECT * FROM Annonce WHERE IDAnnonceur = $IDAnnonceur AND TransportRealise = 1";
+		$result = $this->_conn->selectDB ( $query );
+		$annonces = array ();
+		while ( $object = $result->fetch () ) {
+			$annonces [] = $object;
+		}
+		return $annonces;
+	}
+	
+	// Récupération des Transports effectué selon IDAnnonceur -> pour les tests afficher les non réalisé donc 0 et Devis Accepte 0 aussi
+	//EN réalité, mettre Accepte 1 et TransportRealise 1
+	public function getTransportsEffectue($IDTransporteur) {
+		$query = "SELECT * from Devis d, Annonce a where d.IDTransporteur=$IDTransporteur 
+		and d.Accepte=0 and d.IDAnnonce = a.IDAnnonce and a.TransportRealise=0 ";
 		$result = $this->_conn->selectDB ( $query );
 		$annonces = array ();
 		while ( $object = $result->fetch () ) {
