@@ -44,6 +44,11 @@ function getUnDevis($IDDevis) {
 	return $result;
 }
 
+function getDevisValide($IDAnnonce){
+	$mysql = new MySqlManager();
+	$result = $mysql->getDevisValide($IDAnnonce);
+}
+
 function getTypeTransportFromMarchandise($IDMarchandise)  {
 	$mysql = new MySqlManager ();
 	$result = $mysql->getTypeTransportFromMarchandise ( $IDMarchandise );

@@ -25,7 +25,7 @@ include_once 'header.inc';
 		foreach ( $annonces as $annonce ) {
 			$table_str .= '<tr>';
 			// Lien à chaque ligne du tableau vers l'annonce correspondante via le paramètre id
-			$table_str .= '<td>' . ($i ++) . '</td><td><a href="DetailsAnnonceTransporteur.php?id=' . $annonce ['IDAnnonce'] . '&a=1"> ' . $annonce ['Nom'] . '</td>';
+			$table_str .= '<td>' . ($i ++) . '</td><td><a href="DetailsAnnonceAnnonceurHistorique.php?id=' . $annonce ['IDAnnonce'] . '&a=1"> ' . $annonce ['Nom'] . '</td>';
 			$table_str .= '</tr>';
 		}
 		$table_str .= '</table>';

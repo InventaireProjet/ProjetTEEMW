@@ -153,6 +153,14 @@ class MySqlManager {
 		return $devis;
 	}
 	
+	// Récupération du Devis valide selon IDAnnonce
+	public function getDevisValide($IDAnnonce) {
+		$query = "SELECT * from Devis where IDAnnonce = $IDAnnonce and Accepte=1";
+		$result = $this->_conn->selectDB ( $query );
+		$devis = $result->fetch();
+		return $devis;
+	}
+	
 	// Récupération d'un devis selon IDDevis
 	public function getUnDevis($IDDevis) {
 		$query = "SELECT * from Devis where IDDevis = $IDDevis";
