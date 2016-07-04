@@ -25,10 +25,4 @@ function enregistrerCommentaire($mysql) {
 		$rank = 2;
 		$msg = "Entrer un commentaire";
 	}
-	//Si erreur, affichage du message d'erreur en conservant les données dans la session
-	if (isset ($rank)){
-		$_SESSION ['rank'] = $rank;
-		$_SESSION ['msg'] = $msg;
-		$_SESSION ['']
-	}
 }
