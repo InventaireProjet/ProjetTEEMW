@@ -70,8 +70,8 @@ if ($msg)
 
 
 
- <br> <a href="HistoriqueAnnonceur.php">Consulter l'historique</a> <br>
-	<a href="InfosPersonnellesAnnonceur.php">Données de l'entreprise</a>
+ <br> <a href="HistoriqueTransporteur.php">Consulter l'historique</a> <br>
+	<a href="InfosPersonnellesTransporteur.php">Données de l'entreprise</a>
 </div>
 </div>
 <?php

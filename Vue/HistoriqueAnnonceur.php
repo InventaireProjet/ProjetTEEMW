@@ -31,7 +31,7 @@ include_once 'header.inc';
 		$table_str .= '</table>';
 		echo $table_str;
 	} else {
-		echo 'Aucune annonce terminé <br>';
+		echo 'Aucune annonce terminée <br>';
 	}
 	
 	?>
