@@ -1,4 +1,5 @@
 <?php
+require_once '../Controller/fonctionsGenerales.php';
 include_once 'header.inc';
 
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
@@ -10,9 +11,12 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 		'',
 		'',
 		'',
-		'' 
+		'',
+		'',
+		'',
+		''  
 );
-//Si une session est en cours, elle est fermée
+// Si une session est en cours, elle est fermée
 if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 	logout ();
 }
@@ -20,9 +24,9 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 <div class="container">
 	<div class="aligncentre">
 		<h4>
-			<form method="post" action="../Controller/login.php"> 
- 
-  <table class="table">
+			<form method="post" action="../Controller/login.php">
+
+				<table class="table">
 					<tr>
 						<td>Prénom :</td>
 						<td><input type="text" name="Prenom"
@@ -78,6 +82,44 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 							echo $form_data [6];
 							?>"> 
 	<?php if($rank==7) echo $msg;?></td>
+					</tr>
+					<tr>
+						<td>NPA :</td>
+						<td><input type="text" name="NPA"
+							value="<?php
+							echo $form_data [7];
+							?>"> 
+    <?php if($rank==8) echo $msg;?></td>
+					</tr>
+					<tr>
+						<td>Localité :</td>
+						<td><input type="text" name="Localite"
+							value="<?php
+							echo $form_data [8];
+							?>"> 
+    <?php if($rank==9) echo $msg;?></td>
+					</tr>
+					<tr>
+						<td>Pays :</td>
+						<td><select name="Pays">
+			<?php
+			// Récupération des pays
+			$pays = listePays ();
+			echo '<option value="">Choisissez un pays</option>';
+			// Entrée des options de la dropdownlist
+			foreach ( $pays as $valeur ) {
+				
+				// Si un choix a déjà été effectué durant la session, il est sélectionné par défaut
+				if (strcmp ( $form_data [9], $valeur ) == 0) {
+					
+					echo '<option value="' . $valeur . '" selected>' . $valeur . '</option>';
+				} else {
+					echo '<option value="' . $valeur . '">' . $valeur . '</option>';
+				}
+			}
+			?>
+		</select>
+		<?php if($rank==10) echo $msg;?></td>
 					</tr>
 
 					<tr>

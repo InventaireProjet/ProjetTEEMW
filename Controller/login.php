@@ -86,38 +86,55 @@ function enregistrerAnnonceur($mysql) {
 	$Telephone = $_POST ['Telephone'];
 	$Email = $_POST ['Email'];
 	$Adresse = $_POST ['Adresse'];
+	$npa = $_POST ['NPA'];
+	$localite = $_POST ['Localite'];
+	$pays = $_POST ['Pays'];
 	
 	// Messages d'erreur
+	if (empty ( $pays )) {
+		$rank = 10;
+		$msg = "Entrer un pays";
+	}
+	
+	if (empty ( $localite )) {
+		$rank = 9;
+		$msg = "Entrer une localité";
+	}
+	
+	if (empty ( $npa )) {
+		$rank = 8;
+		$msg = "Entrer un NPA";
+	}
 	if (empty ( $Adresse )) {
 		$rank = 7;
-		$msg = "Inscrivez une adresse";
+		$msg = "Entrer une adresse";
 	}
 	if (empty ( $Email )) {
 		$rank = 6;
-		$msg = "Inscrivez un email";
+		$msg = "Entrer un email";
 	}
 	if (empty ( $Telephone )) {
 		$rank = 5;
-		$msg = "Inscrivez un numéro de téléphone";
+		$msg = "Entrer un numéro de téléphone";
 	}
 	if (empty ( $Mdp )) {
 		$rank = 4;
-		$msg = "Inscrivez un mot de passe";
+		$msg = "Entrer un mot de passe";
 	}
 	
 	if (empty ( $NomUtilisateur )) {
 		$rank = 3;
-		$msg = "Inscrivez un nom d'utilisateur";
+		$msg = "Entrer un nom d'utilisateur";
 	}
 	
 	if (empty ( $Nom )) {
 		$rank = 2;
-		$msg = "Inscrivez un nom";
+		$msg = "Entrer un nom";
 	}
 	
 	if (empty ( $Prenom )) {
 		$rank = 1;
-		$msg = "Inscrivez un prénom";
+		$msg = "Entrer un prénom";
 	}
 	// Si erreur, affichage du message d'erreur. Les données entrées sont conservées dans la variable session
 	if (isset ( $rank )) {
@@ -130,13 +147,16 @@ function enregistrerAnnonceur($mysql) {
 				$Mdp,
 				$Telephone,
 				$Email,
-				$Adresse 
+				$Adresse,
+				$npa,
+				$localite,
+				$pays 
 		);
 		header ( "location:../Vue/InscriptionAnnonceur.php" );
 		exit ();
 	}
 	
-	$result = $mysql->enregistrerAnnonceur ( $Prenom, $Nom, $NomUtilisateur, $Mdp, $Telephone, $Email, $Adresse );
+	$result = $mysql->enregistrerAnnonceur ( $Prenom, $Nom, $NomUtilisateur, $Mdp, $Telephone, $Email, $Adresse, $npa, $localite, $pays );
 	
 	// Erreur en cas de doublon
 	if ($result == 'doublon') {
@@ -149,7 +169,10 @@ function enregistrerAnnonceur($mysql) {
 				$Mdp,
 				$Telephone,
 				$Email,
-				$Adresse 
+				$Adresse,
+				$npa,
+				$localite,
+				$pays 
 		);
 		header ( "location:../Vue/InscriptionAnnonceur.php" );
 		exit ();
@@ -186,18 +209,18 @@ function enregistrerTransporteur($mysql) {
 	// Messages d'erreur
 	if (empty ( $typesTransport )) {
 		$rank = 11;
-		$msg = "Choisissez au moins un type de transport";
+		$msg = "Choisir au moins un type de transport";
 	} else {
 		$typesTransport = $_POST ['typesTransport'];
 	}
 	
 	if (empty ( $IBAN )) {
 		$rank = 10;
-		$msg = "Inscrivez un IBAN";
+		$msg = "Entrer un IBAN";
 	}
 	if (empty ( $pays )) {
 		$rank = 9;
-		$msg = "Entrer un payse";
+		$msg = "Entrer un pays";
 	}
 	
 	if (empty ( $localite )) {
@@ -211,30 +234,30 @@ function enregistrerTransporteur($mysql) {
 	}
 	if (empty ( $adresse )) {
 		$rank = 6;
-		$msg = "Indiquez une adresse";
+		$msg = "Entrer une adresse";
 	}
 	if (empty ( $motDePasse )) {
 		$rank = 5;
-		$msg = "Indiquez un mot de passe";
+		$msg = "Entrer un mot de passe";
 	}
 	if (empty ( $username )) {
 		$rank = 4;
-		$msg = "Indiquez un nom d'utilisateur";
+		$msg = "Entrer un nom d'utilisateur";
 	}
 	
 	if (empty ( $email )) {
 		$rank = 3;
-		$msg = "Indiquez un email";
+		$msg = "Entrer un email";
 	}
 	
 	if (empty ( $telephone )) {
 		$rank = 2;
-		$msg = "Indiquez un numéro de téléphone";
+		$msg = "Entrer un numéro de téléphone";
 	}
 	
 	if (empty ( $nomSociete )) {
 		$rank = 1;
-		$msg = "Indiquez un nom de société";
+		$msg = "Entrer un nom de société";
 	}
 	
 	// Si erreur, affichage du message d'erreur. Les données entrées sont conservées dans la variable session

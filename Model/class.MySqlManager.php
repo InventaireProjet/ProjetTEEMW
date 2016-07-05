@@ -7,14 +7,19 @@ class MySqlManager {
 	public function __construct() {
 		$this->_conn = new MySqlConn ();
 	}
-	public function enregistrerAnnonceur($Prenom, $Nom, $Utilisateur, $Mdp, $Telephone, $Email, $Adresse) {
+	public function enregistrerAnnonceur($Prenom, $Nom, $Utilisateur, $Mdp, $Telephone, $Email, $Adresse, $npa, $localite, $pays) {
 		$Mdp = sha1 ( $Mdp );
 		try {
 			
 			$this->_conn->getConnection ()->beginTransaction ();
-			// TODO Gérer le lieu
+		
+			$query = "INSERT into Lieu (NPA, Localite, Pays)VALUES('$npa', '$localite', '$pays');";
+			$this->_conn->executeQuery ( $query );
+				
+			$idLieu = $this->_conn->getLastId ();
+			
 			$query = "INSERT into Annonceur(Prenom, Nom, UserName,
-		MotDePasse, Telephone, Email, Adresse)VALUES('$Prenom', '$Nom', '$Utilisateur', '$Mdp', '$Telephone', '$Email', '$Adresse');";
+		MotDePasse, Telephone, Email, Adresse, IDLieu)VALUES('$Prenom', '$Nom', '$Utilisateur', '$Mdp', '$Telephone', '$Email', '$Adresse','$idLieu');";
 			$result= $this->_conn->executeQuery ( $query );
 			
 			$this->_conn->getConnection ()->commit ();
@@ -34,7 +39,7 @@ class MySqlManager {
 			$idLieu = $this->_conn->getLastId ();
 			
 			$query = "INSERT into Transporteur(NomSociete, Telephone, Email, Username, MotDePasse, Adresse, IDLieu, IBAN)
-		VALUES('$nomSociete', '$telephone', '$email', '$username', '$pwd', '$adresse', $idLieu, '$IBAN');";
+		VALUES('$nomSociete', '$telephone', '$email', '$username', '$pwd', '$adresse', '$idLieu', '$IBAN');";
 			$result=$this->_conn->executeQuery ( $query );
 			
 			$this->_conn->getConnection ()->commit ();
