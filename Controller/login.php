@@ -151,6 +151,8 @@ function enregistrerAnnonceur($mysql) {
 				$Email,
 				$Adresse 
 		);
+		header ( "location:../Vue/InscriptionAnnonceur.php" );
+		exit ();
 	} else {
 		
 		$_SESSION ['msg'] = 'Inscription effectuée';
@@ -170,8 +172,22 @@ function enregistrerTransporteur($mysql) {
 	$motDePasse = $_POST ['MotDePasse'];
 	$adresse = $_POST ['Adresse'];
 	$IBAN = $_POST ['IBAN'];
+	$typesTransport = array ();
+	// Gestion d'un problème d'undefined
+	if (empty ( $_POST ['typesTransport'] )) {
+		$typesTransport = null;
+	} else {
+		$typesTransport = $_POST ['typesTransport'];
+	}
 	
 	// Messages d'erreur
+	if (empty ( $typesTransport )) {
+		$rank = 8;
+		$msg = "Choisissez au moins un type de transport";
+	} else {
+		$typesTransport = $_POST ['typesTransport'];
+	}
+	
 	if (empty ( $IBAN )) {
 		$rank = 7;
 		$msg = "Inscrivez un IBAN";
@@ -216,7 +232,8 @@ function enregistrerTransporteur($mysql) {
 				$username,
 				$motDePasse,
 				$adresse,
-				$IBAN 
+				$IBAN,
+				$typesTransport 
 		);
 		header ( "location:../Vue/InscriptionTransporteur.php" );
 		exit ();
@@ -226,7 +243,7 @@ function enregistrerTransporteur($mysql) {
 	
 	// Erreur en cas de doublon
 	if ($result == 'doublon') {
-		$_SESSION ['rank'] = 3;
+		$_SESSION ['rank'] = 4;
 		$_SESSION ['msg'] = 'Le nom d\'utilisateur existe déjà';
 		$_SESSION ['form_data'] = array (
 				$nomSociete,
@@ -235,17 +252,26 @@ function enregistrerTransporteur($mysql) {
 				$username,
 				$motDePasse,
 				$adresse,
-				$IBAN 
+				$IBAN,
+				$typesTransport 
 		);
+		header ( "location:../Vue/InscriptionTransporteur.php" );
+		exit ();
 	} else {
 		
 		$_SESSION ['msg'] = 'Inscription effectuée';
 		
 		$result = $mysql->VerifierLoginTransporteur ( $username, $motDePasse );
+		enregistrerTypesTransportTransporteur ( $mysql, $typesTransport, $result->IDTransporteur );
+		
 		$_SESSION ['transporteur'] = $result;
+		
+		header ( "location:../Vue/AccueilTransporteur.php" );
+		exit ();
 	}
-	
-	header ( "location:../Vue/AccueilTransporteur.php" );
-	exit ();
 }
-
+function enregistrerTypesTransportTransporteur($mysql, $typesTransport, $idTransporteur) {
+	foreach ( $typesTransport as $typeTransport ) {
+		$result = $mysql->enregistrerTypesTransportTransporteur ( $typeTransport, $idTransporteur );
+	}
+}
