@@ -9,20 +9,48 @@ class MySqlManager {
 	}
 	public function enregistrerAnnonceur($Prenom, $Nom, $Utilisateur, $Mdp, $Telephone, $Email, $Adresse) {
 		$Mdp = sha1 ( $Mdp );
-		
-		// TODO Gérer le lieu
-		$query = "INSERT into Annonceur(Prenom, Nom, UserName,
+		try {
+			
+			$this->_conn->getConnection ()->beginTransaction ();
+			// TODO Gérer le lieu
+			$query = "INSERT into Annonceur(Prenom, Nom, UserName,
 		MotDePasse, Telephone, Email, Adresse)VALUES('$Prenom', '$Nom', '$Utilisateur', '$Mdp', '$Telephone', '$Email', '$Adresse');";
-		return $this->_conn->executeQuery ( $query );
+			$result= $this->_conn->executeQuery ( $query );
+			$this->_conn->getConnection ()->commit ();
+			return $result;
+		} catch ( Exception $e ) {
+			$this->_conn->getConnection ()->rollback ();
+		}
 	}
 	public function enregistrerTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse, $IBAN) {
 		$pwd = sha1 ( $pwd );
-		
-		// TODO Gérer le lieu
-		$idLieu = 1;
-		$query = "INSERT into Transporteur(NomSociete, Telephone, Email, Username, MotDePasse, Adresse, IDLieu, IBAN)
+		try {
+			
+			$this->_conn->getConnection ()->beginTransaction ();
+			// TODO Gérer le lieu
+			$idLieu = 1;
+			$query = "INSERT into Transporteur(NomSociete, Telephone, Email, Username, MotDePasse, Adresse, IDLieu, IBAN)
 		VALUES('$nomSociete', '$telephone', '$email', '$username', '$pwd', '$adresse', $idLieu, '$IBAN');";
-		return $this->_conn->executeQuery ( $query );
+			$result=$this->_conn->executeQuery ( $query );
+			
+			$this->_conn->getConnection ()->commit ();
+			return $result;
+		} catch ( Exception $e ) {
+			$this->_conn->getConnection ()->rollback ();
+		}
+	}
+	public function enregistrerTypesTransportTransporteur($idTypeTransport, $idTransporteur) {
+		try {
+			$this->_conn->getConnection ()->beginTransaction ();
+			
+			$query = "INSERT INTO RelationTransporteurTransportSet(IDTypeTransport, IDTransporteur)  VALUES ('$idTypeTransport', '$idTransporteur')";
+			$this->_conn->executeQuery ( $query );
+			
+			$this->_conn->getConnection ()->commit ();
+			return true;
+		} catch ( Exception $e ) {
+			$this->_conn->getConnection ()->rollback ();
+		}
 	}
 	public function VerifierLoginAnnonceur($uname, $pwd) {
 		$pwd = sha1 ( $pwd );
@@ -157,7 +185,7 @@ class MySqlManager {
 	public function getDevisValide($IDAnnonce) {
 		$query = "SELECT * from Devis where IDAnnonce = $IDAnnonce and Accepte=1";
 		$result = $this->_conn->selectDB ( $query );
-		$devis = $result->fetch();
+		$devis = $result->fetch ();
 		return $devis;
 	}
 	
@@ -173,11 +201,11 @@ class MySqlManager {
 	public function validerDevis($IDDevis, $IDAnnonce) {
 		try {
 			$this->_conn->getConnection ()->beginTransaction ();
-			//Tous les devis et l'annonce concernés sont désactivés
+			// Tous les devis et l'annonce concernés sont désactivés
 			$query = "UPDATE Annonce a, Devis d SET d.Encours=0, a.EnCours=0
 			WHERE   d.IDAnnonce=$IDAnnonce and d.IDAnnonce=a.IDAnnonce";
 			$result = $this->_conn->executeQuery ( $query );
-			//Le devis choisi est marqué
+			// Le devis choisi est marqué
 			$query = "UPDATE Devis d SET d.Accepte=1 
 			WHERE d.IDDevis=$IDDevis ";
 			$result = $this->_conn->executeQuery ( $query );
@@ -294,7 +322,7 @@ class MySqlManager {
 	}
 	
 	// Récupération des Transports effectué selon IDAnnonceur -> pour les tests afficher les non réalisé donc 0 et Devis Accepte 0 aussi
-	//EN réalité, mettre Accepte 1 et TransportRealise 1
+	// EN réalité, mettre Accepte 1 et TransportRealise 1
 	public function getTransportsEffectue($IDTransporteur) {
 		$query = "SELECT * from Devis d, Annonce a where d.IDTransporteur=$IDTransporteur 
 		and d.Accepte=1 and d.IDAnnonce = a.IDAnnonce and a.TransportRealise=1 ";
@@ -305,14 +333,5 @@ class MySqlManager {
 		}
 		return $annonces;
 	}
-	
-	/*Récupération des information personnelles d'un annonceur
-	public function getInfoAnnonceur($IDAnnonceur) {
-		$query = "SELECT * from annonceur where IDAnnonceur = $IDAnnonceur";
-		$result = $this->_conn->selectDB ( $query );
-		$Info = $result->fetch ();
-		return $Info;
-	}
-*/
 }
 ?>
