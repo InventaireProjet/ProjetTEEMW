@@ -171,6 +171,9 @@ function enregistrerTransporteur($mysql) {
 	$username = $_POST ['Utilisateur'];
 	$motDePasse = $_POST ['MotDePasse'];
 	$adresse = $_POST ['Adresse'];
+	$npa = $_POST ['NPA'];
+	$localite = $_POST ['Localite'];
+	$pays = $_POST ['Pays'];
 	$IBAN = $_POST ['IBAN'];
 	$typesTransport = array ();
 	// Gestion d'un problème d'undefined
@@ -182,17 +185,30 @@ function enregistrerTransporteur($mysql) {
 	
 	// Messages d'erreur
 	if (empty ( $typesTransport )) {
-		$rank = 8;
+		$rank = 11;
 		$msg = "Choisissez au moins un type de transport";
 	} else {
 		$typesTransport = $_POST ['typesTransport'];
 	}
 	
 	if (empty ( $IBAN )) {
-		$rank = 7;
+		$rank = 10;
 		$msg = "Inscrivez un IBAN";
 	}
+	if (empty ( $pays )) {
+		$rank = 9;
+		$msg = "Entrer un payse";
+	}
 	
+	if (empty ( $localite )) {
+		$rank = 8;
+		$msg = "Entrer une localité";
+	}
+	
+	if (empty ( $npa )) {
+		$rank = 7;
+		$msg = "Entrer un NPA";
+	}
 	if (empty ( $adresse )) {
 		$rank = 6;
 		$msg = "Indiquez une adresse";
@@ -232,6 +248,9 @@ function enregistrerTransporteur($mysql) {
 				$username,
 				$motDePasse,
 				$adresse,
+				$npa,
+				$localite,
+				$pays,
 				$IBAN,
 				$typesTransport 
 		);
@@ -239,7 +258,7 @@ function enregistrerTransporteur($mysql) {
 		exit ();
 	}
 	
-	$result = $mysql->enregistrerTransporteur ( $nomSociete, $telephone, $email, $username, $motDePasse, $adresse, $IBAN );
+	$result = $mysql->enregistrerTransporteur ( $nomSociete, $telephone, $email, $username, $motDePasse, $adresse,$npa, $localite, $pays, $IBAN );
 	
 	// Erreur en cas de doublon
 	if ($result == 'doublon') {
@@ -252,6 +271,9 @@ function enregistrerTransporteur($mysql) {
 				$username,
 				$motDePasse,
 				$adresse,
+				$npa,
+				$localite,
+				$pays,
 				$IBAN,
 				$typesTransport 
 		);

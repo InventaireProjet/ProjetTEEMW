@@ -16,19 +16,23 @@ class MySqlManager {
 			$query = "INSERT into Annonceur(Prenom, Nom, UserName,
 		MotDePasse, Telephone, Email, Adresse)VALUES('$Prenom', '$Nom', '$Utilisateur', '$Mdp', '$Telephone', '$Email', '$Adresse');";
 			$result= $this->_conn->executeQuery ( $query );
+			
 			$this->_conn->getConnection ()->commit ();
 			return $result;
 		} catch ( Exception $e ) {
 			$this->_conn->getConnection ()->rollback ();
 		}
 	}
-	public function enregistrerTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse, $IBAN) {
+	public function enregistrerTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse, $npa, $localite, $pays, $IBAN) {
 		$pwd = sha1 ( $pwd );
 		try {
 			
 			$this->_conn->getConnection ()->beginTransaction ();
-			// TODO Gérer le lieu
-			$idLieu = 1;
+			$query = "INSERT into Lieu (NPA, Localite, Pays)VALUES('$npa', '$localite', '$pays');";
+			$this->_conn->executeQuery ( $query );
+			
+			$idLieu = $this->_conn->getLastId ();
+			
 			$query = "INSERT into Transporteur(NomSociete, Telephone, Email, Username, MotDePasse, Adresse, IDLieu, IBAN)
 		VALUES('$nomSociete', '$telephone', '$email', '$username', '$pwd', '$adresse', $idLieu, '$IBAN');";
 			$result=$this->_conn->executeQuery ( $query );
