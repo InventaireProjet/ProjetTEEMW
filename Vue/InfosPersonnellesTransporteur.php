@@ -18,16 +18,16 @@ $user = $_SESSION ['transporteur'];
 			<td><?php echo $user->NomSociete?></td>
 		</tr>
 		<tr>
-			<td>Téléphone :</td>
-			<td><?php echo $user->Telephone?></td>
-		</tr>
-		<tr>
 			<td>Nom d'utilisateur :</td>
 			<td><?php echo $user->UserName?></td>
 		</tr>
 		<tr>
 			<td>Mot de passe :</td>
 			<td>******</td>
+		</tr>
+		<tr>
+			<td>Téléphone :</td>
+			<td><?php echo $user->Telephone?></td>
 		</tr>
 		<tr>
 			<td>IBAN :</td>
