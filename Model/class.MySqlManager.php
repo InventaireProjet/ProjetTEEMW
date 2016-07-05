@@ -305,5 +305,14 @@ class MySqlManager {
 		}
 		return $annonces;
 	}
+	
+	/*Récupération des information personnelles d'un annonceur
+	public function getInfoAnnonceur($IDAnnonceur) {
+		$query = "SELECT * from annonceur where IDAnnonceur = $IDAnnonceur";
+		$result = $this->_conn->selectDB ( $query );
+		$Info = $result->fetch ();
+		return $Info;
+	}
+*/
 }
 ?>
