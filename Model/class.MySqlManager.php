@@ -343,7 +343,7 @@ class MySqlManager {
 		return $annonces;
 	}
 	
-	// Récupération des informations personnelles et de l'adresse
+	// Récupération des informations personnelles de l'annonceur et de son adresse
 	public function getInfoPersoAnnonceur($IDAnnonceur) {
 		$query = "SELECT * from Annonceur a, Lieu l where a.IDAnnonceur=$IDAnnonceur and a.IDLieu=l.IDLieu";
 		$result = $this->_conn->selectDB ( $query );
@@ -351,12 +351,26 @@ class MySqlManager {
 		return $infos;
 	}
 	
-	// Récupération des informations personnelles et de l'adresse
+	// Récupération des informations personnelles du transporteur et de son adresse
 	public function getInfoPersoTransporteur($IDTransporteur) {
 		$query = "SELECT * from Transporteur t, Lieu l, RelationTransporteurTransportSet rtt, TypeTransport tt where t.IDTransporteur=$IDTransporteur and t.IDLieu=l.IDLieu and rtt.IDTypeTransport=tt.IDTypeTransport";
 		$result = $this->_conn->selectDB ( $query );
 		$infos = $result->fetch ();
 		return $infos;
+	}
+	
+	public function modifierAnnonceur( $IDAnnonceur, $Prenom, $Nom, $NomUtilisateur, $Mdp, $Telephone, $Email, $Adresse, $npa, $localite, $pays )
+	{
+		$Mdp = sha1 ( $Mdp );
+		try {
+			$this->_conn->getConnection ()->beginTransaction ();
+			$query = "UPDATE Annonceur a, Lieu l SET  a.Prenom='$Prenom', a.Nom='$Nom', a.UserName='$NomUtilisateur', a.MotDePasse='$Mdp' ,a.Telephone='$Telephone' , a.Email='$Email', a.Adresse='$Adresse', l.NPA='$npa', l.Localite='$localite' , l.Pays='$pays' WHERE IDAnnonceur = $IDAnnonceur and a.IDLieu=l.IDLieu";
+			$result = $this->_conn->executeQuery ( $query );
+			$this->_conn->getConnection ()->commit ();
+			return true;
+		} catch ( Exception $e ) {
+			$this->_conn->getConnection ()->rollback ();
+		}
 	}
 }
 ?>
