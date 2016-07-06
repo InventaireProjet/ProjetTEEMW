@@ -145,9 +145,20 @@ class MySqlManager {
 		return $nomsTypes;
 	}
 	
-	// Récupération des Annonces selon IDAnnonceur
-	public function getAnnonces($IDAnnonceur) {
+	// Récupération des Annonces en cours selon IDAnnonceur
+	public function getAnnoncesEnCours($IDAnnonceur) {
 		$query = "SELECT * FROM Annonce WHERE IDAnnonceur = $IDAnnonceur AND EnCours = 1";
+		$result = $this->_conn->selectDB ( $query );
+		$annonces = array ();
+		while ( $object = $result->fetch () ) {
+			$annonces [] = $object;
+		}
+		return $annonces;
+	}
+	
+	// Récupération des Annonces en attente de livraison selon IDAnnonceur
+	public function getAnnoncesEnAttente($IDAnnonceur) {
+		$query = "SELECT * FROM Annonce WHERE IDAnnonceur = $IDAnnonceur AND EnCours = 0 and TransportRealise=0";
 		$result = $this->_conn->selectDB ( $query );
 		$annonces = array ();
 		while ( $object = $result->fetch () ) {
@@ -166,7 +177,7 @@ class MySqlManager {
 	
 	// Récupération d'une annonce et des données liées sur les lieux et la marchandise selon IDAnnonce
 	public function getAnnonceMarchandiseLieu($IDAnnonce) {
-		$query = "SELECT a.Nom, a.DateDepart, a.AdresseDepart, a.AdresseArrivee, a.DateArrivee, l.NPA as 'NPADepart',
+		$query = "SELECT a.Nom, a.DateDepart, a.AdresseDepart, a.AdresseArrivee, a.DateArrivee, a.EnCours, l.NPA as 'NPADepart',
 		l.Localite as 'LieuDepart', l.Pays as 'PaysDepart', l2.NPA as 'NPAArrivee', l2.Localite as 'LieuArrivee', 
 		l2.Pays as 'PaysArrivee', m.IDMarchandise, m.Description, m.Volume, m.Quantite, m.Poids FROM Annonce a, Marchandise m, Lieu l, Lieu l2
 		WHERE a.IDAnnonce = $IDAnnonce and a.IDMarchandise=m.IDMarchandise and a.IDLieuDepart=l.IDLieu and a.IDLieuArrivee=l2.IDLieu ";

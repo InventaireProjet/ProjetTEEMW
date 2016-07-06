@@ -1,6 +1,7 @@
 <?php
 require_once '../Model/class.Annonceur.php';
 require_once '../Controller/afficherAnnonce.php';
+require_once '../Controller/confirmerDevis.php';
 include_once 'header.inc';
 ?>
 <div class="container">
@@ -73,32 +74,83 @@ include_once 'header.inc';
 		</tr>
 	</table>
 	<br>
-	<h4>Devis soumis</h4>
+
 
 <?php
-// Récupération des devis qui concernent l'annonce affichés dans un tableau
-$devisT = getDevis ( $idAnnonce );
-if ($devisT != null) {
-	$table_str = '<table class="table">';
-	$i = 1;
-	$table_str .= '<tr>' . '<td>' . '</td><th >' . "Date de validité" . '</th><th>' . "Prix" . '</th>';
-	$table_str .= '</tr>';
-	foreach ( $devisT as $devis ) {
-		$table_str .= '<tr>';
-		// Lien à chaque ligne du tableau vers le devis correspondant via le paramètre id
-		$table_str .= '<td>' . ($i ++) . '</td><td>' . $devis ['DateExpiration'] . '</td><td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '"> ' . $devis ['Prix'] . '</td>';
+//Si vient depuis DetailsDevis affiche la première variante
+
+if ($annonce['EnCours']) {
+	// Récupération des devis qui concernent l'annonce affichés dans un tableau
+	$devisT = getDevis ( $idAnnonce );
+	if ($devisT != null) {
+		$table_str = '	<h4>Devis soumis</h4> <table class="table">';
+		$i = 1;
+		$table_str .= '<tr>' . '<td>' . '</td><th >' . "Date de validité" . '</th><th>' . "Prix" . '</th>';
 		$table_str .= '</tr>';
+		foreach ( $devisT as $devis ) {
+			$table_str .= '<tr>';
+			// Lien à chaque ligne du tableau vers le devis correspondant via le paramètre id
+			$table_str .= '<td>' . ($i ++) . '</td><td>' . $devis ['DateExpiration'] . '</td><td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '"> ' . $devis ['Prix'] . '</td>';
+			$table_str .= '</tr>';
+		}
+		$table_str .= '</table>';
+		echo $table_str;
+	} else {
+		echo 'Aucun devis soumis';
 	}
-	$table_str .= '</table>';
-	echo $table_str;
 } else {
-	echo 'Aucun devis soumis';
+	// Récupération du devis choisi qui concerne l'annonce affichés dans un tableau
+	$devis = getDevisValide ( $idAnnonce );
+	
+	$table_str = '	<h4>Devis choisi</h4> <table class="table">';
+	
+	$table_str .= '<tr><th > Date de validité </th><th> Prix </th></tr>
+					<tr><td>' . $devis ['DateExpiration'] . '</td><td>' . $devis ['Prix'] . '</td></tr>
+					</table>';
+	echo $table_str;
+	
+	
+	//Affichage des coordonnées du transporteur choisi
+	$transporteur = getTransporteur ( $devis['IDDevis'] );
+	$table_str2= '<br>
+	<h4>Coordonnées du transporteur</h4> <table>
+	<tr>
+	<td>Nom de l\'entreprise :</td>
+	<td>' .  $transporteur ['NomSociete'] . '</td>
+		</tr>
+		<tr>
+			<td>Adresse :</td>
+			<td>'  .  $transporteur ['Adresse']  . '</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>'  .  $transporteur ['NPA']  .' ' . $transporteur ['Localite'] .'</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>' .  $transporteur ['Pays'] . '</td>
+		</tr>
+	
+		<tr>
+			<td>Téléphone :</td>
+			<td>' .  $transporteur ['Telephone'] .'</td>
+		</tr>
+		<tr>
+			<td>Email :</td>
+			<td>' .  $transporteur ['Email'] . '</td>
+		</tr>
+		
+		</table>
+	
+	
+	<br>';
+	echo $table_str2;
 }
+
 ?>
 
 
-	<br>
-	<br> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
+	<br> <br> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
 
 </div>
 <?php

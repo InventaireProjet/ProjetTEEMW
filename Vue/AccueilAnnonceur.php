@@ -16,7 +16,7 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 	$user = $_SESSION ['annonceur'];
 	
 	//Récupération des annonces en cours qui concernent l'annonceur affichées dans un tableau
-	$annonces = getAnnonces ( $user->IDAnnonceur );
+	$annonces = getAnnoncesEnCours ( $user->IDAnnonceur );
 	if ($annonces!=null) {
 	$table_str = '<table class="table">';
 	$i = 1;
@@ -36,8 +36,32 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 	}
 	
 	?>
+	<br>
+	<h4>Annonces en attente de livraison</h4>
 	
+	<?php
 	
+	//Récupération des annonces en attente de livraison qui concernent l'annonceur affichées dans un tableau
+	$annonces = getAnnoncesEnAttente ( $user->IDAnnonceur );
+	if ($annonces!=null) {
+	$table_str = '<table class="table">';
+	$i = 1;
+	$table_str .= '<tr>' . '<td>' . '</td><th >' . "Intitulé de l'annonce" . '</th>';
+	$table_str .= '</tr>';
+	foreach ( $annonces as $annonce ) {
+		$table_str .= '<tr>';
+		//Lien à chaque ligne du tableau vers l'annonce correspondante via le paramètre id
+		$table_str .= '<td>' . ($i ++) . '</td><td><a href="DetailsAnnonceAnnonceur.php?id=' . $annonce['IDAnnonce'] 
+		. '"> ' . $annonce ['Nom'] . '</td>';
+		$table_str .= '</tr>';
+	}
+	$table_str .= '</table>';
+	echo $table_str;}
+	else {
+		echo 'Aucune annonce postée <br>';
+	}
+	
+	?>
 	
 	
 	<br> <a href="NouvelleAnnonceTypeTransport.php">Insérer une annonce</a>	
