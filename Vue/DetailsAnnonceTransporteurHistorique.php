@@ -144,16 +144,19 @@ $lieu = getLieu ( $annonceur ['IDLieu'] );
 
 
 <br>
-
+<?php
+// Récupération du commentaire
+$commentaire = getCommentaire ( $user->IDTransporteur, $annonceur['IDAnnonceur'] );
+?>
 <h4>Evaluation de votre transport par le client</h4>
 	<table>
 	<tr>
 	<td>Note :</td>
-	<td>PLACEHOLDER A REMPLACER PAR LA METHODE POUR OBTENIR LA NOTE</td>
+	<td><?php echo $commentaire ['Points']?></td>
 						</tr>
 						<tr>
 							<td>Commentaire :</td>
-							<td>PLACEHOLDER A REMPLACER PAR LA METHODE POUR OBTENIR LE COMMENTAIRE</td>
+							<td>$commentaire ['Commentaire']</td>
 						</tr>
 	</table>
 

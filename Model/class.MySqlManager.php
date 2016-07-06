@@ -28,6 +28,19 @@ class MySqlManager {
 			$this->_conn->getConnection ()->rollback ();
 		}
 	}
+	public function enregistrerCommentaire($note, $commentaire, $idTransporteur, $idAnnonceur){
+		try {
+			$this->_conn->getConnection ()->beginTransaction ();
+				
+			$query = "INSERT INTO Evaluation(Points, Commentaire, IDTransporteur, IDAnnonceur)  VALUES ('$note', '$commentaire', '$idTransporteur', '$idAnnonceur')";
+			$this->_conn->executeQuery ( $query );
+				
+			$this->_conn->getConnection ()->commit ();
+			return true;
+		} catch ( Exception $e ) {
+			$this->_conn->getConnection ()->rollback ();
+		}
+	}
 	public function enregistrerTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse, $npa, $localite, $pays, $IBAN) {
 		$pwd = sha1 ( $pwd );
 		try {
@@ -158,6 +171,13 @@ class MySqlManager {
 		$result = $this->_conn->selectDB ( $query );
 		$annonce = $result->fetch ();
 		return $annonce;
+	}
+	// Récupération d'un commentaire selon IDTransporteur et IDAnnonceur
+	public function getCommentaire($IDTransporteur, $IDAnnonceur){
+		$query = "SELECT * FROM Evaluation WHERE IDTransporteur = $IDTransporteur AND IDAnnonceur = $IDAnnonceur";
+		$result = $this->_conn->selectDB ($query);
+		$commentaire = $result->fetch();
+		return $commentaire;
 	}
 	
 	// Récupération d'une annonce et des données liées sur les lieux et la marchandise selon IDAnnonce

@@ -1,7 +1,9 @@
 <?php
 require_once '../Model/class.Annonceur.php';
+require_once '../Model/class.Transporteur.php';
 require_once '../Controller/afficherAnnonce.php';
 require_once '../Controller/confirmerDevis.php';
+require_once '../Controller/gestionCommentaires.php';
 include_once 'header.inc';
 
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
@@ -10,14 +12,22 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 		'',
 		''
 );
+// Récupération de l'annonce à afficher
+	$idAnnonce = $_GET ['id'];
+	// Récupération du devis qui a été accepté
+	$devis = getDevisValide ( $idAnnonce );
+	
+	// Récupération du transporteur concerné et de son lieu d'établissement
+	$transporteur = getTransporteur ( $devis['IDDevis'] );
 ?>
 <div class="container">
 
 	<h3>Ajouter un commentaire :</h3>
 
+<form method="post" action="../Controller/gestionCommentaires.php">
 <table class="table">
 					<tr>
-						<td>Note :</td>
+						<td>Note (/5):</td>
 						<td><input type="int" name="Note"
 							value="<?php
 							echo $form_data [0];
@@ -33,6 +43,10 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	<?php if($rank==2) echo $msg;?></td>
 					</tr>
 					<tr>
+					<td colspan="2" align="left">
+					<input type="hidden" name="idTransporteur" value="<?php echo $transporteur ['IDTransporteur'] ?>">
+				</tr>
+					<tr>
 						<td colspan="2" align="left"><button class="btn btn-default"
 								type="submit" name="action" value="enregistrerCommentaire">Enregistrez votre commentaire</td>
 					</tr>
@@ -42,15 +56,10 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	
 	<h3>Détails de l'annonce</h3>
 	<?php
-	// Récupération de l'annonce à afficher
-	$idAnnonce = $_GET ['id'];
+	
 	$annonce = getAnnonceMarchandiseLieu ( $idAnnonce );
 
-	// Récupération du devis qui a été accepté
-	$devis = getDevisValide ( $idAnnonce );
 	
-	// Récupération du transporteur concerné et de son lieu d'établissement
-	$transporteur = getTransporteur ( $devis['IDDevis'] );
 	?>
 	
 	<table>
