@@ -26,25 +26,48 @@ function modifierAnnonceur($mysql) {
 	$prenom = $_POST ['Prenom'];
 	$nom = $_POST ['Nom'];
 	$nomUtilisateur = $_POST ['NomUtilisateur'];
-	// $mdp = $_POST ['Mdp'];
+	$mdp = $_POST ['MotDePasse'];
 	$telephone = $_POST ['Telephone'];
 	$email = $_POST ['Email'];
 	$adresse = $_POST ['Adresse'];
 	$npa = $_POST ['NPA'];
 	$localite = $_POST ['Localite'];
 	$pays = $_POST ['Pays'];
+	$annonceur = $_SESSION ['annonceur'];
+	
+	// Messages d'erreur
+	if (empty ( $pays ) || empty ( $localite ) || empty ( $npa ) || empty ( $adresse ) || empty ( $email ) || empty ( $telephone ) || empty ( $mdp ) || empty ( $nomUtilisateur ) || empty ( $nom ) || empty ( $prenom )) {
+		
+		$msg = "Vous ne pouvez pas laisser un champ vide";
+	}
+	
+	// Si erreur, affichage du message d'erreur.
+	if (isset ( $msg )) {
+		$_SESSION ['msg'] = $msg;
+		
+		header ( "location:../Vue/InfosPersonnellesAnnonceur.php" );
+		exit ();
+	}
 	
 	$result = $mysql->modifierAnnonceur ( $IDAnnonceur, $prenom, $nom, $nomUtilisateur, $telephone, $email, $adresse, $npa, $localite, $pays );
 	
 	if ($result) {
 		
-		$_SESSION ['msg'] = 'Modification effectuée';
-		
-		$annonceur= $_SESSION ['annonceur'];
-		$annonceur->Nom = $nom;
-		$annonceur->Prenom = $prenom;
-		
-		header ( "location:../Vue/InfosPersonnellesAnnonceur.php" );
+		// Erreur en cas de doublon
+		if ($result == 'doublon' && $nomUtilisateur != $annonceur->UserName) {
+			$_SESSION ['msg'] = 'Ce nom d\'utilisateur existe déjà';
+			
+			header ( "location:../Vue/InfosPersonnellesAnnonceur.php" );
+			exit ();
+		} else {
+			
+			$_SESSION ['msg'] = 'Modification effectuée';
+			
+			$result = $mysql->VerifierLoginAnnonceur ( $nomUtilisateur, $mdp );
+			$_SESSION ['annonceur'] = $result;
+			
+			header ( "location:../Vue/InfosPersonnellesAnnonceur.php" );
+		}
 	} else {
 		$_SESSION ['msg'] = 'Echec de la modification';
 		header ( "location:../Vue/InfosPersonnellesAnnonceur.php" );

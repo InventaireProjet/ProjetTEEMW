@@ -8,7 +8,10 @@ class Transporteur {
 	public $MotDePasse;
 	public $IBAN;
 	public $Adresse;
-	public function __construct($id, $nomSociete, $telephone, $email, $userName, $motDePasse, $IBAN, $adresse) {
+	public $NPA;
+	public $Localite;
+	public $Pays;
+	public function __construct($id, $nomSociete, $telephone, $email, $userName, $motDePasse, $IBAN, $adresse, $npa, $localite, $pays) {
 		$this->IDTransporteur = $id;
 		$this->NomSociete = $nomSociete;
 		$this->Telephone = $telephone;
@@ -17,6 +20,9 @@ class Transporteur {
 		$this->MotDePasse = $motDePasse;
 		$this->IBAN = $IBAN;
 		$this->Adresse = $adresse;
+		$this->NPA = $npa;
+		$this->Localite = $localite;
+		$this->Pays = $pays;
 	}
 }
 ?>
