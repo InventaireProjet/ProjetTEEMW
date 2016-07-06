@@ -346,22 +346,17 @@ class MySqlManager {
 		return $annonces;
 	}
 	
-	// Récupération des informations personnelles de l'annonceur et de son adresse
-	public function getInfoPersoAnnonceur($IDAnnonceur) {
-		$query = "SELECT * from Annonceur a, Lieu l where a.IDAnnonceur=$IDAnnonceur and a.IDLieu=l.IDLieu";
+
+	
+	// Récupération des types de transport proposés par le transporteur
+	public function getTypeTransportTransporteur($IDTransporteur) {
+		$query = "SELECT * from RelationTransporteurTransportSet rtt, TypeTransport tt WHERE rtt.IDTransporteur=$IDTransporteur and rtt.IDTypeTransport=tt.IDTypeTransport";
 		$result = $this->_conn->selectDB ( $query );
 		$infos = $result->fetch ();
 		return $infos;
 	}
 	
-	// Récupération des informations personnelles du transporteur et de son adresse
-	public function getInfoPersoTransporteur($IDTransporteur) {
-		$query = "SELECT * from Transporteur t, Lieu l, RelationTransporteurTransportSet rtt, TypeTransport tt where t.IDTransporteur=$IDTransporteur and t.IDLieu=l.IDLieu and rtt.IDTransporteur=t.IDTransporteur and rtt.IDTypeTransport=tt.IDTypeTransport";
-		$result = $this->_conn->selectDB ( $query );
-		$infos = $result->fetch ();
-		return $infos;
-	}
-	
+	//Mise à jour du profil de l'annonceur
 	public function modifierAnnonceur( $IDAnnonceur, $Prenom, $Nom, $NomUtilisateur, $Telephone, $Email, $Adresse, $npa, $localite, $pays )
 	{
 	
