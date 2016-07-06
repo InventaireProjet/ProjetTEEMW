@@ -1,5 +1,6 @@
 <?php
 require_once '../Model/class.Annonceur.php';
+require_once '../Controller/donneesPersonnelles.php';
 include_once 'header.inc';
 
 ?>
@@ -11,20 +12,23 @@ include_once 'header.inc';
 // Récupération de l'annonceur connecté
 $user = $_SESSION ['annonceur'];
 
+//Récupération des informations personnelles
+$infos = getInfoPersoAnnonceur ( $user->IDAnnonceur );
+
 ?>
 
 <table class="table">
 		<tr>
 			<td>Prénom :</td>
-			<td><?php echo $user->Prenom?></td>
+			<td><?php echo $infos['Prenom']?></td>
 	</tr>
 	<tr>
 		<td>Nom :</td>
-		<td><?php echo $user->Nom?></td>
+		<td><?php echo $infos['Nom']?></td>
 	</tr>
 	<tr>
 		<td>Nom d'utilisateur :</td>
-		<td><?php echo $user->UserName?></td>
+		<td><?php echo $infos['UserName']?></td>
 	</tr>
 	<tr>
 		<td>Mot de passe :</td>
@@ -32,15 +36,27 @@ $user = $_SESSION ['annonceur'];
 	</tr>
 	<tr>
 		<td>Téléphone :</td>
-		<td><?php echo $user->Telephone?></td>
+		<td><?php  echo $infos['Telephone']?></td>
 	</tr>
 	<tr>
 		<td>Email :</td>
-		<td><?php echo $user->Email?></td>
+		<td><?php  echo $infos['Email']?></td>
 	</tr>
 	<tr>
 		<td>Adresse :</td>
-		<td><?php echo $user->Adresse?></td>
+		<td><?php echo $infos['Adresse']?></td>
+	</tr>
+	<tr>
+		<td>NPA :</td>
+		<td><?php echo $infos['NPA']?></td>
+	</tr>
+	<tr>
+		<td>Localité :</td>
+		<td><?php echo $infos['Localite']?></td>
+	</tr>
+	<tr>
+		<td>Pays :</td>
+		<td><?php echo $infos['Pays']?></td>
 	</tr>
 
 	</table>

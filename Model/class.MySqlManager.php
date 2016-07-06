@@ -12,15 +12,15 @@ class MySqlManager {
 		try {
 			
 			$this->_conn->getConnection ()->beginTransaction ();
-		
+			
 			$query = "INSERT into Lieu (NPA, Localite, Pays)VALUES('$npa', '$localite', '$pays');";
 			$this->_conn->executeQuery ( $query );
-				
+			
 			$idLieu = $this->_conn->getLastId ();
 			
 			$query = "INSERT into Annonceur(Prenom, Nom, UserName,
 		MotDePasse, Telephone, Email, Adresse, IDLieu)VALUES('$Prenom', '$Nom', '$Utilisateur', '$Mdp', '$Telephone', '$Email', '$Adresse','$idLieu');";
-			$result= $this->_conn->executeQuery ( $query );
+			$result = $this->_conn->executeQuery ( $query );
 			
 			$this->_conn->getConnection ()->commit ();
 			return $result;
@@ -40,7 +40,7 @@ class MySqlManager {
 			
 			$query = "INSERT into Transporteur(NomSociete, Telephone, Email, Username, MotDePasse, Adresse, IDLieu, IBAN)
 		VALUES('$nomSociete', '$telephone', '$email', '$username', '$pwd', '$adresse', '$idLieu', '$IBAN');";
-			$result=$this->_conn->executeQuery ( $query );
+			$result = $this->_conn->executeQuery ( $query );
 			
 			$this->_conn->getConnection ()->commit ();
 			return $result;
@@ -341,6 +341,22 @@ class MySqlManager {
 			$annonces [] = $object;
 		}
 		return $annonces;
+	}
+	
+	// Récupération des informations personnelles et de l'adresse
+	public function getInfoPersoAnnonceur($IDAnnonceur) {
+		$query = "SELECT * from Annonceur a, Lieu l where a.IDAnnonceur=$IDAnnonceur and a.IDLieu=l.IDLieu";
+		$result = $this->_conn->selectDB ( $query );
+		$infos = $result->fetch ();
+		return $infos;
+	}
+	
+	// Récupération des informations personnelles et de l'adresse
+	public function getInfoPersoTransporteur($IDTransporteur) {
+		$query = "SELECT * from Transporteur t, Lieu l, RelationTransporteurTransportSet rtt, TypeTransport tt where t.IDTransporteur=$IDTransporteur and t.IDLieu=l.IDLieu and rtt.IDTypeTransport=tt.IDTypeTransport";
+		$result = $this->_conn->selectDB ( $query );
+		$infos = $result->fetch ();
+		return $infos;
 	}
 }
 ?>
