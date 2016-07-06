@@ -1,6 +1,7 @@
 <?php
 require_once '../Model/class.Annonceur.php';
 require_once '../Controller/afficherAnnonce.php';
+require_once '../Controller/confirmerDevis.php';
 include_once 'header.inc';
 
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
@@ -47,6 +48,9 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 
 	// Récupération du devis qui a été accepté
 	$devis = getDevisValide ( $idAnnonce );
+	
+	// Récupération du transporteur concerné et de son lieu d'établissement
+	$transporteur = getTransporteur ( $devis['IDDevis'] );
 	?>
 	
 	<table>
@@ -128,10 +132,42 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 		</tr>
 
 	</table>
-
+	<br>
+<h4>Coordonnées du transporteur :</h4>
+	<table>
+		<tr>
+			<td>Nom de l'entreprise :</td>
+			<td><?php echo $transporteur['NomSociete']?></td>
+		</tr>
+		<tr>
+			<td>Téléphone :</td>
+			<td><?php echo $transporteur ['Telephone']?></td>
+		</tr>
+		<tr>
+			<td>Email :</td>
+			<td><?php echo $transporteur ['Email']?></td>
+		</tr>
+		<tr>
+			<td>Adresse :</td>
+			<td><?php echo $transporteur ['Adresse']?></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><?php echo $transporteur['NPA'] .' ' .$transporteur ['Localite']?></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><?php echo $transporteur['Pays'] ?></td>
+		</tr>
+		<tr>
+			<td>IBAN :</td>
+			<td><?php echo $transporteur ['IBAN']?></td>
+		</tr>
+		
+	</table>
 
 	<br>
-	<br> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
+	<br> <a href="../Vue/HistoriqueAnnonceur.php">Retour à l'historique</a>
 
 </div>
 <?php

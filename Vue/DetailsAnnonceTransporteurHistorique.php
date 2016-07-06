@@ -89,7 +89,7 @@ $annonceur = getAnnonceurDevis ( $devis ['IDDevis'] );
 
 $lieu = getLieu ( $annonceur ['IDLieu'] );
 ?>
-<h4>Devis soumis</h4>
+<h4>Devis accepté</h4>
 	<table
 		
 		<tr>
