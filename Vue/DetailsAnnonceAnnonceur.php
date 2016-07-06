@@ -82,8 +82,11 @@ include_once 'header.inc';
 if ($annonce['EnCours']) {
 	// Récupération des devis qui concernent l'annonce affichés dans un tableau
 	$devisT = getDevis ( $idAnnonce );
+	
+	$table_str = '	<h4>Devis soumis</h4> <table class="table">';
+	
 	if ($devisT != null) {
-		$table_str = '	<h4>Devis soumis</h4> <table class="table">';
+		
 		$i = 1;
 		$table_str .= '<tr>' . '<td>' . '</td><th >' . "Date de validité" . '</th><th>' . "Prix" . '</th>';
 		$table_str .= '</tr>';
@@ -96,6 +99,7 @@ if ($annonce['EnCours']) {
 		$table_str .= '</table>';
 		echo $table_str;
 	} else {
+		echo $table_str;
 		echo 'Aucun devis soumis';
 	}
 } else {

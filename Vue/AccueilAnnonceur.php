@@ -58,7 +58,7 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 	$table_str .= '</table>';
 	echo $table_str;}
 	else {
-		echo 'Aucune annonce postée <br>';
+		echo 'Aucune annonce <br>';
 	}
 	
 	?>
