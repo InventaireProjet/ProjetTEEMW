@@ -81,9 +81,8 @@ if ($msg)
 	<br> 
 
 <!-- Bouton pour la soumission de devis -->
-	<form method="post" action="ValidationDevis.php">
-		<input type="hidden" name="idAnnonce" value="<?php echo $idAnnonce?>"> <input
-			type="submit" name="action" value="Proposer un devis">
+	<form method="post" action="ValidationDevis.php?id=<?php echo  $idAnnonce?>">
+		<input type="submit" name="action" value="Proposer un devis">
 	</form>
 <br> <a href="../Vue/RechercheAnnonce.php">Retour à la recherche d'annonces</a>
 </div>

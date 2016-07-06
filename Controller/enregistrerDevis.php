@@ -39,12 +39,13 @@ function enregistrerDevis($mysql) {
 	if (isset ( $rank )) {
 		$_SESSION ['rank'] = $rank;
 		$_SESSION ['msg'] = $msg;
+		
 		$_SESSION ['formNouvDevis_data'] = array (
 				$prix,
 				$dateExpiration,
 				$description 
 		);
-		header ( "location:../Vue/ValidationDevis.php" );
+		header ( "location:../Vue/ValidationDevis.php?id=$idAnnonce" );
 		exit ();
 	}
 	

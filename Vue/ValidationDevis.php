@@ -10,7 +10,7 @@ $form_data = isset ( $_SESSION ['formNouvDevis_data'] ) ? $_SESSION ['formNouvDe
 		'',
 		'' 
 );
-$idAnnonce = $_POST ['idAnnonce'];
+$idAnnonce = $_GET ['id'];
 ?>
 
 
@@ -54,7 +54,7 @@ $idAnnonce = $_POST ['idAnnonce'];
 				</tr>
 			</table>
 		</form>
-		<br /> <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a>
+		<br /> <a href="DetailsAnnonceTransporteur2.php?id=<?php echo  $idAnnonce?>">Retour à l'annonce</a>
 
 	</h4>
 
