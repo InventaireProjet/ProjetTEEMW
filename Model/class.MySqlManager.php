@@ -76,23 +76,27 @@ class MySqlManager {
 	}
 	public function VerifierLoginAnnonceur($uname, $pwd) {
 		$pwd = sha1 ( $pwd );
-		$query = "SELECT * FROM Annonceur WHERE UserName='$uname' AND
-		MotDePasse='$pwd'";
+		$query = "SELECT a.IDAnnonceur, a.Prenom, a.Nom, a.UserName, a.MotDePasse, a.Telephone, a.Email, a.Adresse, 
+		l.NPA, l.Localite, l.Pays FROM Annonceur a , Lieu l WHERE a.UserName='$uname' AND
+		a.MotDePasse='$pwd' and a.IDLieu=l.IDLieu";
 		$result = $this->_conn->selectDB ( $query );
 		$row = $result->fetch ();
 		if (! $row)
 			return false;
-		return new Annonceur ( $row ['IDAnnonceur'], $row ['Prenom'], $row ['Nom'], $row ['UserName'], $row ['MotDePasse'], $row ['Telephone'], $row ['Email'], $row ['Adresse'] );
+		return new Annonceur ( $row ['IDAnnonceur'], $row ['Prenom'], $row ['Nom'], $row ['UserName'], $row ['MotDePasse'],
+				$row ['Telephone'], $row ['Email'], $row ['Adresse'], $row['NPA'],$row['Localite'], $row['Pays']);
 	}
 	public function VerifierLoginTransporteur($uname, $pwd) {
 		$pwd = sha1 ( $pwd );
-		$query = "SELECT * FROM Transporteur WHERE UserName='$uname' AND
-		MotDePasse='$pwd'";
+		$query = "SELECT t.IDTransporteur, t.NomSociete, t.Telephone, t.Email, t.UserName,  t.MotDePasse, t.IBAN , t.Adresse, 
+		l.NPA, l.Localite, l.Pays FROM Transporteur t, Lieu l WHERE t.UserName='$uname' AND
+		t.MotDePasse='$pwd'and t.IDLieu=l.IDLieu";
 		$result = $this->_conn->selectDB ( $query );
 		$row = $result->fetch ();
 		if (! $row)
 			return false;
-		return new Transporteur ( $row ['IDTransporteur'], $row ['NomSociete'], $row ['Telephone'], $row ['Email'], $row ['Username'], $row ['MotDePasse'], $row ['IBAN'], $row ['Adresse'] );
+		return new Transporteur ( $row ['IDTransporteur'], $row ['NomSociete'], $row ['Telephone'], $row ['Email'], $row ['UserName'],
+				$row ['MotDePasse'], $row ['IBAN'], $row ['Adresse'] , $row['NPA'],$row['Localite'], $row['Pays']);
 	}
 	public function enregistrerAnnonce($nom, $datedep, $adressedep, $npadep, $localdep, $paysdep, $datearr, $adressearr, $npaarr, $localarr, $paysarr, $type, $desc, $qte, $vol, $pds, $idAnnonceur) {
 		

@@ -50,6 +50,10 @@ $infos = getInfoPersoTransporteur ( $user->IDTransporteur );
 			<td><?php echo $infos['Pays']?></td>
 		</tr>
 		<tr>
+			<td>IBAN :</td>
+			<td><?php echo $infos['IBAN']?></td>
+		</tr>
+		<tr>
 			<td>Nom d'utilisateur :</td>
 			<td><?php echo $infos['Username']?></td>
 		</tr>
