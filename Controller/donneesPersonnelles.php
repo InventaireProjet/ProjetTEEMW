@@ -26,7 +26,7 @@ function modifierAnnonceur($mysql) {
 	$Prenom = $_POST ['Prenom'];
 	$Nom = $_POST ['Nom'];	
 	$NomUtilisateur = $_POST ['NomUtilisateur'];
-	$Mdp = $_POST ['Mdp'];
+	//$Mdp = $_POST ['Mdp'];
 	$Telephone = $_POST ['Telephone'];
 	$Email = $_POST ['Email'];
 	$Adresse = $_POST ['Adresse'];
@@ -34,7 +34,7 @@ function modifierAnnonceur($mysql) {
 	$localite = $_POST ['Localite'];
 	$pays = $_POST ['Pays'];
 	
-	$result = $mysql->modifierAnnonceur ( $IDAnnonceur, $Prenom, $Nom, $NomUtilisateur, $Mdp, $Telephone, $Email, $Adresse, $npa, $localite, $pays );
+	$result = $mysql->modifierAnnonceur ($IDAnnonceur, $Prenom, $Nom, $NomUtilisateur, $Telephone, $Email, $Adresse, $npa, $localite, $pays );
 	
 	
 	header ( "location:../Vue/AccueilAnnonceur.php" );

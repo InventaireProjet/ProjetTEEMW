@@ -359,12 +359,12 @@ class MySqlManager {
 		return $infos;
 	}
 	
-	public function modifierAnnonceur( $IDAnnonceur, $Prenom, $Nom, $NomUtilisateur, $Mdp, $Telephone, $Email, $Adresse, $npa, $localite, $pays )
+	public function modifierAnnonceur( $IDAnnonceur, $Prenom, $Nom, $NomUtilisateur, $Telephone, $Email, $Adresse, $npa, $localite, $pays )
 	{
-		$Mdp = sha1 ( $Mdp );
+	
 		try {
 			$this->_conn->getConnection ()->beginTransaction ();
-			$query = "UPDATE Annonceur a, Lieu l SET  a.Prenom='$Prenom', a.Nom='$Nom', a.UserName='$NomUtilisateur', a.MotDePasse='$Mdp' ,a.Telephone='$Telephone' , a.Email='$Email', a.Adresse='$Adresse', l.NPA='$npa', l.Localite='$localite' , l.Pays='$pays' WHERE IDAnnonceur = $IDAnnonceur and a.IDLieu=l.IDLieu";
+			$query = "UPDATE Annonceur a, Lieu l SET  a.Prenom='$Prenom', a.Nom='$Nom', a.UserName='$NomUtilisateur', a.Telephone='$Telephone', a.Email='$Email', a.Adresse='$Adresse', l.NPA='$npa', l.Localite='$localite', l.Pays='$pays' WHERE IDAnnonceur = $IDAnnonceur and a.IDLieu=l.IDLieu";
 			$result = $this->_conn->executeQuery ( $query );
 			$this->_conn->getConnection ()->commit ();
 			return true;

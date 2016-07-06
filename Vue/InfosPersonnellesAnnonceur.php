@@ -26,13 +26,14 @@ $infos = getInfoPersoAnnonceur ( $user->IDAnnonceur );
 			</tr>
 			<tr>
 				<td>Prénom :</td>
-
+				
 				<td><input type="text" name="Prenom"
 					value="<?php echo $infos['Prenom']?>"></td>
 			</tr>
 			<tr>
 				<td>Nom :</td>
-				<td><input type="text" name="Nom" value="<?php echo $infos['Nom']?>"></td>
+				<td><input type="text" name="Nom" 
+				value="<?php echo $infos['Nom']?>"></td>
 			</tr>
 			<tr>
 				<td>Nom d'utilisateur :</td>
@@ -41,9 +42,7 @@ $infos = getInfoPersoAnnonceur ( $user->IDAnnonceur );
 			</tr>
 			<tr>
 				<td>Mot de passe :</td>
-				<td><input type="text" name="Mdp"
-					value="<?php
-					echo $infos ['MotDePasse']?>"</td>
+				<td>*****</td>
 			</tr>
 			<tr>
 				<td>Téléphone :</td>
