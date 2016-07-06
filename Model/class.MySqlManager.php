@@ -192,7 +192,7 @@ class MySqlManager {
 	
 	// Récupération du Devis valide selon IDAnnonce
 	public function getDevisValide($IDAnnonce) {
-		$query = "SELECT * from Devis where IDAnnonce = $IDAnnonce and Accepte=1";
+		$query = "SELECT * from Devis d where d.IDAnnonce = $IDAnnonce and d.Accepte=1";
 		$result = $this->_conn->selectDB ( $query );
 		$devis = $result->fetch ();
 		return $devis;
@@ -319,7 +319,7 @@ class MySqlManager {
 		return $annonces;
 	}
 	
-	// Récupération des Annonces terminé selon IDAnnonceur -> pour les tests afficher les non réalisé donc 0
+	// Récupération des Annonces terminé selon IDAnnonceur
 	public function getAnnonceRealise($IDAnnonceur) {
 		$query = "SELECT * FROM Annonce WHERE IDAnnonceur = $IDAnnonceur AND TransportRealise = 1";
 		$result = $this->_conn->selectDB ( $query );
@@ -330,8 +330,7 @@ class MySqlManager {
 		return $annonces;
 	}
 	
-	// Récupération des Transports effectué selon IDAnnonceur -> pour les tests afficher les non réalisé donc 0 et Devis Accepte 0 aussi
-	// EN réalité, mettre Accepte 1 et TransportRealise 1
+	// Récupération des Transports effectué selon IDAnnonceur
 	public function getTransportsEffectue($IDTransporteur) {
 		$query = "SELECT * from Devis d, Annonce a where d.IDTransporteur=$IDTransporteur 
 		and d.Accepte=1 and d.IDAnnonce = a.IDAnnonce and a.TransportRealise=1 ";

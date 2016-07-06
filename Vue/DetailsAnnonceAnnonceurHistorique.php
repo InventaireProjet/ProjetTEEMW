@@ -12,11 +12,11 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 ?>
 <div class="container">
 
-	<h3>Ajouter un commentaire:</h3>
+	<h3>Ajouter un commentaire :</h3>
 
 <table class="table">
 					<tr>
-						<td>Note:</td>
+						<td>Note :</td>
 						<td><input type="int" name="Note"
 							value="<?php
 							echo $form_data [0];
@@ -24,7 +24,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
     <?php if($rank==1) echo $msg;?></td>
 					</tr>
 					<tr>
-						<td>Commentaire:</td>
+						<td>Commentaire :</td>
 						<td><input type="text" name="Commentaire"
 							value="<?php
 							echo $form_data [1];
@@ -44,6 +44,9 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	// Récupération de l'annonce à afficher
 	$idAnnonce = $_GET ['id'];
 	$annonce = getAnnonceMarchandiseLieu ( $idAnnonce );
+
+	// Récupération du devis qui a été accepté
+	$devis = getDevisValide ( $idAnnonce );
 	?>
 	
 	<table>
@@ -109,26 +112,22 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	<br>
 	<h4>Devis accepté</h4>
 
-<?php
-// Récupération du devis qui a été accepté
-$devisT = getDevisValide ( $idAnnonce );
-if ($devisT != null) {
-	$table_str = '<table class="table">';
-	$i = 1;
-	$table_str .= '<tr>' . '<td>' . '</td><th >' . "Date de validité" . '</th><th>' . "Prix" . '</th>';
-	$table_str .= '</tr>';
-	foreach ( $devisT as $devis ) {
-		$table_str .= '<tr>';
-		// Lien à chaque ligne du tableau vers le devis correspondant via le paramètre id
-		$table_str .= '<td>' . ($i ++) . '</td><td>' . $devis ['DateExpiration'] . '</td><td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '"> ' . $devis ['Prix'] . '</td>';
-		$table_str .= '</tr>';
-	}
-	$table_str .= '</table>';
-	echo $table_str;
-} else {
-	echo 'Aucun devis soumis';
-}
-?>
+	<table
+		
+		<tr>
+			<td>Date d'expiration :</td>
+			<td><?php echo $devis ['DateExpiration']?></td>
+		</tr>
+		<tr>
+			<td>Prix :</td>
+			<td><?php echo $devis ['Prix']?></td>
+		</tr>
+		<tr>
+			<td>Description :</td>
+			<td><?php echo $devis['Description']?></td>
+		</tr>
+
+	</table>
 
 
 	<br>

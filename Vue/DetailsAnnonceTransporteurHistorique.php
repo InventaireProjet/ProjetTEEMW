@@ -83,9 +83,11 @@ if ($msg)
 
 
 <?php
-// Récupération du devis qui concerne l'annonce
+// Récupération du devis qui concerne l'annonce, de l'annonceur et du lieu
 $devis = getDevisTransporteurAnnonce ( $user->IDTransporteur, $idAnnonce );
+$annonceur = getAnnonceurDevis ( $devis ['IDDevis'] );
 
+$lieu = getLieu ( $annonceur ['IDLieu'] );
 ?>
 <h4>Devis soumis</h4>
 	<table
@@ -106,67 +108,56 @@ $devis = getDevisTransporteurAnnonce ( $user->IDTransporteur, $idAnnonce );
 	</table>
 
 
-<?php
-$typeAffichage = $_GET ['a'];
-
-// Affichage des coordonnées client si le devis a été accepté (paramètre 'a' du GET = 1)
-if ($typeAffichage == 1) {
-	
-	$annonceur = getAnnonceurDevis ( $devis ['IDDevis'] );
-	
-	$lieu = getLieu ( $annonceur ['IDLieu'] );
-	
-	// Affichage de la table
-	echo $table_str = '<br>
+<br>
 	<h4>Coordonnées du client</h4> <table>
 <tr>
 <td>Prénom :</td>
-<td>' . $annonceur ['Prenom'] . '</td>
+<td><?php echo $annonceur ['Prenom'] ?></td>
 	</tr>
 	<tr>
 		<td>Nom :</td>
-		<td>' . $annonceur ['Nom'] . '</td>
+		<td> <?php echo $annonceur ['Nom']?> </td>
 	</tr>
 	<tr>
 		<td>Adresse :</td>
-		<td>' . $annonceur ['Adresse'] . ' </td>
+		<td> <?php echo $annonceur ['Adresse']  ?></td>
 	</tr>
 	<tr>
 		<td></td>
-		<td>' . $lieu ['NPA'] . ' ' . $lieu ['Localite'] . '</td>
+		<td> <?php echo $lieu ['NPA']  .' ' . $lieu ['Localite'] ?></td>
 	</tr>
 	<tr>
 		<td></td>
-		<td>' . $lieu ['Pays'] . '</td>
+		<td><?php echo $lieu ['Pays'] ?></td>
 	</tr>
 
 	<tr>
 		<td>Téléphone :</td>
-		<td>' . $annonceur ['Telephone'] . '</td>
+		<td><?php echo $annonceur ['Telephone']?></td>
 	</tr>
 	<tr>
 		<td>Email :</td>
-		<td>' . $annonceur ['Email'] . '</td>
+		<td><?php echo $annonceur ['Email'] ?></td>
 	</tr>
 	
-	</table>';
-}
-
-?>
+	</table>
 
 
+<br>
+
+<h4>Evaluation de votre transport par le client</h4>
 	<table>
 	<tr>
-	<td>Note:</td>
+	<td>Note :</td>
 	<td>PLACEHOLDER A REMPLACER PAR LA METHODE POUR OBTENIR LA NOTE</td>
 						</tr>
 						<tr>
-							<td>Commentaire:</td>
+							<td>Commentaire :</td>
 							<td>PLACEHOLDER A REMPLACER PAR LA METHODE POUR OBTENIR LE COMMENTAIRE</td>
 						</tr>
 	</table>
 
- <br> <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a>
+ <br> <a href="../Vue/HistoriqueTransporteur.php">Retour à l'historique</a>
 
 </div>
 <?php
