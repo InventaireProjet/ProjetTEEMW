@@ -17,10 +17,10 @@ function archiverAnnonce($mysql) {
 	
 	if ($resultat) {
 		$_SESSION ['msg'] = 'Archivage effectué';
-		header ( "location:/ProjetTEEMW/Vue/AccueilTransporteur.php" );
+		header ( "location:../../Vue/AccueilTransporteur.php" );
 	} else {
 		$_SESSION ['msg'] = 'Echec de la validation du devis';
-		header ( "location:/ProjetTEEMW/Vue/DetailsAnnonceTransporteur.php?id=$idAnnonce&a=$typeAffichage" );
+		header ( "location:../../Vue/DetailsAnnonceTransporteur.php?id=$idAnnonce&a=$typeAffichage" );
 	}
 	exit ();
 }

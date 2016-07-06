@@ -231,7 +231,7 @@ class MySqlManager {
 	
 	// Obtenir le transporteur et son lieu d'après l'ID du devis
 	public function getTransporteur($IDDevis) {
-		$query = "SELECT * from transporteur t, Devis d, Lieu l where IDDevis = $IDDevis and d.IDTransporteur=t.IDTransporteur and t.IDLieu=l.IDLieu";
+		$query = "SELECT * from Transporteur t, Devis d, Lieu l where IDDevis = $IDDevis and d.IDTransporteur=t.IDTransporteur and t.IDLieu=l.IDLieu";
 		$result = $this->_conn->selectDB ( $query );
 		$transporteur = $result->fetch ();
 		return $transporteur;
@@ -356,7 +356,7 @@ class MySqlManager {
 	
 	// Récupération des informations personnelles du transporteur et de son adresse
 	public function getInfoPersoTransporteur($IDTransporteur) {
-		$query = "SELECT * from Transporteur t, Lieu l, RelationTransporteurTransportSet rtt, TypeTransport tt where t.IDTransporteur=$IDTransporteur and t.IDLieu=l.IDLieu and rtt.IDTypeTransport=tt.IDTypeTransport";
+		$query = "SELECT * from Transporteur t, Lieu l, RelationTransporteurTransportSet rtt, TypeTransport tt where t.IDTransporteur=$IDTransporteur and t.IDLieu=l.IDLieu and rtt.IDTransporteur=t.IDTransporteur and rtt.IDTypeTransport=tt.IDTypeTransport";
 		$result = $this->_conn->selectDB ( $query );
 		$infos = $result->fetch ();
 		return $infos;

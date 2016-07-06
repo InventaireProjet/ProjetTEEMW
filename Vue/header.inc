@@ -44,7 +44,6 @@ session_start ();
 
 <?php
 $host = $_SERVER['REQUEST_URI'];
-$vue="/ProjetTEEMW/Vue/" ;
 
 //Affichage du logout si un client est connecté
 if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
