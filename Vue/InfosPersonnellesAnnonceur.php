@@ -2,7 +2,8 @@
 require_once '../Model/class.Annonceur.php';
 require_once '../Controller/donneesPersonnelles.php';
 include_once 'header.inc';
-
+$msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
+if($msg) echo $msg;
 ?>
 
 <div class="container">
@@ -19,11 +20,7 @@ $infos = getInfoPersoAnnonceur ( $user->IDAnnonceur );
 
 <form method="post" action="../Controller/donneesPersonnelles.php">
 		<table class="table">
-			<tr>
-				<td>ID :</td>
-				<td><input type="text" name="IDAnnonceur"
-					value="<?php echo $infos['IDAnnonceur']?>"></td>
-			</tr>
+			<input type="hidden" name="IDAnnonceur" value="<?php echo  $user->IDAnnonceur ?>">
 			<tr>
 				<td>Prénom :</td>
 				
