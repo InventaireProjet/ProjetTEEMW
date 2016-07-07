@@ -110,7 +110,7 @@ $lieu = getLieu ( $annonceur ['IDLieu'] );
 
 
 <br>
-	<h3>Coordonnées du client</h3> <table>
+	<h3>Coordonnées du client</h3> <table class="table">
 <tr>
 <td>Prénom :</td>
 <td><?php echo $annonceur ['Prenom'] ?></td>
