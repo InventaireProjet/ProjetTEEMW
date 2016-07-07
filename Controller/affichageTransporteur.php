@@ -57,6 +57,8 @@ function getLieu($IDLieu) {
 function getCommentaire ($IDTransporteur, $IDAnnonceur){
 	$mysql = new MySqlManager();
 	$result = $mysql->GetCommentaire ( $IDTransporteur, $IDAnnonceur);
+	
+	return $result;
 }
 
 //Transmet les annonces correspondant aux types de transport après avoir ignoré 

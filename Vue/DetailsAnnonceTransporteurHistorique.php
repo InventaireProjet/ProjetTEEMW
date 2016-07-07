@@ -1,6 +1,7 @@
 <?php
 require_once '../Controller/afficherAnnonce.php';
 require_once '../Controller/affichageTransporteur.php';
+require_once '../Controller/gestionCommentaires.php';
 include_once 'header.inc';
 
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
@@ -153,11 +154,11 @@ $commentaire = getCommentaire ( $user->IDTransporteur, $annonceur['IDAnnonceur']
 	<tr>
 	<td>Note :</td>
 	<td><?php echo $commentaire ['Points']?></td>
-						</tr>
-						<tr>
-							<td>Commentaire :</td>
-							<td>$commentaire ['Commentaire']</td>
-						</tr>
+	</tr>
+	<tr>
+	<td>Commentaire :</td>
+	<td><?php echo $commentaire ['Commentaire']?></td>
+	</tr>
 	</table>
 
  <br> <a href="../Vue/HistoriqueTransporteur.php">Retour à l'historique</a>

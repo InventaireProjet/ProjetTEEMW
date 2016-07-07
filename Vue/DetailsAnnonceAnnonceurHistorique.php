@@ -115,7 +115,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 			<td>Quantité :</td>
 			<td><?php echo $annonce['Quantite']?></td>
 		</tr>
-		  <tr>
+		   <tr>
 			<td>Type de transport :</td>
 			<td><?php
 			$typeTransport = getTypeTransportFromMarchandise ( $annonce ['IDMarchandise'] );
