@@ -401,5 +401,20 @@ class MySqlManager {
 			$this->_conn->getConnection ()->rollback ();
 		}
 	}
+	
+	//Mise à jour du profil du transporteur
+	public function modifierTransporteur ($IDTransporteur, $nomSociete, $telephone, $email, $username, $motDePasse, $adresse,$npa, $localite, $pays, $IBAN, $typeTransport)
+	{
+	
+		try {
+			$this->_conn->getConnection ()->beginTransaction ();
+			$query = "UPDATE Transporteur t, Lieu l, RelationTransporteurTransportSet rtt, TypeTransport tt  SET  t.NomSociete='$nomSociete', t.Telephone='$telephone', t.Email='$email' , t.Username='$username', t.IBAN='$IBAN', t.Adresse='$adresse', l.NPA='$npa', l.Localite='$localite', l.Pays='$pays', tt.Nom='$typeTransport' WHERE t.IDTransporteur = $IDTransporteur and t.IDLieu=l.IDLieu and rtt.IDTypeTransport=tt.IDTypeTransport";
+			$result = $this->_conn->executeQuery ( $query );
+			$this->_conn->getConnection ()->commit ();
+			return true;
+		} catch ( Exception $e ) {
+			$this->_conn->getConnection ()->rollback ();
+		}
+	}
 }
 ?>
