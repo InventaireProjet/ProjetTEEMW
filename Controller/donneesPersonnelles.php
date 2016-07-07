@@ -89,12 +89,17 @@ function modifierTransporteur($mysql) {
 	$localite = $_POST ['Localite'];
 	$pays = $_POST ['Pays'];
 	$IBAN = $_POST ['IBAN'];
-	$typeTransport = $_POST ['typesTransport'];
 	$transporteur = $_SESSION ['transporteur'];
-	
+	$typesTransport = array ();
+	// Gestion d'un problème d'undefined
+	if (empty ( $_POST ['typesTransport'] )) {
+		$typesTransport = null;
+	} else {
+		$typesTransport = $_POST ['typesTransport'];
+	}
 	
 	// Messages d'erreur
-	if (empty ( $typeTransport ) || empty ( $IBAN ) || empty ( $pays ) || empty ( $localite ) || empty ( $npa ) || empty ( $adresse ) || empty ( $motDePasse ) | empty ( $username ) || empty ( $email ) || empty ( $telephone ) || empty ( $nomSociete )) {
+	if ( empty ( $IBAN ) || empty ( $pays ) || empty ( $localite ) || empty ( $npa ) || empty ( $adresse ) || empty ( $motDePasse ) | empty ( $username ) || empty ( $email ) || empty ( $telephone ) || empty ( $nomSociete )) {
 	
 		$msg = "Vous ne pouvez pas laisser un champ vide";
 	}
@@ -107,7 +112,7 @@ function modifierTransporteur($mysql) {
 		exit ();
 	}
 	
-	$result = $mysql->modifierTransporteur ($IDTransporteur, $nomSociete, $telephone, $email, $username, $motDePasse, $adresse,$npa, $localite, $pays, $IBAN, $typeTransport);
+	$result = $mysql->modifierTransporteur ($IDTransporteur, $nomSociete, $telephone, $email, $username, $motDePasse, $adresse,$npa, $localite, $pays, $IBAN);
 	
 	if ($result) {
 	
@@ -122,8 +127,12 @@ function modifierTransporteur($mysql) {
 			$_SESSION ['msg'] = 'Modification effectuée';
 				
 			$result = $mysql->VerifierLoginTransporteur ( $username, $motDePasse );
+			$result2 = $mysql->deleteTypesTransportTransporteur ( $result->IDTransporteur  );
+			modifierTypesTransportTransporteur ( $mysql, $typesTransport, $result->IDTransporteur );
+			
 			$_SESSION ['transporteur'] = $result;
-				
+			
+			
 			header ( "location:../Vue/InfosPersonnellesTransporteur.php" );
 		}
 	} else {
@@ -134,4 +143,21 @@ function modifierTransporteur($mysql) {
 	exit ();
 }
 
+function modifierTypesTransportTransporteur($mysql, $typesTransport, $idTransporteur) {
+
+	foreach ( $typesTransport as $typeTransport ) {
+		$result = $mysql->enregistrerTypesTransportTransporteur ( $typeTransport, $idTransporteur );
+	}
+}
+
+
+function typeTransportSelectione($IDTypeTransport, $tableauTypeTransport) {
+
+	foreach ( $tableauTypeTransport as $type ) {
+		if ($type['IDTypeTransport']==$IDTypeTransport){
+			return true;
+		}
+	}
+	return false;
+}
 ?>
