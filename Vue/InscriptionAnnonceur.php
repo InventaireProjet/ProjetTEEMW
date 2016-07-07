@@ -23,7 +23,7 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 ?>
 <div class="container">
 	<div class="aligncentre">
-		<h4>
+		
 			<form method="post" action="../Controller/login.php">
 
 				<table class="table">
@@ -129,7 +129,7 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 				</table>
 			</form>
 			<br /> <a href="index.php">Accueil</a>
-		</h4>
+		
 	</div>
 </div>
 <?php

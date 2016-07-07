@@ -9,7 +9,7 @@ $idTransporteur = $user->IDTransporteur;
 ?>
 <div class="container">
 
-	<h4>Annonces correspondant à votre profil</h4>
+	<p>Annonces correspondant à votre profil</p>
 
 	<?php
 	// Récupération de l'annonceur connecté
@@ -47,7 +47,7 @@ $idTransporteur = $user->IDTransporteur;
 		echo 'Aucune annonce ne correspond aux types de transport que vous proposez <br>';
 	}
 	?>
-<br> <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a>
+<br> <h4><a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a></h4>
 </div>
 </div>
 <?php

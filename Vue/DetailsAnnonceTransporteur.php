@@ -10,7 +10,7 @@ if ($msg)
 <div class="container">
 
 
-	<h3>Détails de l'annonce</h3>
+	<p>Détails de l'annonce</p>
 	<?php
 	// Récupération de l'annonce à afficher et du transporteur
 	$idAnnonce = $_GET ['id'];
@@ -18,7 +18,7 @@ if ($msg)
 	$user = $_SESSION ['transporteur'];
 	?>
 	
-	<table>
+	<table class="table">
 		<tr>
 			<td>Nom de l'annonce :</td>
 			<td><?php echo $annonce['Nom']?></td>
@@ -87,8 +87,8 @@ if ($msg)
 $devis = getDevisTransporteurAnnonce ( $user->IDTransporteur, $idAnnonce );
 
 ?>
-<h4>Devis soumis</h4>
-	<table
+<h3>Devis soumis</h3>
+	<table class="table">
 		
 		<tr>
 			<td>Date d'expiration :</td>
@@ -118,7 +118,7 @@ if ($typeAffichage == 1) {
 	
 	// Affichage de la table
 	echo $table_str = '<br>
-	<h4>Coordonnées du client</h4> <table>
+	<h3>Coordonnées du client</h3> <table>
 <tr>
 <td>Prénom :</td>
 <td>' . $annonceur ['Prenom'] . '</td>
@@ -162,7 +162,7 @@ if ($typeAffichage == 1) {
 ?>
 
 
- <br> <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a>
+ <br> <h4><a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a></h4>
 
 </div>
 <?php

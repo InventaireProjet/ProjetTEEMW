@@ -6,14 +6,14 @@ include_once 'header.inc';
 ?>
 <div class="container">
 
-	<h3>Détails de l'annonce</h3>
+	<p>Détails de l'annonce</p>
 	<?php
 	// Récupération de l'annonce à afficher
 	$idAnnonce = $_GET ['id'];
 	$annonce = getAnnonceMarchandiseLieu ( $idAnnonce );
 	?>
 	
-	<table>
+	<table class="table">
 		<tr>
 			<td>Nom de l'annonce :</td>
 			<td><?php echo $annonce['Nom']?></td>
@@ -117,7 +117,7 @@ if ($annonce['EnCours']) {
 	//Affichage des coordonnées du transporteur choisi
 	$transporteur = getTransporteur ( $devis['IDDevis'] );
 	$table_str2= '<br>
-	<h4>Coordonnées du transporteur</h4> <table>
+	<h3>Coordonnées du transporteur</h3> <table>
 	<tr>
 	<td>Nom de l\'entreprise :</td>
 	<td>' .  $transporteur ['NomSociete'] . '</td>
@@ -154,7 +154,7 @@ if ($annonce['EnCours']) {
 ?>
 
 
-	<br> <br> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
+	<br> <br> <h4><a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a></h4>
 
 </div>
 <?php

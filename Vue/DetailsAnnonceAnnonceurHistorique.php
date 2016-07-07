@@ -62,7 +62,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	
 	?>
 	
-	<table>
+	<table class="table">
 		<tr>
 			<td>Nom de l'annonce :</td>
 			<td><?php echo $annonce['Nom']?></td>
@@ -123,9 +123,9 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 		</tr>
 	</table>
 	<br>
-	<h4>Devis accepté</h4>
+	<h3>Devis accepté</h3>
 
-	<table
+	<table class="table">
 		
 		<tr>
 			<td>Date d'expiration :</td>
@@ -142,8 +142,8 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 
 	</table>
 	<br>
-<h4>Coordonnées du transporteur :</h4>
-	<table>
+<h3>Coordonnées du transporteur :</h3>
+	<table class="table">
 		<tr>
 			<td>Nom de l'entreprise :</td>
 			<td><?php echo $transporteur['NomSociete']?></td>
@@ -175,31 +175,8 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 		
 	</table>
 
-	<br>
+	<br> <h4> <a href="../Vue/HistoriqueAnnonceur.php">Retour à l'historique</a></h4>
 
-<h4>Evaluation de votre transporteur</h4>
-	<table>
-	<tr>
-	<td>Note :</td>
-	<td><?php if($commentaire!=null){
-		echo $commentaire ['Points'];}
-		else{
-			echo 'Aucune note attribuée';
-		}?></td>
-	</tr>
-	<tr>
-	<td>Commentaire :</td>
-	<td><?php if($commentaire!=null){
-		echo $commentaire ['Commentaire'];}
-		else{
-			echo 'Aucun commentaire';
-		}?></td>
-	</tr>
-	</table>
-
- <br> <a href="../Vue/HistoriqueTransporteur.php">Retour à l'historique</a>
-
-</div>
 </div>
 <?php
 include_once 'footer.inc';

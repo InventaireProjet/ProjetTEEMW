@@ -28,7 +28,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 	<h4>
 		<form method="post" action="../Controller/enregistrerAnnonce.php">
 
-			<table>
+			<table class="table">
 				<tr>
 					<td>Nom:</td>
 					<td><input type="text" name="Nom"

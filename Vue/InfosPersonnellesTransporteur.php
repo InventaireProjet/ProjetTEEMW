@@ -111,7 +111,7 @@ foreach ( $typesTransport as $typeTransport ) {
 
 		</table>
 	</form>
-	<br> <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a>
+	<br> <h4> <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a></h4>
 
 </div>
 <?php
