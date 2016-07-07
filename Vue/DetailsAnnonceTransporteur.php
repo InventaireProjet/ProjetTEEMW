@@ -9,6 +9,7 @@ if ($msg)
 ?>
 <div class="container">
 
+ <h4><a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a></h4>  <br>
 
 	<p>Détails de l'annonce</p>
 	<?php
@@ -162,7 +163,6 @@ if ($typeAffichage == 1) {
 ?>
 
 
- <br> <h4><a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a></h4>
 
 </div>
 <?php

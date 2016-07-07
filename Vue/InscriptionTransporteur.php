@@ -24,6 +24,8 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 ?>
 <div class="container">
 	<div class="aligncentre">
+		<h4><a href="index.php">Accueil</a> </h4><br>
+	
 		<h4>
 			<form method="post" action="../Controller/login.php"> 
   <?php if($rank=='top') echo $msg;?>
@@ -143,7 +145,7 @@ if (isset ( $_SESSION ['transporteur'] ) || isset ( $_SESSION ['annonceur'] )) {
 					</tr>
 				</table>
 			</form>
-			<br /> <a href="index.php">Accueil</a>
+		
 		</h4>
 
 	</div>

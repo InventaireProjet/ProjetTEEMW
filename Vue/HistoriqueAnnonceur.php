@@ -6,9 +6,11 @@ include_once 'header.inc';
 
 <div class="container">
 
+	<h4><a href="../Vue/AccueilAnnonceur.php">Accueil Annonceur</a></h4><br>
+
+
 	<p>Historique Annonceur : Listes des annonces terminées</p>
 
-	<a href="../Vue/AccueilAnnonceur.php">Accueil Annonceur</a>
 	<?php
 	
 	// Récupération de l'annonceur connecté

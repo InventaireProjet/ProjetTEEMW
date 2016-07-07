@@ -10,7 +10,8 @@ if ($msg)
 ?>
 <div class="container">
 
-
+ <h4><a href="../Vue/HistoriqueTransporteur.php">Retour à l'historique</a></h4>  <br>
+ 
 	<p>Détails de l'annonce</p>
 	<?php
 	// Récupération de l'annonce à afficher et du transporteur
@@ -161,7 +162,7 @@ $commentaire = getCommentaire ( $user->IDTransporteur, $annonceur['IDAnnonceur']
 	</tr>
 	</table>
 
- <br> <h4><a href="../Vue/HistoriqueTransporteur.php">Retour à l'historique</a></h4>
+
 
 </div>
 <?php

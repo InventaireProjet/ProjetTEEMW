@@ -8,7 +8,7 @@ if ($msg)
 	echo $msg;
 ?>
 <div class="container">
-
+ <h4><a href="../Vue/RechercheAnnonce.php">Retour à la recherche d'annonces</a></h4> <br>
 
 	<p>Détails de l'annonce</p>
 	<?php
@@ -84,7 +84,7 @@ if ($msg)
 	<form method="post" action="ValidationDevis.php?id=<?php echo  $idAnnonce?>">
 		<input type="submit" name="action" value="Proposer un devis">
 	</form>
-<br> <h4><a href="../Vue/RechercheAnnonce.php">Retour à la recherche d'annonces</a></h4>
+
 </div>
  
 

@@ -1,5 +1,4 @@
 <?php
-require_once '../Model/class.TypeTransport.php';
 require_once '../Controller/fonctionsGenerales.php';
 include_once 'header.inc';
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
@@ -18,7 +17,11 @@ if ($_SESSION ['msg'] = null && strcmp ( $_SESSION ['msg'], 'Echec de l\'enregis
 }
 ?>
 <div class="container">
-
+<table><tr><td width="80%"><a href="NouvelleAnnonceTypeTransport.php">Revenir à la première
+			partie de l'annonce  </a></td><td> <a href="AccueilAnnonceur.php">  Accueil
+			anonceur</a></td></tr> </table>
+			<br>
+			
 	<h4>
 
 
@@ -90,9 +93,7 @@ foreach ( $typesTransport as $valeur ) {
 			</table>
 		</form>
 
-		<a href="NouvelleAnnonceTypeTransport.php">Revenir à la première
-			partie de l'annonce</a> <br /> <a href="AccueilAnnonceur.php">Accueil
-			anonceur</a>
+		
 
 	</h4>
 

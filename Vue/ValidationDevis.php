@@ -16,6 +16,8 @@ $idAnnonce = $_GET ['id'];
 
 <div class="container">
 
+<h4> <a href="DetailsAnnonceTransporteur2.php?id=<?php echo  $idAnnonce?>">Retour à l'annonce</a> <br ></h4>
+
 	<h4>
 
 		<form method="post" action="../Controller/enregistrerDevis.php">
@@ -54,7 +56,7 @@ $idAnnonce = $_GET ['id'];
 				</tr>
 			</table>
 		</form>
-		<br /> <a href="DetailsAnnonceTransporteur2.php?id=<?php echo  $idAnnonce?>">Retour à l'annonce</a>
+		
 
 	</h4>
 

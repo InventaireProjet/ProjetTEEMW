@@ -54,9 +54,9 @@ function getLieu($IDLieu) {
 	
 	return $result;
 }
-function getCommentaire ($IDTransporteur, $IDAnnonceur){
+function getCommentaire  ($IDAnnonce){
 	$mysql = new MySqlManager();
-	$result = $mysql->GetCommentaire ( $IDTransporteur, $IDAnnonceur);
+	$result = $mysql->GetCommentaire ( $IDAnnonce);
 	
 	return $result;
 }

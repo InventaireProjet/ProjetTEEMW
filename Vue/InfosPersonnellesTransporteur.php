@@ -17,6 +17,7 @@ $typeTransportSelect = getTypeTransportTransporteur ( $user->IDTransporteur );
 ?>
 
 <div class="container">
+<br> <h4> <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a></h4><br>
 
 	<p>Vos informations personnelles</p>
 
@@ -111,7 +112,7 @@ foreach ( $typesTransport as $typeTransport ) {
 
 		</table>
 	</form>
-	<br> <h4> <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a></h4>
+	
 
 </div>
 <?php

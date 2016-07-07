@@ -1,5 +1,4 @@
 <?php
-require_once '../Model/class.Annonce.php';
 require_once '../Controller/fonctionsGenerales.php';
 include_once '../Vue/header.inc';
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
@@ -24,6 +23,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 ?>
 
 <div class="container">
+<h4><a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a></h4><br > 
 
 	<h4>
 		<form method="post" action="../Controller/enregistrerAnnonce.php">
@@ -172,7 +172,7 @@ $form_data = isset ( $_SESSION ['formNouvTransport_data'] ) ? $_SESSION ['formNo
 				</tr>
 			</table>
 		</form>
-		<br /> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
+		
 
 
 	</h4>

@@ -6,6 +6,10 @@ include_once 'header.inc';
 ?>
 <div class="container">
 
+<h4>
+		<a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
+	</h4>
+
 	<p>Détails de l'annonce</p>
 	<?php
 	// Récupération de l'annonce à afficher
@@ -77,10 +81,10 @@ include_once 'header.inc';
 
 
 <?php
-//Si vient depuis DetailsDevis affiche la première variante
+// Si vient depuis DetailsDevis affiche la première variante
 
-if ($annonce['EnCours']) {
-	// Récupération des devis qui concernent l'annonce affichés dans un tableau
+if ($annonce ['EnCours']) {
+	// Récupération des devis qui concernent l'annonce affichée dans un tableau
 	$devisT = getDevis ( $idAnnonce );
 	
 	$table_str = '	<h4>Devis soumis</h4> <table class="table">';
@@ -93,7 +97,7 @@ if ($annonce['EnCours']) {
 		foreach ( $devisT as $devis ) {
 			$table_str .= '<tr>';
 			// Lien à chaque ligne du tableau vers le devis correspondant via le paramètre id
-			$table_str .= '<td>' . ($i ++) . '</td><td>' . $devis ['DateExpiration'] . '</td><td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '"> ' . $devis ['Prix'] . '</td>';
+			$table_str .= '<td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '">' . ($i ++) . '</td><td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '">' . $devis ['DateExpiration'] . '</td><td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '"> ' . $devis ['Prix'] . '</td>';
 			$table_str .= '</tr>';
 		}
 		$table_str .= '</table>';
@@ -103,45 +107,44 @@ if ($annonce['EnCours']) {
 		echo 'Aucun devis soumis';
 	}
 } else {
-	// Récupération du devis choisi qui concerne l'annonce affichés dans un tableau
+	// Récupération du devis choisi qui concerne l'annonce affichée dans un tableau
 	$devis = getDevisValide ( $idAnnonce );
 	
-	$table_str = '	<h4>Devis choisi</h4> <table class="table">';
-	
-	$table_str .= '<tr><th > Date de validité </th><th> Prix </th></tr>
-					<tr><td>' . $devis ['DateExpiration'] . '</td><td>' . $devis ['Prix'] . '</td></tr>
+	$table_str = '	<h4>Devis choisi</h4> <table class="table">
+				<tr><td > Date de validité </td><td>' . $devis ['DateExpiration'] . ' </td></tr>
+					<tr><td>Prix</td><td>' . $devis ['Prix'] .'</td></tr>
+					<tr><td>Description</td><td>' . $devis ['Description'] . '</td></tr>
 					</table>';
 	echo $table_str;
 	
-	
-	//Affichage des coordonnées du transporteur choisi
-	$transporteur = getTransporteur ( $devis['IDDevis'] );
-	$table_str2= '<br>
-	<h3>Coordonnées du transporteur</h3> <table>
+	// Affichage des coordonnées du transporteur choisi
+	$transporteur = getTransporteur ( $devis ['IDDevis'] );
+	$table_str2 = '<br>
+	<h4>Coordonnées du transporteur</h4> <table class="table">
 	<tr>
 	<td>Nom de l\'entreprise :</td>
-	<td>' .  $transporteur ['NomSociete'] . '</td>
+	<td>' . $transporteur ['NomSociete'] . '</td>
 		</tr>
 		<tr>
 			<td>Adresse :</td>
-			<td>'  .  $transporteur ['Adresse']  . '</td>
+			<td>'. $transporteur ['Adresse'] . '</td>
 		</tr>
 		<tr>
 			<td></td>
-			<td>'  .  $transporteur ['NPA']  .' ' . $transporteur ['Localite'] .'</td>
+			<td>' . $transporteur ['NPA'] . ' ' . $transporteur ['Localite'] . '</td>
 		</tr>
 		<tr>
 			<td></td>
-			<td>' .  $transporteur ['Pays'] . '</td>
+			<td>' . $transporteur ['Pays'] . '</td>
 		</tr>
 	
 		<tr>
 			<td>Téléphone :</td>
-			<td>' .  $transporteur ['Telephone'] .'</td>
+			<td>' . $transporteur ['Telephone'] . '</td>
 		</tr>
 		<tr>
 			<td>Email :</td>
-			<td>' .  $transporteur ['Email'] . '</td>
+			<td>' . $transporteur ['Email'] . '</td>
 		</tr>
 		
 		</table>
@@ -154,7 +157,8 @@ if ($annonce['EnCours']) {
 ?>
 
 
-	<br> <br> <h4><a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a></h4>
+	<br> <br>
+	
 
 </div>
 <?php

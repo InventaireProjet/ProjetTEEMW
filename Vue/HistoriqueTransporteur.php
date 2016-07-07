@@ -4,17 +4,16 @@ require_once '../Controller/affichageTransporteur.php';
 include_once 'header.inc';
 ?>
 <div class="container">
+	<h4><a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a></h4><br>
 
 	<p>Historique Transporteur : Listes des transports effectués</p>
 
 	<?php
 	$user = $_SESSION ['transporteur'];
 	
-	//$user = 2;
 	// Récupération des transports effectué
 	$annonces = getTransportsEffectue ( $user->IDTransporteur );
 	
-	//$annonces = getTransportsEffectue ( $user);
 	if ($annonces != null) {
 		$table_str = '<table class="table">';
 		$i = 1;
@@ -31,12 +30,12 @@ include_once 'header.inc';
 	} else {
 		echo 'Aucun transport terminé <br>';
 	}
-	//test
+	// test
 	?>
 		
 	
 	
-	 <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a>
+	
 </div>
 <?php
 include_once 'footer.inc';

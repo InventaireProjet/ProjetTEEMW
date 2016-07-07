@@ -28,11 +28,11 @@ class MySqlManager {
 			$this->_conn->getConnection ()->rollback ();
 		}
 	}
-	public function enregistrerCommentaire($note, $commentaire, $idTransporteur, $idAnnonceur){
+	public function enregistrerCommentaire($note, $commentaire, $idTransporteur, $idAnnonceur, $idAnnonce){
 		try {
 			$this->_conn->getConnection ()->beginTransaction ();
 				
-			$query = "INSERT INTO Evaluation(Points, Commentaire, IDTransporteur, IDAnnonceur)  VALUES ('$note', '$commentaire', '$idTransporteur', '$idAnnonceur')";
+			$query = "INSERT INTO Evaluation(Points, Commentaire, IDTransporteur, IDAnnonceur, IDAnnonce)  VALUES ('$note', '$commentaire', '$idTransporteur', '$idAnnonceur', '$idAnnonce')";
 			$this->_conn->executeQuery ( $query );
 				
 			$this->_conn->getConnection ()->commit ();
@@ -41,6 +41,21 @@ class MySqlManager {
 			$this->_conn->getConnection ()->rollback ();
 		}
 	}
+	
+	public function mettreajourCommentaire($note, $commentaire, $idTransporteur, $idAnnonceur, $idAnnonce){
+				try {
+						$this->_conn->getConnection ()->beginTransaction ();
+			
+						$query = "UPDATE Evaluation  SET Points=$note, Commentaire='$commentaire' WHERE IDTransporteur=$idTransporteur AND IDAnnonceur=$idAnnonceur and IDAnnonce=$idAnnonce";
+						$this->_conn->executeQuery ( $query );
+			
+						$this->_conn->getConnection ()->commit ();
+						return true;
+					} catch ( Exception $e ) {
+							$this->_conn->getConnection ()->rollback ();
+						}
+					}
+	
 	public function enregistrerTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse, $npa, $localite, $pays, $IBAN) {
 		$pwd = sha1 ( $pwd );
 		try {
@@ -188,8 +203,8 @@ class MySqlManager {
 		return $annonce;
 	}
 	// Récupération d'un commentaire selon IDTransporteur et IDAnnonceur
-	public function getCommentaire($IDTransporteur, $IDAnnonceur){
-		$query = "SELECT * FROM Evaluation WHERE IDTransporteur = $IDTransporteur AND IDAnnonceur = $IDAnnonceur";
+	public function getCommentaire($IDAnnonce){
+		$query = "SELECT * FROM Evaluation WHERE  IDAnnonce = $IDAnnonce";
 		$result = $this->_conn->selectDB ($query);
 		$commentaire = $result->fetch();
 		return $commentaire;

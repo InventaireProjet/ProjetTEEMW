@@ -4,6 +4,7 @@ require_once '../Model/class.Transporteur.php';
 require_once '../Controller/afficherAnnonce.php';
 require_once '../Controller/confirmerDevis.php';
 require_once '../Controller/gestionCommentaires.php';
+require_once '../Controller/affichageTransporteur.php';
 include_once 'header.inc';
 
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
@@ -19,18 +20,27 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	
 	// Récupération du transporteur concerné et de son lieu d'établissement
 	$transporteur = getTransporteur ( $devis['IDDevis'] );
+	
+	// Récupération du commentaire
+	$commentaire = getCommentaire ( $idAnnonce );
+	
+	if ($msg)
+		echo $msg;
 ?>
-<div class="container">
 
+
+<div class="container">
+ <h4> <a href="../Vue/HistoriqueAnnonceur.php">Retour à l'historique</a></h4><br>
+ 
 	<h3>Ajouter un commentaire :</h3>
 
 <form method="post" action="../Controller/gestionCommentaires.php">
 <table class="table">
 					<tr>
 						<td>Note (/5):</td>
-						<td><input type="int" name="Note"
-							value="<?php
-							echo $form_data [0];
+							<td><input type="number" min="0" max="5" name="Note"
+ 							value="<?php
+ 							echo $form_data [0];
 							?>"> 
     <?php if($rank==1) echo $msg;?></td>
 					</tr>
@@ -45,6 +55,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 					<tr>
 					<td colspan="2" align="left">
 					<input type="hidden" name="idTransporteur" value="<?php echo $transporteur ['IDTransporteur'] ?>">
+						<input type="hidden" name="idAnnonce" value="<?php echo $idAnnonce ?>">
 				</tr>
 					<tr>
 						<td colspan="2" align="left"><button class="btn btn-default"
@@ -174,8 +185,34 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 		</tr>
 		
 	</table>
+	
+	
+	<h3>Evaluation de votre transporteur</h3>
+	<table class="table">
+	<tr>
+	<td>Note :</td>
+	<td><?php if($commentaire!=null){
+		echo $commentaire ['Points'];}
+		else{
+			echo 'Aucune note attribuée';
+		}?></td>
+	</tr>
+	<tr>
+	<td>Commentaire :</td>
+	<td><?php if($commentaire!=null){
+		echo $commentaire ['Commentaire'];}
+		else{
+			echo 'Aucun commentaire';
+		}?></td>
+	</tr>
+	</table>
 
-	<br> <h4> <a href="../Vue/HistoriqueAnnonceur.php">Retour à l'historique</a></h4>
+ <br> <a href="../Vue/HistoriqueAnnonceur.php">Retour à l'historique</a>
+
+</div>
+	
+
+	
 
 </div>
 <?php
