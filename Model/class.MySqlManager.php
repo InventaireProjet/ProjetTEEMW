@@ -41,6 +41,19 @@ class MySqlManager {
 			$this->_conn->getConnection ()->rollback ();
 		}
 	}
+	public function mettreajourCommentaire($note, $commentaire, $idTransporteur, $idAnnonceur){
+		try {
+			$this->_conn->getConnection ()->beginTransaction ();
+		
+			$query = "UPDATE Evaluation  SET Points=$note, Commentaire='$commentaire' WHERE IDTransporteur=$idTransporteur AND IDAnnonceur=$idAnnonceur";
+			$this->_conn->executeQuery ( $query );
+		
+			$this->_conn->getConnection ()->commit ();
+			return true;
+		} catch ( Exception $e ) {
+			$this->_conn->getConnection ()->rollback ();
+		}
+	}
 	public function enregistrerTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse, $npa, $localite, $pays, $IBAN) {
 		$pwd = sha1 ( $pwd );
 		try {

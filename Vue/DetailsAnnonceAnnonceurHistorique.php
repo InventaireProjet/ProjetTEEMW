@@ -4,6 +4,7 @@ require_once '../Model/class.Transporteur.php';
 require_once '../Controller/afficherAnnonce.php';
 require_once '../Controller/confirmerDevis.php';
 require_once '../Controller/gestionCommentaires.php';
+require_once '../Controller/affichageTransporteur.php';
 include_once 'header.inc';
 
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
@@ -19,8 +20,11 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	
 	// Récupération du transporteur concerné et de son lieu d'établissement
 	$transporteur = getTransporteur ( $devis['IDDevis'] );
+	// Récupération du commentaire
+	$commentaire = getCommentaire ( $transporteur['IDTransporteur'], $user->IDAnnonceur );
 ?>
 <div class="container">
+
 
 	<h3>Ajouter un commentaire :</h3>
 
