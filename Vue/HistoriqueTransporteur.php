@@ -8,13 +8,11 @@ include_once 'header.inc';
 	<p>Historique Transporteur : Listes des transports effectués</p>
 
 	<?php
-	//$user = $_SESSION ['transporteur'];
+	$user = $_SESSION ['transporteur'];
 	
-	$user = 2;
 	// Récupération des transports effectué
+	$annonces = getTransportsEffectue ( $user->IDTransporteur );
 	
-	//$annonces = getTransportsEffectue ( $user->IDTransporteur );
-	$annonces = getTransportsEffectue ( $user);
 	if ($annonces != null) {
 		$table_str = '<table class="table">';
 		$i = 1;
