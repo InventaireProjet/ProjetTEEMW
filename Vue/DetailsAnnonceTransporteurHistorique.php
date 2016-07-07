@@ -11,7 +11,7 @@ if ($msg)
 <div class="container">
 
 
-	<p>Détails de l'annonce</p>
+	<h3>Détails de l'annonce</h3>
 	<?php
 	// Récupération de l'annonce à afficher et du transporteur
 	$idAnnonce = $_GET ['id'];
@@ -19,7 +19,7 @@ if ($msg)
 	$user = $_SESSION ['transporteur'];
 	?>
 	
-	<table class="table">
+	<table>
 		<tr>
 			<td>Nom de l'annonce :</td>
 			<td><?php echo $annonce['Nom']?></td>
@@ -90,8 +90,8 @@ $annonceur = getAnnonceurDevis ( $devis ['IDDevis'] );
 
 $lieu = getLieu ( $annonceur ['IDLieu'] );
 ?>
-<h3>Devis accepté</h3>
-	<table class="table">
+<h4>Devis accepté</h4>
+	<table
 		
 		<tr>
 			<td>Date d'expiration :</td>
@@ -110,7 +110,7 @@ $lieu = getLieu ( $annonceur ['IDLieu'] );
 
 
 <br>
-	<h3>Coordonnées du client</h3> <table class="table">
+	<h4>Coordonnées du client</h4> <table>
 <tr>
 <td>Prénom :</td>
 <td><?php echo $annonceur ['Prenom'] ?></td>
@@ -149,8 +149,8 @@ $lieu = getLieu ( $annonceur ['IDLieu'] );
 // Récupération du commentaire
 $commentaire = getCommentaire ( $user->IDTransporteur, $annonceur['IDAnnonceur'] );
 ?>
-<h3>Evaluation de votre transport par le client</h3>
-	<table class="table">
+<h4>Evaluation de votre transport par le client</h4>
+	<table>
 	<tr>
 	<td>Note :</td>
 	<td><?php echo $commentaire ['Points']?></td>
@@ -161,7 +161,7 @@ $commentaire = getCommentaire ( $user->IDTransporteur, $annonceur['IDAnnonceur']
 	</tr>
 	</table>
 
- <br> <h4><a href="../Vue/HistoriqueTransporteur.php">Retour à l'historique</a></h4>
+ <br> <a href="../Vue/HistoriqueTransporteur.php">Retour à l'historique</a>
 
 </div>
 <?php

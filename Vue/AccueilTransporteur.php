@@ -12,14 +12,15 @@ if ($msg)
 ?>
 <div class="container">
 
-	<p>Accueil Transporteur</p>
+	<h3>Accueil Transporteur</h3>
 	<br>
 	<form method="post" action="../Vue/RechercheAnnonce.php">
 		<input type="submit" name="action" value="Rechercher une annonce">
 	</form>
 	<br>
-	<h3>Transports à effectuer</h3>
+	<h4>Transports à effectuer</h4>
 	<?php
+
 	
 	// Récupération des transports à effectuer qui concernent le transporteur affichés dans un tableau
 	$annonces = getTransportsAEffectuer ( $idTransporteur );
@@ -42,7 +43,7 @@ if ($msg)
 	
 	?>
 <br>
-	<h3>Devis en attente</h3>
+	<h4>Devis en attente</h4>
 	<?php
 	
 	// Récupération des transports à effectuer qui concernent le transporteur affichés dans un tableau
@@ -67,11 +68,10 @@ if ($msg)
 	?>
 
 
-<h4>
 
-		<br> <a href="HistoriqueTransporteur.php">Consulter l'historique</a> <br>
-		<a href="InfosPersonnellesTransporteur.php">Données de l'entreprise</a>
-	</h4>
+
+ <br> <a href="HistoriqueTransporteur.php">Consulter l'historique</a> <br>
+	<a href="InfosPersonnellesTransporteur.php">Données de l'entreprise</a>
 </div>
 </div>
 <?php

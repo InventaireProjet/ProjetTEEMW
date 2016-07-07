@@ -24,7 +24,7 @@ if ($_SESSION ['msg'] = null && strcmp ( $_SESSION ['msg'], 'Echec de l\'enregis
 
 		<form method="post" action="../Controller/enregistrerAnnonce.php">
 
-			<table class="table">
+			<table>
 
 				<tr>
 					<td>Type de transport :</td>

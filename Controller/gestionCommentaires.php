@@ -1,6 +1,7 @@
 <?php
 require_once '../Model/class.MySqlManager.php';
 require_once 'fonctionsGenerales.php';
+require_once 'affichageTransporteur.php';
 include_once '../Vue/header.inc';
 
 $mysql = new MySqlManager ();
@@ -16,6 +17,9 @@ function enregistrerCommentaire($mysql) {
 	$note = $_POST ['Note'];
 	$commentaire = $_POST ['Commentaire'];
 	$idTransporteur = $_POST ['idTransporteur'];
+	$annonceur = $_SESSION ['annonceur'];
+	$idAnnonceur = $annonceur->IDAnnonceur;
+	$commentairePrecedent = getCommentaire($idTransporteur, $idAnnonceur);
 	
 	//MEssages d'erreur
 	if (empty ($note)){
@@ -37,9 +41,12 @@ function enregistrerCommentaire($mysql) {
 		header ( "location:../Vue/DetailsAnnonceAnnonceurHistorique.php" );
 		exit ();
 	}
-	$annonceur = $_SESSION ['annonceur'];
-	$idAnnonceur = $annonceur->IDAnnonceur;
-	
+
+	if($commentairePrecedent==null){
 	$result = $mysql->enregistrerCommentaire ( $note, $commentaire, $idTransporteur, $idAnnonceur );
+	}
+	else{
+	$result = $mysql->mettreajourCommentaire ( $note, $commentaire, $idTransporteur, $idAnnonceur);
+	}
 	header ( "location:../Vue/AccueilAnnonceur.php");
 }

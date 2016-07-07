@@ -10,7 +10,7 @@ if ($msg)
 <div class="container">
 
 
-	<p>Détails de l'annonce</p>
+	<h3>Détails de l'annonce</h3>
 	<?php
 	// Récupération de l'annonce à afficher et du transporteur
 	$idAnnonce = $_GET ['id'];
@@ -18,7 +18,7 @@ if ($msg)
 	$user = $_SESSION ['transporteur'];
 	?>
 	
-	<table class="table">
+	<table>
 		<tr>
 			<td>Nom de l'annonce :</td>
 			<td><?php echo $annonce['Nom']?></td>
@@ -84,7 +84,7 @@ if ($msg)
 	<form method="post" action="ValidationDevis.php?id=<?php echo  $idAnnonce?>">
 		<input type="submit" name="action" value="Proposer un devis">
 	</form>
-<br> <h4><a href="../Vue/RechercheAnnonce.php">Retour à la recherche d'annonces</a></h4>
+<br> <a href="../Vue/RechercheAnnonce.php">Retour à la recherche d'annonces</a>
 </div>
  
 

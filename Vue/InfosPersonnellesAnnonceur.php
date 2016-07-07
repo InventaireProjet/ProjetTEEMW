@@ -88,7 +88,7 @@ $user = $_SESSION ['annonceur'];
 	</form>
 
 
-	<td> <h4><a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a></h4></td>
+	<td><a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a></td>
 
 </div>
 <?php

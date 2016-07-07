@@ -41,6 +41,19 @@ class MySqlManager {
 			$this->_conn->getConnection ()->rollback ();
 		}
 	}
+	public function mettreajourCommentaire($note, $commentaire, $idTransporteur, $idAnnonceur){
+		try {
+			$this->_conn->getConnection ()->beginTransaction ();
+		
+			$query = "UPDATE Evaluation  SET Points=$note, Commentaire='$commentaire' WHERE IDTransporteur=$idTransporteur AND IDAnnonceur=$idAnnonceur";
+			$this->_conn->executeQuery ( $query );
+		
+			$this->_conn->getConnection ()->commit ();
+			return true;
+		} catch ( Exception $e ) {
+			$this->_conn->getConnection ()->rollback ();
+		}
+	}
 	public function enregistrerTransporteur($nomSociete, $telephone, $email, $username, $pwd, $adresse, $npa, $localite, $pays, $IBAN) {
 		$pwd = sha1 ( $pwd );
 		try {
@@ -197,7 +210,7 @@ class MySqlManager {
 	
 	// Récupération d'une annonce et des données liées sur les lieux et la marchandise selon IDAnnonce
 	public function getAnnonceMarchandiseLieu($IDAnnonce) {
-		$query = "SELECT a.Nom, a.DateDepart, a.AdresseDepart, a.AdresseArrivee, a.DateArrivee, a.EnCours, l.NPA as 'NPADepart',
+		$query = "SELECT a.Nom, a.DateDepart, a.AdresseDepart, a.AdresseArrivee, a.DateArrivee, a.EnCours , l.NPA as 'NPADepart',
 		l.Localite as 'LieuDepart', l.Pays as 'PaysDepart', l2.NPA as 'NPAArrivee', l2.Localite as 'LieuArrivee', 
 		l2.Pays as 'PaysArrivee', m.IDMarchandise, m.Description, m.Volume, m.Quantite, m.Poids FROM Annonce a, Marchandise m, Lieu l, Lieu l2
 		WHERE a.IDAnnonce = $IDAnnonce and a.IDMarchandise=m.IDMarchandise and a.IDLieuDepart=l.IDLieu and a.IDLieuArrivee=l2.IDLieu ";
@@ -383,11 +396,8 @@ class MySqlManager {
 	public function getTypeTransportTransporteur($IDTransporteur) {
 		$query = "SELECT * from RelationTransporteurTransportSet rtt, TypeTransport tt WHERE rtt.IDTransporteur=$IDTransporteur and rtt.IDTypeTransport=tt.IDTypeTransport";
 		$result = $this->_conn->selectDB ( $query );
-		$typeTransport = array ();
-		while ( $object = $result->fetch () ) {
-			$typeTransport [] = $object;
-		}
-		return $typeTransport;
+		$infos = $result->fetch ();
+		return $infos;
 	}
 	
 	//Mise à jour du profil de l'annonceur
@@ -406,25 +416,12 @@ class MySqlManager {
 	}
 	
 	//Mise à jour du profil du transporteur
-	public function modifierTransporteur ($IDTransporteur, $nomSociete, $telephone, $email, $username, $motDePasse, $adresse,$npa, $localite, $pays, $IBAN)
+	public function modifierTransporteur ($IDTransporteur, $nomSociete, $telephone, $email, $username, $motDePasse, $adresse,$npa, $localite, $pays, $IBAN, $typeTransport)
 	{
 	
 		try {
 			$this->_conn->getConnection ()->beginTransaction ();
-			$query = "UPDATE Transporteur t, Lieu l  SET  t.NomSociete='$nomSociete', t.Telephone='$telephone', t.Email='$email' , t.Username='$username', t.IBAN='$IBAN', t.Adresse='$adresse', l.NPA='$npa', l.Localite='$localite', l.Pays='$pays' WHERE t.IDTransporteur = $IDTransporteur and t.IDLieu=l.IDLieu";
-			$result = $this->_conn->executeQuery ( $query );
-			$this->_conn->getConnection ()->commit ();
-			return true;
-		} catch ( Exception $e ) {
-			$this->_conn->getConnection ()->rollback ();
-		}
-	}
-	
-	public function deleteTypesTransportTransporteur ( $idTransporteur )
-	{
-		try {
-			$this->_conn->getConnection ()->beginTransaction ();
-			$query = "DELETE FROM RelationTransporteurTransportSet WHERE IDTransporteur=$idTransporteur";
+			$query = "UPDATE Transporteur t, Lieu l, RelationTransporteurTransportSet rtt, TypeTransport tt  SET  t.NomSociete='$nomSociete', t.Telephone='$telephone', t.Email='$email' , t.Username='$username', t.IBAN='$IBAN', t.Adresse='$adresse', l.NPA='$npa', l.Localite='$localite', l.Pays='$pays', tt.Nom='$typeTransport' WHERE t.IDTransporteur = $IDTransporteur and t.IDLieu=l.IDLieu and rtt.IDTypeTransport=tt.IDTypeTransport";
 			$result = $this->_conn->executeQuery ( $query );
 			$this->_conn->getConnection ()->commit ();
 			return true;

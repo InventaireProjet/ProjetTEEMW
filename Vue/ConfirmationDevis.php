@@ -14,11 +14,11 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 	$idAnnonce = $devis['IDAnnonce'];
 	?>
 
-	<p>Confirmation de validation du devis</p>
+	<h3>Confirmation de validation du devis</h3>
 	
 	<h4>Vous avec accepté le devis suivant :</h4>
 	
-	<table class="table">
+	<table>
 		<tr>
 			<td>Date d'expiration de l'offre :</td>
 			<td><?php echo $devis['DateExpiration']?></td>
@@ -33,13 +33,13 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 		</tr>
 	</table>
 	<br>
-	<h3>Voici les coordonnées du transporteur pour la prise de contact et le paiement :</h3>
+	<h4>Voici les coordonnées du transporteur pour la prise de contact et le paiement :</h4>
 	
 <?php
 	// Récupération du transporteur concerné et de son lieu d'établissement
 	$transporteur = getTransporteur ( $idDevis );
 	?>
-	<table class="table">
+	<table>
 		<tr>
 			<td>Nom de l'entreprise :</td>
 			<td><?php echo $transporteur['NomSociete']?></td>

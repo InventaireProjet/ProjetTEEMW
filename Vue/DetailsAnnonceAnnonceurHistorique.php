@@ -4,6 +4,7 @@ require_once '../Model/class.Transporteur.php';
 require_once '../Controller/afficherAnnonce.php';
 require_once '../Controller/confirmerDevis.php';
 require_once '../Controller/gestionCommentaires.php';
+require_once '../Controller/affichageTransporteur.php';
 include_once 'header.inc';
 
 $rank = isset ( $_SESSION ['rank'] ) ? $_SESSION ['rank'] : 0;
@@ -19,8 +20,11 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	
 	// Récupération du transporteur concerné et de son lieu d'établissement
 	$transporteur = getTransporteur ( $devis['IDDevis'] );
+	// Récupération du commentaire
+	$commentaire = getCommentaire ( $transporteur['IDTransporteur'], $user->IDAnnonceur );
 ?>
 <div class="container">
+
 
 	<h3>Ajouter un commentaire :</h3>
 
@@ -62,7 +66,7 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 	
 	?>
 	
-	<table class="table">
+	<table>
 		<tr>
 			<td>Nom de l'annonce :</td>
 			<td><?php echo $annonce['Nom']?></td>
@@ -123,9 +127,9 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 		</tr>
 	</table>
 	<br>
-	<h3>Devis accepté</h3>
+	<h4>Devis accepté</h4>
 
-	<table class="table">
+	<table>
 		
 		<tr>
 			<td>Date d'expiration :</td>
@@ -142,8 +146,8 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 
 	</table>
 	<br>
-<h3>Coordonnées du transporteur :</h3>
-	<table class="table">
+<h4>Coordonnées du transporteur :</h4>
+	<table>
 		<tr>
 			<td>Nom de l'entreprise :</td>
 			<td><?php echo $transporteur['NomSociete']?></td>
@@ -175,7 +179,8 @@ $form_data = isset ( $_SESSION ['form_data'] ) ? $_SESSION ['form_data'] : array
 		
 	</table>
 
-	<br> <h4> <a href="../Vue/HistoriqueAnnonceur.php">Retour à l'historique</a></h4>
+	<br>
+	<br> <a href="../Vue/HistoriqueAnnonceur.php">Retour à l'historique</a>
 
 </div>
 <?php
