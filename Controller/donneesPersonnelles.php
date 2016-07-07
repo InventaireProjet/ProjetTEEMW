@@ -9,18 +9,16 @@ if (isset ( $_POST ['action'] )) {
 		modifierAnnonceur ( $mysql );
 	}
 }
-function getInfoPersoAnnonceur($IDAnnonceur) {
+
+
+function getTypeTransportTransporteur($IDTransporteur) {
 	$mysql = new MySqlManager ();
-	$result = $mysql->getInfoPersoAnnonceur ( $IDAnnonceur );
+	$result = $mysql->getTypeTransportTransporteur ( $IDTransporteur );
 	
 	return $result;
-}
-function getInfoPersoTransporteur($IDTransporteur) {
-	$mysql = new MySqlManager ();
-	$result = $mysql->getInfoPersoTransporteur ( $IDTransporteur );
 	
-	return $result;
 }
+
 function modifierAnnonceur($mysql) {
 	$IDAnnonceur = $_POST ['IDAnnonceur'];
 	$prenom = $_POST ['Prenom'];

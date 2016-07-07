@@ -158,9 +158,20 @@ class MySqlManager {
 		return $nomsTypes;
 	}
 	
-	// Récupération des Annonces selon IDAnnonceur
-	public function getAnnonces($IDAnnonceur) {
+	// Récupération des Annonces en cours selon IDAnnonceur
+	public function getAnnoncesEnCours($IDAnnonceur) {
 		$query = "SELECT * FROM Annonce WHERE IDAnnonceur = $IDAnnonceur AND EnCours = 1";
+		$result = $this->_conn->selectDB ( $query );
+		$annonces = array ();
+		while ( $object = $result->fetch () ) {
+			$annonces [] = $object;
+		}
+		return $annonces;
+	}
+	
+	// Récupération des Annonces en attente de livraison selon IDAnnonceur
+	public function getAnnoncesEnAttente($IDAnnonceur) {
+		$query = "SELECT * FROM Annonce WHERE IDAnnonceur = $IDAnnonceur AND EnCours = 0 and TransportRealise=0";
 		$result = $this->_conn->selectDB ( $query );
 		$annonces = array ();
 		while ( $object = $result->fetch () ) {
@@ -186,7 +197,7 @@ class MySqlManager {
 	
 	// Récupération d'une annonce et des données liées sur les lieux et la marchandise selon IDAnnonce
 	public function getAnnonceMarchandiseLieu($IDAnnonce) {
-		$query = "SELECT a.Nom, a.DateDepart, a.AdresseDepart, a.AdresseArrivee, a.DateArrivee, l.NPA as 'NPADepart',
+		$query = "SELECT a.Nom, a.DateDepart, a.AdresseDepart, a.AdresseArrivee, a.DateArrivee, a.EnCours, l.NPA as 'NPADepart',
 		l.Localite as 'LieuDepart', l.Pays as 'PaysDepart', l2.NPA as 'NPAArrivee', l2.Localite as 'LieuArrivee', 
 		l2.Pays as 'PaysArrivee', m.IDMarchandise, m.Description, m.Volume, m.Quantite, m.Poids FROM Annonce a, Marchandise m, Lieu l, Lieu l2
 		WHERE a.IDAnnonce = $IDAnnonce and a.IDMarchandise=m.IDMarchandise and a.IDLieuDepart=l.IDLieu and a.IDLieuArrivee=l2.IDLieu ";
@@ -251,7 +262,7 @@ class MySqlManager {
 	
 	// Obtenir le transporteur et son lieu d'après l'ID du devis
 	public function getTransporteur($IDDevis) {
-		$query = "SELECT * from transporteur t, Devis d, Lieu l where IDDevis = $IDDevis and d.IDTransporteur=t.IDTransporteur and t.IDLieu=l.IDLieu";
+		$query = "SELECT * from Transporteur t, Devis d, Lieu l where IDDevis = $IDDevis and d.IDTransporteur=t.IDTransporteur and t.IDLieu=l.IDLieu";
 		$result = $this->_conn->selectDB ( $query );
 		$transporteur = $result->fetch ();
 		return $transporteur;
@@ -366,22 +377,17 @@ class MySqlManager {
 		return $annonces;
 	}
 	
-	// Récupération des informations personnelles de l'annonceur et de son adresse
-	public function getInfoPersoAnnonceur($IDAnnonceur) {
-		$query = "SELECT * from Annonceur a, Lieu l where a.IDAnnonceur=$IDAnnonceur and a.IDLieu=l.IDLieu";
+
+	
+	// Récupération des types de transport proposés par le transporteur
+	public function getTypeTransportTransporteur($IDTransporteur) {
+		$query = "SELECT * from RelationTransporteurTransportSet rtt, TypeTransport tt WHERE rtt.IDTransporteur=$IDTransporteur and rtt.IDTypeTransport=tt.IDTypeTransport";
 		$result = $this->_conn->selectDB ( $query );
 		$infos = $result->fetch ();
 		return $infos;
 	}
 	
-	// Récupération des informations personnelles du transporteur et de son adresse
-	public function getInfoPersoTransporteur($IDTransporteur) {
-		$query = "SELECT * from Transporteur t, Lieu l, RelationTransporteurTransportSet rtt, TypeTransport tt where t.IDTransporteur=$IDTransporteur and t.IDLieu=l.IDLieu and rtt.IDTypeTransport=tt.IDTypeTransport";
-		$result = $this->_conn->selectDB ( $query );
-		$infos = $result->fetch ();
-		return $infos;
-	}
-	
+	//Mise à jour du profil de l'annonceur
 	public function modifierAnnonceur( $IDAnnonceur, $Prenom, $Nom, $NomUtilisateur, $Telephone, $Email, $Adresse, $npa, $localite, $pays )
 	{
 	

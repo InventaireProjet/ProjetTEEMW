@@ -10,8 +10,8 @@ include_once 'header.inc';
 // Récupération du transporteur connecté
 $user = $_SESSION ['transporteur'];
 
-// Récupération des informations personnelles
-$infos = getInfoPersoTransporteur ( $user->IDTransporteur );
+// Récupération des types de transport
+$typeTransport = getTypeTransportTransporteur($user->IDTransporteur );
 
 ?>
 
@@ -19,43 +19,43 @@ $infos = getInfoPersoTransporteur ( $user->IDTransporteur );
 <table class="table">
 		<tr>
 			<td>Nom de la société :</td>
-			<td><?php  echo $infos['NomSociete']?></td>
+			<td><?php  echo $user->NomSociete?></td>
 		</tr>
 		<tr>
 			<td>Téléphone :</td>
-			<td><?php echo $infos['Telephone']?></td>
+			<td><?php echo $user->Telephone?></td>
 		</tr>
 		<tr>
 			<td>Email :</td>
-			<td><?php echo $infos['Email']?></td>
+			<td><?php echo $user->Email?></td>
 		</tr>
 		<tr>
 			<td>Type de transport :</td>
-			<td><?php  echo $infos['Nom']?></td>
+			<td><?php  echo $typeTransport['Nom']?></td>
 		</tr>
 		<tr>
 			<td>Adresse :</td>
-			<td><?php echo $infos['Adresse']?></td>
+			<td><?php echo $user->Adresse?></td>
 		</tr>
 		<tr>
 			<td>NPA :</td>
-			<td><?php echo $infos['NPA']?></td>
+			<td><?php echo $user->NPA?></td>
 		</tr>
 		<tr>
 			<td>Localité :</td>
-			<td><?php echo $infos['Localite']?></td>
+			<td><?php echo $user->Localite?></td>
 		</tr>
 		<tr>
 			<td>Pays :</td>
-			<td><?php echo $infos['Pays']?></td>
+			<td><?php echo $user->Pays?></td>
 		</tr>
 		<tr>
 			<td>IBAN :</td>
-			<td><?php echo $infos['IBAN']?></td>
+			<td><?php echo $user->IBAN?></td>
 		</tr>
 		<tr>
 			<td>Nom d'utilisateur :</td>
-			<td><?php echo $infos['Username']?></td>
+			<td><?php echo $user->UserName?></td>
 		</tr>
 		<tr>
 			<td>Mot de passe :</td>

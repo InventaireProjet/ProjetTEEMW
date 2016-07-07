@@ -1,4 +1,5 @@
 <?php
+require_once '../Model/class.MySqlManager.php';
 include_once '../Vue/header.inc';
 
 $mysql = new MySqlManager ();
@@ -19,10 +20,10 @@ function validerDevis($mysql) {
 	$resultat = $mysql->validerDevis ( $idDevis, $idAnnonce );
 	
 	if ($resultat) {
-		header ( "location:/ProjetTEEMW/Vue/ConfirmationDevis.php?devis=$idDevis&i=$noDevis" );
+		header ( "location:../../Vue/ConfirmationDevis.php?devis=$idDevis&i=$noDevis" );
 	} else {
 		$_SESSION ['msg'] = 'Echec de validation du devis';
-		header ( "location:/ProjetTEEMW/Vue/DetailsDevis.php?devis=$idDevis&i=$noDevis" );
+		header ( "location:../../Vue/DetailsDevis.php?devis=$idDevis&i=$noDevis" );
 	}
 	exit ();
 }

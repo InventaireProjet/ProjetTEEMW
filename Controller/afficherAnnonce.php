@@ -3,12 +3,20 @@ require_once '../Model/class.MySqlManager.php';
 include_once '../Vue/header.inc';
 
 
-function getAnnonces($IDAnnonceur) {
+function getAnnoncesEnCours($IDAnnonceur) {
 	$mysql = new MySqlManager ();
-	$result = $mysql->getAnnonces ( $IDAnnonceur );
+	$result = $mysql->getAnnoncesEnCours ( $IDAnnonceur );
 	
 	return $result;
 }
+
+function getAnnoncesEnAttente($IDAnnonceur) {
+	$mysql = new MySqlManager ();
+	$result = $mysql->getAnnoncesEnAttente ( $IDAnnonceur );
+
+	return $result;
+}
+
 function nombreDevisParAnnonce($IDAnnonce) {
 	$mysql = new MySqlManager ();
 	$result = $mysql->nombreDevisParAnnonce ( $IDAnnonce );
