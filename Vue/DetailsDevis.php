@@ -15,9 +15,9 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 	$idAnnonce = $devis['IDAnnonce'];
 	?>
 	
-	<h3>Détails Devis <?php echo $numeroDevis ?></h3>
+	<p>Détails Devis <?php echo $numeroDevis ?></p>
 
-	<table>
+	<table class="table">
 		<tr>
 			<td>Date d'expiration de l'offre :</td>
 			<td><?php echo $devis['DateExpiration']?></td>
@@ -37,8 +37,8 @@ $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg']
 		<input type="hidden" name="idAnnonce" value="<?php echo  $idAnnonce?>">
 		<input type="submit" name="action" value="Valider ce devis">
 	</form> 
-	<a href="../Vue/DetailsAnnonceAnnonceur.php?id=<?php echo $idAnnonce?>">Retour
-		à l'annonce</a>
+	<h4><a href="../Vue/DetailsAnnonceAnnonceur.php?id=<?php echo $idAnnonce?>">Retour
+		à l'annonce</a> </h4>
 
 </div>
 <?php

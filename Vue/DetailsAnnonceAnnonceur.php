@@ -6,15 +6,14 @@ include_once 'header.inc';
 ?>
 <div class="container">
 
-	<h3>Détails de l'annonce</h3>
+	<p>Détails de l'annonce</p>
 	<?php
 	// Récupération de l'annonce à afficher
 	$idAnnonce = $_GET ['id'];
 	$annonce = getAnnonceMarchandiseLieu ( $idAnnonce );
-	
 	?>
 	
-	<table>
+	<table class="table">
 		<tr>
 			<td>Nom de l'annonce :</td>
 			<td><?php echo $annonce['Nom']?></td>
@@ -81,7 +80,7 @@ include_once 'header.inc';
 //Si vient depuis DetailsDevis affiche la première variante
 
 if ($annonce['EnCours']) {
-	// Récupération des devis qui concernent l'annonce affichée dans un tableau
+	// Récupération des devis qui concernent l'annonce affichés dans un tableau
 	$devisT = getDevis ( $idAnnonce );
 	
 	$table_str = '	<h4>Devis soumis</h4> <table class="table">';
@@ -107,10 +106,10 @@ if ($annonce['EnCours']) {
 	// Récupération du devis choisi qui concerne l'annonce affichés dans un tableau
 	$devis = getDevisValide ( $idAnnonce );
 	
-	$table_str = '	<h4>Devis choisi</h4> <table >';
+	$table_str = '	<h4>Devis choisi</h4> <table class="table">';
 	
-	$table_str .= '<tr><td> Date de validité : 
-					</td><td>' . $devis ['DateExpiration'] . '</td></tr><tr><td>Prix : </td><td>' . $devis ['Prix'] . '</td></tr><tr><td>Description : </td><td>' .$devis ['Description'] . ' </td></tr>
+	$table_str .= '<tr><th > Date de validité </th><th> Prix </th></tr>
+					<tr><td>' . $devis ['DateExpiration'] . '</td><td>' . $devis ['Prix'] . '</td></tr>
 					</table>';
 	echo $table_str;
 	
@@ -118,7 +117,7 @@ if ($annonce['EnCours']) {
 	//Affichage des coordonnées du transporteur choisi
 	$transporteur = getTransporteur ( $devis['IDDevis'] );
 	$table_str2= '<br>
-	<h4>Coordonnées du transporteur</h4> <table>
+	<h3>Coordonnées du transporteur</h3> <table>
 	<tr>
 	<td>Nom de l\'entreprise :</td>
 	<td>' .  $transporteur ['NomSociete'] . '</td>
@@ -155,7 +154,7 @@ if ($annonce['EnCours']) {
 ?>
 
 
-	<br> <br> <a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
+	<br> <br> <h4><a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a></h4>
 
 </div>
 <?php

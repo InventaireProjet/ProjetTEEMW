@@ -1,29 +1,29 @@
 <?php
 require_once '../Model/class.Transporteur.php';
 require_once '../Controller/donneesPersonnelles.php';
+require_once '../Controller/fonctionsGenerales.php';
 include_once 'header.inc';
 
 $msg = isset ( $_SESSION ['msg'] ) ? '<span class="error">*' . $_SESSION ['msg'] . '</span>' : '';
 if ($msg)
 	echo $msg;
 	
-// Récupération du transporteur connecté
+	// Récupération du transporteur connecté
 $user = $_SESSION ['transporteur'];
 
-
 // Récupération des types de transport
-$typeTransport = getTypeTransportTransporteur ( $user->IDTransporteur );
+$typeTransportSelect = getTypeTransportTransporteur ( $user->IDTransporteur );
 
 ?>
 
 <div class="container">
 
 	<p>Vos informations personnelles</p>
-	
+
 	<form method="post" action="../Controller/donneesPersonnelles.php">
 
 		<table class="table">
-		<input type="hidden" name="IDTrans"
+			<input type="hidden" name="IDTrans"
 				value="<?php echo  $user->IDTransporteur ?>">
 			<tr>
 				<td>Nom de la société :</td>
@@ -37,12 +37,34 @@ $typeTransport = getTypeTransportTransporteur ( $user->IDTransporteur );
 			</tr>
 			<tr>
 				<td>Email :</td>
-				<td><input type="text" name="Email" value="<?php echo $user->Email?>"></td>
+				<td><input type="text" name="Email"
+					value="<?php echo $user->Email?>"></td>
 			</tr>
 			<tr>
 				<td>Type de transport :</td>
-				<td><input type="text" name="typesTransport"
-					value="<?php  echo $typeTransport['Nom']?>"></td>
+				<td><?php $typesTransport=afficherTypeTransport()?>
+
+						<?php
+						
+foreach ( $typesTransport as $typeTransport ) {
+						if(typeTransportSelectione($typeTransport['IDTypeTransport'], $typeTransportSelect)==true)
+								{
+							
+						
+									$affichageTransport= '<input type="checkbox" checked="checked" name="typesTransport[]"
+							value="' . $typeTransport['IDTypeTransport'] .'"> ' . $typeTransport['Nom'] .'<br>';
+									
+								}else 
+								{
+								$affichageTransport = '<input type="checkbox" name="typesTransport[]"
+							value="' . $typeTransport ['IDTypeTransport'] . '"> ' . $typeTransport ['Nom'] . '<br>';
+							}
+							
+							echo $affichageTransport;
+						}
+						
+						?>
+						</td>
 			</tr>
 			<tr>
 				<td>Adresse :</td>
@@ -89,7 +111,7 @@ $typeTransport = getTypeTransportTransporteur ( $user->IDTransporteur );
 
 		</table>
 	</form>
-	<br> <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a>
+	<br> <h4> <a href="../Vue/AccueilTransporteur.php">Accueil transporteur</a></h4>
 
 </div>
 <?php

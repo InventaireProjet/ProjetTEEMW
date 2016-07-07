@@ -20,7 +20,7 @@ $idAnnonce = $_GET ['id'];
 
 		<form method="post" action="../Controller/enregistrerDevis.php">
 
-			<table>
+			<table class="table">
 				<tr>
 					<td>Prix:</td>
 					<td><input type="text" name="Prix"
