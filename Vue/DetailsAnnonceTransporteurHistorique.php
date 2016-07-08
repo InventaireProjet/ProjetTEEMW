@@ -148,7 +148,7 @@ $lieu = getLieu ( $annonceur ['IDLieu'] );
 <br>
 <?php
 // Récupération du commentaire
-$commentaire = getCommentaire ( $user->IDTransporteur, $annonceur['IDAnnonceur'] );
+$commentaire = getCommentaire ( $idAnnonce );
 ?>
 <h3>Evaluation de votre transport par le client</h3>
 	<table class="table">

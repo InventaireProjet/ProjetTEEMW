@@ -6,7 +6,7 @@ include_once 'header.inc';
 ?>
 <div class="container">
 
-<h4>
+	<h4>
 		<a href="../Vue/AccueilAnnonceur.php">Accueil anonceur</a>
 	</h4>
 
@@ -80,46 +80,46 @@ include_once 'header.inc';
 	<br>
 
 
-<?php
-// Si vient depuis DetailsDevis affiche la première variante
-
-if ($annonce ['EnCours']) {
-	// Récupération des devis qui concernent l'annonce affichée dans un tableau
-	$devisT = getDevis ( $idAnnonce );
+	<?php
+	// Si vient depuis DetailsDevis affiche la première variante
 	
-	$table_str = '	<h4>Devis soumis</h4> <table class="table">';
-	
-	if ($devisT != null) {
+	if ($annonce ['EnCours']) {
+		// Récupération des devis qui concernent l'annonce affichée dans un tableau
+		$devisT = getDevis ( $idAnnonce );
 		
-		$i = 1;
-		$table_str .= '<tr>' . '<td>' . '</td><th >' . "Date de validité" . '</th><th>' . "Prix" . '</th>';
-		$table_str .= '</tr>';
-		foreach ( $devisT as $devis ) {
-			$table_str .= '<tr>';
-			// Lien à chaque ligne du tableau vers le devis correspondant via le paramètre id
-			$table_str .= '<td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '">' . ($i ++) . '</td><td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '">' . $devis ['DateExpiration'] . '</td><td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '"> ' . $devis ['Prix'] . '</td>';
+		$table_str = '	<h4>Devis soumis</h4> <table class="table">';
+		
+		if ($devisT != null) {
+			
+			$i = 1;
+			$table_str .= '<tr>' . '<td>' . '</td><th >' . "Date de validité" . '</th><th>' . "Prix" . '</th>';
 			$table_str .= '</tr>';
+			foreach ( $devisT as $devis ) {
+				$table_str .= '<tr>';
+				// Lien à chaque ligne du tableau vers le devis correspondant via le paramètre id
+				$table_str .= '<td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '">' . ($i ++) . '</td><td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '">' . $devis ['DateExpiration'] . '</td><td><a href="DetailsDevis.php?devis=' . $devis ['IDDevis'] . '&i=' . ($i - 1) . '"> ' . $devis ['Prix'] . '</td>';
+				$table_str .= '</tr>';
+			}
+			$table_str .= '</table>';
+			echo $table_str;
+		} else {
+			echo $table_str;
+			echo 'Aucun devis soumis';
 		}
-		$table_str .= '</table>';
-		echo $table_str;
 	} else {
-		echo $table_str;
-		echo 'Aucun devis soumis';
-	}
-} else {
-	// Récupération du devis choisi qui concerne l'annonce affichée dans un tableau
-	$devis = getDevisValide ( $idAnnonce );
-	
-	$table_str = '	<h4>Devis choisi</h4> <table class="table">
+		// Récupération du devis choisi qui concerne l'annonce affichée dans un tableau
+		$devis = getDevisValide ( $idAnnonce );
+		
+		$table_str = '	<h4>Devis choisi</h4> <table class="table">
 				<tr><td > Date de validité </td><td>' . $devis ['DateExpiration'] . ' </td></tr>
-					<tr><td>Prix</td><td>' . $devis ['Prix'] .'</td></tr>
+					<tr><td>Prix</td><td>' . $devis ['Prix'] . '</td></tr>
 					<tr><td>Description</td><td>' . $devis ['Description'] . '</td></tr>
 					</table>';
-	echo $table_str;
-	
-	// Affichage des coordonnées du transporteur choisi
-	$transporteur = getTransporteur ( $devis ['IDDevis'] );
-	$table_str2 = '<br>
+		echo $table_str;
+		
+		// Affichage des coordonnées du transporteur choisi
+		$transporteur = getTransporteur ( $devis ['IDDevis'] );
+		$table_str2 = '<br>
 	<h4>Coordonnées du transporteur</h4> <table class="table">
 	<tr>
 	<td>Nom de l\'entreprise :</td>
@@ -127,7 +127,7 @@ if ($annonce ['EnCours']) {
 		</tr>
 		<tr>
 			<td>Adresse :</td>
-			<td>'. $transporteur ['Adresse'] . '</td>
+			<td>' . $transporteur ['Adresse'] . '</td>
 		</tr>
 		<tr>
 			<td></td>
@@ -151,17 +151,16 @@ if ($annonce ['EnCours']) {
 	
 	
 	<br>';
-	echo $table_str2;
-}
+		echo $table_str2;
+	}
+	
+	?>
 
-?>
-
-
-	<br> <br>
 	
 
 </div>
+
 <?php
 include_once 'footer.inc';
-?>
+
 

@@ -10,8 +10,7 @@ if ($msg)
 <div class="container">
 	<p>Accueil Annonceur</p>
 
-	<br>
-	<br>
+	<br> <br>
 	<h3>Annonces en cours</h3>
 	
 	<?php
@@ -66,8 +65,7 @@ if ($msg)
 	
 	<h4>
 		<br> <a href="NouvelleAnnonceTypeTransport.php">Insérer une annonce</a>
-		<br>
-		<a href="HistoriqueAnnonceur.php">Consulter l'historique</a> <br>
+		<br> <a href="HistoriqueAnnonceur.php">Consulter l'historique</a> <br>
 		<a href="InfosPersonnellesAnnonceur.php">Mes données personnelles</a>
 	</h4>
 </div>
